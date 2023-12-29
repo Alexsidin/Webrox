@@ -6,9 +6,6 @@
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	<ItemGroup>
-		<None Include="..\Webrox.EntityFrameworkCore.Core\Readme.md" Link="Readme.md" />
-	</ItemGroup>
-	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.0" />
 	</ItemGroup>
 	<ItemGroup>

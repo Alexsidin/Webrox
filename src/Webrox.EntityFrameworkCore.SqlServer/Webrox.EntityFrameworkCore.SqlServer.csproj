@@ -7,9 +7,6 @@
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	</PropertyGroup>
 	<ItemGroup>
-		<None Include="..\Webrox.EntityFrameworkCore.Core\Readme.md" Link="Readme.md" />
-	</ItemGroup>
-	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.14" />
 	</ItemGroup>
 	<ItemGroup>
