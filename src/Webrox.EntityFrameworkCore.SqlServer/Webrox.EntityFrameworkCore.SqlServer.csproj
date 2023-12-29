@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Include="..\Webrox.EntityFrameworkCore.Core\Readme.md" Link="Readme.md" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.14" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Webrox.EntityFrameworkCore.Core\Webrox.EntityFrameworkCore.Core.csproj" />
+	</ItemGroup>
+
+</Project>
