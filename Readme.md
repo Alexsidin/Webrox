@@ -1,6 +1,6 @@
 # Webrox.EntityFrameworkCore
 
-Use the [repo on GitHub](https://github.com/PawelGerr/Webrox.EntityFrameworkCore) to create issues and feature requests.
+Use the [repo on GitHub](https://github.com/Poppyto/Webrox.EntityFrameworkCore) to create issues and feature requests.
 
 ## Features
 
