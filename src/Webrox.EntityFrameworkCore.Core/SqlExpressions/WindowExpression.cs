@@ -80,8 +80,14 @@ namespace Webrox.EntityFrameworkCore.Core.SqlExpressions
             {
                 throw new ArgumentNullException(nameof(visitor));
             }
-
+            
             bool flag = false;
+
+            var expr = new SqlFunctionExpression(AggregateFunction,
+                true, typeof(long), RelationalTypeMapping.NullMapping);
+                
+            var visitedAggregateFunction = (SqlExpression)visitor.Visit(expr);
+
             List<SqlExpression> list = new List<SqlExpression>();
             foreach (SqlExpression partition in Partitions)
             {
@@ -146,7 +152,10 @@ namespace Webrox.EntityFrameworkCore.Core.SqlExpressions
             }
 
             expressionPrinter.Append($"{AggregateFunction}(");
-            expressionPrinter.Visit(ColumnExpression);
+            if (ColumnExpression != null)
+            {
+                expressionPrinter.Visit(ColumnExpression);
+            }
             expressionPrinter.Append(") OVER(");
             if (Partitions.Any())
             {

@@ -5,13 +5,13 @@ VisualStudioVersion = 17.7.33808.371
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Webrox.EntityFrameworkCore.Core", "Webrox.EntityFrameworkCore.Core\Webrox.EntityFrameworkCore.Core.csproj", "{7E1FE0C0-AE1A-4F8F-8F1D-EF7580DD255C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webrox.EntityFrameworkCore.SqlServer", "Webrox.EntityFrameworkCore.SqlServer\Webrox.EntityFrameworkCore.SqlServer.csproj", "{1FED2710-D108-43B8-A3C2-1A2A1ABC0C69}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Webrox.EntityFrameworkCore.SqlServer", "Webrox.EntityFrameworkCore.SqlServer\Webrox.EntityFrameworkCore.SqlServer.csproj", "{1FED2710-D108-43B8-A3C2-1A2A1ABC0C69}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webrox.EntityFrameworkCore.MySql", "Webrox.EntityFrameworkCore.MySql\Webrox.EntityFrameworkCore.MySql.csproj", "{75E37B77-CE41-4590-8D8A-C869864E277D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Webrox.EntityFrameworkCore.MySql", "Webrox.EntityFrameworkCore.MySql\Webrox.EntityFrameworkCore.MySql.csproj", "{75E37B77-CE41-4590-8D8A-C869864E277D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webrox.EntityFrameworkCore.Postgres", "Webrox.EntityFrameworkCore.Postgres\Webrox.EntityFrameworkCore.Postgres.csproj", "{FE1C31C3-4061-4ADA-8732-390EF7C0D4D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Webrox.EntityFrameworkCore.Postgres", "Webrox.EntityFrameworkCore.Postgres\Webrox.EntityFrameworkCore.Postgres.csproj", "{FE1C31C3-4061-4ADA-8732-390EF7C0D4D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webrox.EntityFrameworkCore.Sqlite", "Webrox.EntityFrameworkCore.Sqlite\Webrox.EntityFrameworkCore.Sqlite.csproj", "{96305F51-2290-4EB1-A625-F640B7FBC1EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Webrox.EntityFrameworkCore.Sqlite", "Webrox.EntityFrameworkCore.Sqlite\Webrox.EntityFrameworkCore.Sqlite.csproj", "{96305F51-2290-4EB1-A625-F640B7FBC1EF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3D829650-A75C-4730-B313-5679950F1978}"
 	ProjectSection(SolutionItems) = preProject
@@ -20,6 +20,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\LICENSE.md = ..\LICENSE.md
 		..\Readme.md = ..\Readme.md
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{812F1A1F-5BB2-491A-AC6A-E61A19C009AF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Webrox.EntityFrameworkCore.SqlServer.Tests", "Webrox.EntityFrameworkCore.SqlServer.Tests\Webrox.EntityFrameworkCore.SqlServer.Tests.csproj", "{FEAE8D35-9035-46AC-8878-36148ADF411C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,9 +51,16 @@ Global
 		{96305F51-2290-4EB1-A625-F640B7FBC1EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96305F51-2290-4EB1-A625-F640B7FBC1EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96305F51-2290-4EB1-A625-F640B7FBC1EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEAE8D35-9035-46AC-8878-36148ADF411C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEAE8D35-9035-46AC-8878-36148ADF411C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEAE8D35-9035-46AC-8878-36148ADF411C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEAE8D35-9035-46AC-8878-36148ADF411C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FEAE8D35-9035-46AC-8878-36148ADF411C} = {812F1A1F-5BB2-491A-AC6A-E61A19C009AF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5D55A635-96F9-432B-B78E-7D853B2BB3DC}

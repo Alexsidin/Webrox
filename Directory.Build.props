@@ -1,6 +1,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-	<PropertyGroup>
+	<PropertyGroup Condition="!$(ProjectName.Contains('Tests'))">
 		<Copyright>(c) $([System.DateTime]::Now.Year), Stephane Graziano. All rights reserved.</Copyright>
 		<Description>Use RowNumber with EntityFramework Core</Description>
 		<VersionPrefix>1.0.1</VersionPrefix>
@@ -26,7 +26,7 @@
 		<IncludeSymbols>True</IncludeSymbols>
 	</PropertyGroup>
 
-	<ItemGroup>
+	<ItemGroup Condition="!$(ProjectName.Contains('Tests'))">
 		<None Include="..\..\Readme.md" Pack="true" PackagePath="" />
 		<None Include="..\..\LICENSE.md" Pack="true" PackagePath="" />
 		<None Include="..\..\icon.png" Pack="true" PackagePath="" />
@@ -41,28 +41,34 @@
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="$(EFVersionPackage)" />
 	</ItemGroup>
 	
-	<PropertyGroup>
+	<PropertyGroup Condition="!$(ProjectName.Contains('Tests'))">
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	</PropertyGroup>
 	
-	<ItemGroup Condition="'$(ProjectName)'=='Webrox.EntityFrameworkCore.MySql'">
+	<ItemGroup Condition="$(ProjectName.Equals('Webrox.EntityFrameworkCore.MySql'))">
 		<PackageReference Include="MySql.EntityFrameworkCore"  Version="$(EFVersionPackage)" />
 		<ProjectReference Include="..\Webrox.EntityFrameworkCore.Core\Webrox.EntityFrameworkCore.Core.csproj" />
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(ProjectName)'=='Webrox.EntityFrameworkCore.Postgres'">
+	<ItemGroup Condition="$(ProjectName.Equals('Webrox.EntityFrameworkCore.Postgres'))">
 		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="$(EFVersionPackage)" />
 		<ProjectReference Include="..\Webrox.EntityFrameworkCore.Core\Webrox.EntityFrameworkCore.Core.csproj" />
 	</ItemGroup>
 
-
-	<ItemGroup Condition="'$(ProjectName)'=='Webrox.EntityFrameworkCore.Sqlite'">
+	<ItemGroup Condition="$(ProjectName.Equals('Webrox.EntityFrameworkCore.Sqlite'))">
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(EFVersionPackage)" />
 		<ProjectReference Include="..\Webrox.EntityFrameworkCore.Core\Webrox.EntityFrameworkCore.Core.csproj" />
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(ProjectName)'=='Webrox.EntityFrameworkCore.SqlServer'">
+	<ItemGroup Condition="$(ProjectName.Equals('Webrox.EntityFrameworkCore.SqlServer'))">
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(EFVersionPackage)" />
+		<ProjectReference Include="..\Webrox.EntityFrameworkCore.Core\Webrox.EntityFrameworkCore.Core.csproj" />
+	</ItemGroup>
+	
+	<ItemGroup Condition="$(ProjectName.Equals('Webrox.EntityFrameworkCore.SqlServer.Tests'))">
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(EFVersionPackage)" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(EFVersionPackage)" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="$(EFVersionPackage)" />
 		<ProjectReference Include="..\Webrox.EntityFrameworkCore.Core\Webrox.EntityFrameworkCore.Core.csproj" />
 	</ItemGroup>
 
