@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<Copyright>(c) $([System.DateTime]::Now.Year), Stephane Graziano. All rights reserved.</Copyright>
-		<VersionPrefix>6.0.0</VersionPrefix>
+		<VersionPrefix>1.0.0</VersionPrefix>
 		<Authors>Stephane Graziano</Authors>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<PackageProjectUrl>https://github.com/Poppyto/Webrox.EntityFrameworkCore</PackageProjectUrl>
