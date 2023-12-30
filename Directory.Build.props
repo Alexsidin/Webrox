@@ -2,7 +2,8 @@
 
 	<PropertyGroup>
 		<Copyright>(c) $([System.DateTime]::Now.Year), Stephane Graziano. All rights reserved.</Copyright>
-		<VersionPrefix>1.0.0</VersionPrefix>
+		<Description>Use RowNumber with EntityFramework Core</Description>
+		<VersionPrefix>1.0.1</VersionPrefix>
 		<Authors>Stephane Graziano</Authors>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<PackageProjectUrl>https://github.com/Poppyto/Webrox.EntityFrameworkCore</PackageProjectUrl>

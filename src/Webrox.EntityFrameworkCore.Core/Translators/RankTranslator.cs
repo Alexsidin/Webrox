@@ -7,12 +7,12 @@ using System.Reflection;
 using Webrox.EntityFrameworkCore.Core.Expressions;
 using Webrox.Models;
 
-namespace Webrox.EntityFrameworkCore.Core
+namespace Webrox.EntityFrameworkCore.Core.Translators
 {
     /// <summary>
-    /// Row Number Translator
+    /// Rank Translator
     /// </summary>
-    public class RowNumberTranslator : IMethodCallTranslator
+    public class RankTranslator : IMethodCallTranslator
     {
         private readonly ISqlExpressionFactory _sqlExpressionFactory;
 
@@ -20,7 +20,7 @@ namespace Webrox.EntityFrameworkCore.Core
         /// Constructor
         /// </summary>
         /// <param name="sqlExpressionFactory"></param>
-        public RowNumberTranslator(ISqlExpressionFactory sqlExpressionFactory)
+        public RankTranslator(ISqlExpressionFactory sqlExpressionFactory)
         {
             _sqlExpressionFactory = sqlExpressionFactory;
         }

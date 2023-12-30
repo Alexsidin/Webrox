@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Query;
+using Webrox.EntityFrameworkCore.Core.Translators;
 
 namespace Webrox.EntityFrameworkCore.Core
 {
