@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq.Expressions;
 
 namespace Webrox.EntityFrameworkCore.Core.Expressions
 {
@@ -21,8 +16,8 @@ namespace Webrox.EntityFrameworkCore.Core.Expressions
         public static IReadOnlyList<T> VisitExpressions<T>(this ExpressionVisitor visitor, IReadOnlyList<T> expressions)
            where T : Expression
         {
-            ArgumentNullException.ThrowIfNull(visitor);
-            ArgumentNullException.ThrowIfNull(expressions);
+            if (visitor == null) throw new ArgumentNullException(nameof(visitor));
+            if (expressions == null) throw new ArgumentNullException(nameof(expressions));
 
             var visitedExpressions = new List<T>();
             var hasChanges = false;

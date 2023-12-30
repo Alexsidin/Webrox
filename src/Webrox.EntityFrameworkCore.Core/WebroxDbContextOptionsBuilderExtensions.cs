@@ -1,8 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace Webrox.EntityFrameworkCore.Core
 {
-    public class DbContextOptionsBuilderExtensions
+    /// <summary>
+    /// Webrox DbContextOptionsBuilderExtensions
+    /// </summary>
+    public class WebroxDbContextOptionsBuilderExtensions
     {
         /// <summary>
         /// Add RowNumber extension
@@ -11,13 +15,13 @@ namespace Webrox.EntityFrameworkCore.Core
         public static void AddRowNumberSupport(
                    IRelationalDbContextOptionsBuilderInfrastructure infrastructure)
         {
-            ArgumentException.ThrowIfNullOrEmpty(nameof(infrastructure));
+            if (infrastructure == null) throw new ArgumentNullException(nameof(infrastructure));
 
             var optionsBuilder = (IDbContextOptionsBuilderInfrastructure)infrastructure.OptionsBuilder;
 
             var extension = infrastructure.OptionsBuilder.Options
-                                          .FindExtension<DbContextOptionsExtension>()
-                                          ?? new DbContextOptionsExtension();
+                                          .FindExtension<WebroxDbContextOptionsExtension>()
+                                          ?? new WebroxDbContextOptionsExtension();
             
             extension.AddRowNumberSupport = true;
 

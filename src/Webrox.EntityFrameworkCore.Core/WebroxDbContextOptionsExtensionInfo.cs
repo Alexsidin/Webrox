@@ -1,11 +1,12 @@
-﻿using System.Globalization;
+﻿using Microsoft.EntityFrameworkCore.Infrastructure;
+using System.Globalization;
 using System.Text;
 
 namespace Webrox.EntityFrameworkCore.Core
 {
-    class DbContextOptionsExtensionInfo : Microsoft.EntityFrameworkCore.Infrastructure.DbContextOptionsExtensionInfo
+    class WebroxDbContextOptionsExtensionInfo : DbContextOptionsExtensionInfo
     {
-        private readonly DbContextOptionsExtension _extension;
+        private readonly WebroxDbContextOptionsExtension _extension;
         public override bool IsDatabaseProvider => false;
 
         private string? _logFragment;
@@ -23,14 +24,20 @@ namespace Webrox.EntityFrameworkCore.Core
         }
 
         /// <inheritdoc />
-        public DbContextOptionsExtensionInfo(DbContextOptionsExtension extension)
+        public WebroxDbContextOptionsExtensionInfo(WebroxDbContextOptionsExtension extension)
            : base(extension)
         {
             _extension = extension ?? throw new ArgumentNullException(nameof(extension));
         }
 
+
+#if NETSTANDARD || NET5_0
+        /// <inheritdoc />
+        public override long GetServiceProviderHashCode()
+#else
         /// <inheritdoc />
         public override int GetServiceProviderHashCode()
+#endif
         {
             var hashCode = new HashCode();
             hashCode.Add(base.GetHashCode());
@@ -39,18 +46,21 @@ namespace Webrox.EntityFrameworkCore.Core
             return hashCode.ToHashCode();
         }
 
+#if NET6_0_OR_GREATER
         /// <inheritdoc />
         public override bool ShouldUseSameServiceProvider(Microsoft.EntityFrameworkCore.Infrastructure.DbContextOptionsExtensionInfo other)
         {
-            return other is DbContextOptionsExtensionInfo otherSqlServerInfo
+            return other is WebroxDbContextOptionsExtensionInfo otherSqlServerInfo
                    && _extension.AddRowNumberSupport == otherSqlServerInfo._extension.AddRowNumberSupport
                    ;
         }
-
+#endif
         /// <inheritdoc />
         public override void PopulateDebugInfo(IDictionary<string, string> debugInfo)
         {
             debugInfo["Webrox:RowNumberSupport"] = _extension.AddRowNumberSupport.ToString(CultureInfo.InvariantCulture);
         }
+
+
     }
 }

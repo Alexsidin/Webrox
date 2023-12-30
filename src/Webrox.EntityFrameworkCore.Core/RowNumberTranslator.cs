@@ -5,18 +5,27 @@ using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Microsoft.EntityFrameworkCore.Storage;
 using System.Reflection;
 using Webrox.EntityFrameworkCore.Core.Expressions;
+using Webrox.Models;
 
 namespace Webrox.EntityFrameworkCore.Core
 {
+    /// <summary>
+    /// Row Number Translator
+    /// </summary>
     public class RowNumberTranslator : IMethodCallTranslator
     {
-        protected readonly ISqlExpressionFactory _sqlExpressionFactory;
+        private readonly ISqlExpressionFactory _sqlExpressionFactory;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="sqlExpressionFactory"></param>
         public RowNumberTranslator(ISqlExpressionFactory sqlExpressionFactory)
         {
             _sqlExpressionFactory = sqlExpressionFactory;
         }
 
+        /// <thendoc />
         public SqlExpression? Translate(SqlExpression? instance, MethodInfo method, IReadOnlyList<SqlExpression> arguments, IDiagnosticsLogger<DbLoggerCategory.Query> logger)
         {
             if (method.DeclaringType != typeof(DbFunctionsExtensions))
@@ -26,39 +35,43 @@ namespace Webrox.EntityFrameworkCore.Core
             {
                 case nameof(DbFunctionsExtensions.OrderBy):
                     {
-                        var orderBy = arguments.Skip(1).Select(e => new OrderingExpression(_sqlExpressionFactory.ApplyDefaultTypeMapping(e), true)).ToList();
-                        return new OrderByExpression(orderBy);
+                        var orderByAsc = arguments.Skip(1).Select(e => new OrderingExpression(_sqlExpressionFactory.ApplyDefaultTypeMapping(e), true)).ToList();
+                        return new ListExpressions<OrderingExpression, OrderByClause>(orderByAsc);
                     }
                 case nameof(DbFunctionsExtensions.OrderByDescending):
                     {
-                        var orderBy = arguments.Skip(1).Select(e => new OrderingExpression(_sqlExpressionFactory.ApplyDefaultTypeMapping(e), false)).ToList();
-                        return new OrderByExpression(orderBy);
+                        var orderByDesc = arguments.Skip(1).Select(e => new OrderingExpression(_sqlExpressionFactory.ApplyDefaultTypeMapping(e), false)).ToList();
+                        return new ListExpressions<OrderingExpression, OrderByClause>(orderByDesc);
                     }
                 case nameof(DbFunctionsExtensions.ThenBy):
                     {
-                        var orderBy = arguments.Skip(1).Select(e => new OrderingExpression(_sqlExpressionFactory.ApplyDefaultTypeMapping(e), true));
-                        return ((OrderByExpression)arguments[0]).AddColumns(orderBy);
+                        var thenByAsc = arguments.Skip(1).Select(e => new OrderingExpression(_sqlExpressionFactory.ApplyDefaultTypeMapping(e), true));
+                        return ((ListExpressions<OrderingExpression, OrderByClause>)arguments[0]).AddColumns(thenByAsc);
                     }
                 case nameof(DbFunctionsExtensions.ThenByDescending):
                     {
-                        var orderBy = arguments.Skip(1).Select(e => new OrderingExpression(_sqlExpressionFactory.ApplyDefaultTypeMapping(e), false));
-                        return ((OrderByExpression)arguments[0]).AddColumns(orderBy);
+                        var thenByDesc = arguments.Skip(1).Select(e => new OrderingExpression(_sqlExpressionFactory.ApplyDefaultTypeMapping(e), false));
+                        return ((ListExpressions<OrderingExpression, OrderByClause>)arguments[0]).AddColumns(thenByDesc);
                     }
                 case nameof(DbFunctionsExtensions.PartitionBy):
                     {
                         var partitionBy = arguments.Skip(1).ToList();
-                        return new PartitionByExpression(partitionBy);
+                        return new ListExpressions<SqlExpression, PartitionByClause>(partitionBy);
                     }
                 case nameof(DbFunctionsExtensions.ThenPartitionBy):
                     {
-                        var partitionBy = arguments.Skip(1).ToList();
-                        return ((PartitionByExpression)arguments[0]).AddColumns(partitionBy);
+                        var thenPartitionBy = arguments.Skip(1);
+                        return ((ListExpressions<SqlExpression, PartitionByClause>)arguments[0]).AddColumns(thenPartitionBy);
                     }
                 case nameof(DbFunctionsExtensions.RowNumber):
                     {
-                        var partitionBy = arguments[^2] as PartitionByExpression;
-                        var orderings = arguments[^1] as OrderByExpression;
-                        return new RowNumberExpression(partitionBy?.Partitions, orderings.Orderings, RelationalTypeMapping.NullMapping);
+                        var partitionBy = arguments[^2] as ListExpressions<SqlExpression, PartitionByClause>;
+                        var partitions = partitionBy?.Expressions;
+
+                        var ordering = arguments[^1] as ListExpressions<OrderingExpression, OrderByClause>;
+                        var orderings = ordering?.Expressions;
+
+                        return new RowNumberExpression(partitions, orderings!, RelationalTypeMapping.NullMapping);
                     }
                 default:
                     return null;
