@@ -75,89 +75,39 @@ namespace Webrox.EntityFrameworkCore.Core.Translators
                         return new RowNumberExpression(partitions, orderings!, RelationalTypeMapping.NullMapping);
                     }
                 case nameof(DbFunctionsExtensions.Rank):
-                    {
-                        var partitionBy = arguments[^2] as ListExpressions<SqlExpression, PartitionByClause>;
-                        var partitions = partitionBy?.Expressions;
-
-                        var ordering = arguments[^1] as ListExpressions<OrderingExpression, OrderByClause>;
-                        var orderings = ordering?.Expressions;
-
-                        return new WindowExpression("RANK", null, partitions, orderings!, RelationalTypeMapping.NullMapping);
-                       // return new RowNumberExpression(partitions, orderings!, RelationalTypeMapping.NullMapping);
-                    }
+                    return CreateWindowExpression("RANK", arguments, isNoColumnExpression: true);
                 case nameof(DbFunctionsExtensions.DenseRank):
-                    {
-                        var partitionBy = arguments[^2] as ListExpressions<SqlExpression, PartitionByClause>;
-                        var partitions = partitionBy?.Expressions;
-
-                        var ordering = arguments[^1] as ListExpressions<OrderingExpression, OrderByClause>;
-                        var orderings = ordering?.Expressions;
-
-                       return new WindowExpression("DENSE_RANK", null, partitions, orderings!, RelationalTypeMapping.NullMapping);
-                    }
+                    return CreateWindowExpression("DENSE_RANK", arguments, isNoColumnExpression: true);
                 case nameof(DbFunctionsExtensions.Sum):
-                    {
-                        var expression = _sqlExpressionFactory.ApplyDefaultTypeMapping(arguments[^3]);
-
-                        var partitionBy = arguments[^2] as ListExpressions<SqlExpression, PartitionByClause>;
-                        var partitions = partitionBy?.Expressions;
-
-                        var ordering = arguments[^1] as ListExpressions<OrderingExpression, OrderByClause>;
-                        var orderings = ordering?.Expressions;
-
-                        return new WindowExpression("SUM", expression, partitions, orderings!, RelationalTypeMapping.NullMapping);
-                    }
+                    return CreateWindowExpression("SUM", arguments);
                 case nameof(DbFunctionsExtensions.Average):
-                    {
-                        var expression = _sqlExpressionFactory.ApplyDefaultTypeMapping(arguments[^3]);
-
-                        var partitionBy = arguments[^2] as ListExpressions<SqlExpression, PartitionByClause>;
-                        var partitions = partitionBy?.Expressions;
-
-                        var ordering = arguments[^1] as ListExpressions<OrderingExpression, OrderByClause>;
-                        var orderings = ordering?.Expressions;
-
-                        return new WindowExpression("AVG", expression, partitions, orderings!, RelationalTypeMapping.NullMapping);
-                    }
+                    return CreateWindowExpression("AVG", arguments);
                 case nameof(DbFunctionsExtensions.Min):
-                    {
-                        var expression = _sqlExpressionFactory.ApplyDefaultTypeMapping(arguments[^3]);
-
-                        var partitionBy = arguments[^2] as ListExpressions<SqlExpression, PartitionByClause>;
-                        var partitions = partitionBy?.Expressions;
-
-                        var ordering = arguments[^1] as ListExpressions<OrderingExpression, OrderByClause>;
-                        var orderings = ordering?.Expressions;
-
-                        return new WindowExpression("MIN", expression, partitions, orderings!, RelationalTypeMapping.NullMapping);
-                    }
+                    return CreateWindowExpression("MIN", arguments);
                 case nameof(DbFunctionsExtensions.Max):
-                    {
-                        var expression = _sqlExpressionFactory.ApplyDefaultTypeMapping(arguments[^3]);
-
-                        var partitionBy = arguments[^2] as ListExpressions<SqlExpression, PartitionByClause>;
-                        var partitions = partitionBy?.Expressions;
-
-                        var ordering = arguments[^1] as ListExpressions<OrderingExpression, OrderByClause>;
-                        var orderings = ordering?.Expressions;
-
-                        return new WindowExpression("MAX", expression, partitions, orderings!, RelationalTypeMapping.NullMapping);
-                    }
+                    return CreateWindowExpression("MAX", arguments);
                 case nameof(DbFunctionsExtensions.NTile):
-                    {
-                        var expression = _sqlExpressionFactory.ApplyDefaultTypeMapping(arguments[^3]);
-
-                        var partitionBy = arguments[^2] as ListExpressions<SqlExpression, PartitionByClause>;
-                        var partitions = partitionBy?.Expressions;
-
-                        var ordering = arguments[^1] as ListExpressions<OrderingExpression, OrderByClause>;
-                        var orderings = ordering?.Expressions;
-
-                        return new WindowExpression("NTILE", expression, partitions, orderings!, RelationalTypeMapping.NullMapping);
-                    }
+                    return CreateWindowExpression("NTILE", arguments);
                 default:
                     return null;
             }
+        }
+
+        WindowExpression CreateWindowExpression(string aggregateFunction,
+            IReadOnlyList<SqlExpression> arguments,
+            bool isNoColumnExpression = false
+            )
+        {
+            var partitionBy = arguments[^2] as ListExpressions<SqlExpression, PartitionByClause>;
+            var partitions = partitionBy?.Expressions;
+
+            var expression = isNoColumnExpression ? null : _sqlExpressionFactory.ApplyDefaultTypeMapping(arguments[^(partitions != null ? 3 : 2)]);
+
+            var ordering = arguments[^1] as ListExpressions<OrderingExpression, OrderByClause>;
+            var orderings = ordering?.Expressions;
+
+            return new WindowExpression(aggregateFunction, expression, partitions, orderings!, RelationalTypeMapping.NullMapping);
+
         }
     }
 }

@@ -102,6 +102,8 @@ namespace Webrox.EntityFrameworkCore.Core
 
         #region Sum
 
+        // https://learn.microsoft.com/en-us/sql/t-sql/functions/sum-transact-sql?view=sql-server-ver16
+        
         /// <summary>
         /// Sum without partitions
         /// </summary>
@@ -109,7 +111,7 @@ namespace Webrox.EntityFrameworkCore.Core
         /// <param name="expression">an Expression</param>
         /// <param name="orderBy">order by using EF.Functions.OrderBy(...).ThenBy(...)</param>
         /// <returns></returns>
-        public static long Sum<T>(this DbFunctions _,
+        public static object Sum<T>(this DbFunctions _,
                                   T expression,
                                   OrderByClause orderBy)
         {
@@ -124,7 +126,7 @@ namespace Webrox.EntityFrameworkCore.Core
         /// <param name="partition">partition by using EF.Functions.PartitionBy(...).ThenPartitionBy(...)</param>
         /// <param name="orderBy">order by using EF.Functions.OrderBy(...).ThenBy(...)</param>
         /// <returns></returns>
-        public static long Sum<T>(this DbFunctions _,
+        public static object Sum<T>(this DbFunctions _,
                                        T expression,
                                        PartitionByClause partition,
                                        OrderByClause orderBy)
@@ -143,7 +145,7 @@ namespace Webrox.EntityFrameworkCore.Core
         /// <param name="expression">an Expression</param>
         /// <param name="orderBy">order by using EF.Functions.OrderBy(...).ThenBy(...)</param>
         /// <returns></returns>
-        public static long Average<T>(this DbFunctions _,
+        public static double Average<T>(this DbFunctions _,
                                   T expression,
                                   OrderByClause orderBy)
         {
@@ -158,7 +160,7 @@ namespace Webrox.EntityFrameworkCore.Core
         /// <param name="partition">partition by using EF.Functions.PartitionBy(...).ThenPartitionBy(...)</param>
         /// <param name="orderBy">order by using EF.Functions.OrderBy(...).ThenBy(...)</param>
         /// <returns></returns>
-        public static long Average<T>(this DbFunctions _,
+        public static double Average<T>(this DbFunctions _,
                                        T expression,
                                        PartitionByClause partition,
                                        OrderByClause orderBy)

@@ -59,6 +59,24 @@ namespace Webrox.EntityFrameworkCore.SqlServer.Tests
                     DenseRankPartition = EF.Functions.DenseRank(
                                             EF.Functions.PartitionBy(a.RoleId),
                                             EF.Functions.OrderBy(a.Id)),
+                    Average = EF.Functions.Average(a.Id, EF.Functions.OrderBy(a.Id)),
+                    AveragePartition = EF.Functions.Average(a.Id,
+                                            EF.Functions.PartitionBy(a.RoleId),
+                                            EF.Functions.OrderBy(a.Id)),
+                    Sum = EF.Functions.Sum(a.Id, EF.Functions.OrderBy(a.Id)),
+                    SumPartition = EF.Functions.Sum(a.Id,
+                                            EF.Functions.PartitionBy(a.RoleId),
+                                            EF.Functions.OrderBy(a.Id)),
+                    Min = EF.Functions.Min(a.Id, EF.Functions.OrderBy(a.Id)),
+                    MinPartition = EF.Functions.Min(a.Id,
+                                            EF.Functions.PartitionBy(a.RoleId),
+                                            EF.Functions.OrderBy(a.Id)),
+
+                    Max = EF.Functions.Max(a.Id, EF.Functions.OrderBy(a.Id)),
+                    MaxPartition = EF.Functions.Max(a.Id,
+                                            EF.Functions.PartitionBy(a.RoleId),
+                                            EF.Functions.OrderBy(a.Id)),
+
 
                 }).ToListAsync();
 
