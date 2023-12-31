@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 using Webrox.EntityFrameworkCore.Core;
 using Webrox.EntityFrameworkCore.Core.SqlExpressions;
 
-namespace Webrox.EntityFrameworkCore.SqliSqlServerte.Query
+namespace Webrox.EntityFrameworkCore.SqlServer.Query
 {
     /// <inheritdoc />
     [SuppressMessage("Usage", "EF1001", MessageId = "Internal EF Core API usage.")]

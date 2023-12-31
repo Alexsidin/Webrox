@@ -1,14 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.SqlServer.Infrastructure.Internal;
 using Microsoft.EntityFrameworkCore.Storage;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Webrox.EntityFrameworkCore.Core;
-using Webrox.EntityFrameworkCore.SqliSqlServerte.Query;
 
 namespace Webrox.EntityFrameworkCore.SqlServer.Query
 {
