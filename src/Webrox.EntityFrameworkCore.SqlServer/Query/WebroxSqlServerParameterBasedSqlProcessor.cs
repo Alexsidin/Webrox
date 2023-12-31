@@ -1,19 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore.Query;
-using Microsoft.EntityFrameworkCore.Sqlite.Query.Internal;
+using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
+using Webrox.EntityFrameworkCore.Sqlite.Query;
 
-namespace Webrox.EntityFrameworkCore.Sqlite.Query
+namespace Webrox.EntityFrameworkCore.SqlServer.Query
 {
     //  RelationalParameterBasedSqlProcessor
     /// <summary>
     /// Extends <see cref="RelationalParameterBasedSqlProcessor"/>.
     /// </summary>
     [SuppressMessage("Usage", "EF1001:Internal EF Core API usage.")]
-    public class WebroxSqliteParameterBasedSqlProcessor : SqliteParameterBasedSqlProcessor
+    public class WebroxSqlServerParameterBasedSqlProcessor : SqlServerParameterBasedSqlProcessor
     {
         /// <inheritdoc />
-        public WebroxSqliteParameterBasedSqlProcessor(
+        public WebroxSqlServerParameterBasedSqlProcessor(
            RelationalParameterBasedSqlProcessorDependencies dependencies,
            bool useRelationalNulls)
            : base(dependencies, useRelationalNulls)

@@ -1,17 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore.Query;
 
-namespace Webrox.EntityFrameworkCore.Sqlite.Query
+namespace Webrox.EntityFrameworkCore.SqlServer.Query
 {
     /// <inheritdoc />
-    public class WebroxSqliteParameterBasedSqlProcessorFactory : IRelationalParameterBasedSqlProcessorFactory
+    public class WebroxSqlServerParameterBasedSqlProcessorFactory : IRelationalParameterBasedSqlProcessorFactory
     {
         private readonly RelationalParameterBasedSqlProcessorDependencies _dependencies;
 
         /// <summary>
-        /// Initializes new instance of <see cref="WebroxSqliteParameterBasedSqlProcessorFactory"/>.
+        /// Initializes new instance of <see cref="WebroxSqlServerParameterBasedSqlProcessorFactory"/>.
         /// </summary>
         /// <param name="dependencies">Dependencies.</param>
-        public WebroxSqliteParameterBasedSqlProcessorFactory(
+        public WebroxSqlServerParameterBasedSqlProcessorFactory(
            RelationalParameterBasedSqlProcessorDependencies dependencies)
         {
             _dependencies = dependencies;
@@ -20,7 +20,7 @@ namespace Webrox.EntityFrameworkCore.Sqlite.Query
         /// <inheritdoc />
         public RelationalParameterBasedSqlProcessor Create(bool useRelationalNulls)
         {
-            return new WebroxSqliteParameterBasedSqlProcessor(_dependencies, useRelationalNulls);
+            return new WebroxSqlServerParameterBasedSqlProcessor(_dependencies, useRelationalNulls);
         }
     }
 }

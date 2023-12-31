@@ -33,6 +33,7 @@ namespace Webrox.EntityFrameworkCore.Core
         {
             if (AddRowNumberSupport)
             {
+                services.AddScoped<WebroxQuerySqlGenerator>();
                 services.AddScoped<IMethodCallTranslatorPlugin, WebroxMethodCallTranslatorPlugin>();
             }
         }

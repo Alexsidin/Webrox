@@ -1,26 +1,28 @@
 ﻿using Microsoft.EntityFrameworkCore.Query;
-using Microsoft.EntityFrameworkCore.Sqlite.Query.Internal;
+using Microsoft.EntityFrameworkCore.SqlServer.Infrastructure.Internal;
+using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 using System.Linq.Expressions;
 
-namespace Webrox.EntityFrameworkCore.Sqlite.Query
+namespace Webrox.EntityFrameworkCore.SqlServer.Query
 {
     /// <summary>
     /// Extends the capabilities of <see cref="SqliteQueryableMethodTranslatingExpressionVisitor"/>.
     /// </summary>
-    public class WebroxSqliteQueryableMethodTranslatingExpressionVisitor : SqliteQueryableMethodTranslatingExpressionVisitor
+    public class WebroxSqlServerQueryableMethodTranslatingExpressionVisitor : SqlServerQueryableMethodTranslatingExpressionVisitor
     {
         /// <inheritdoc />
-        public WebroxSqliteQueryableMethodTranslatingExpressionVisitor(
+        public WebroxSqlServerQueryableMethodTranslatingExpressionVisitor(
            QueryableMethodTranslatingExpressionVisitorDependencies dependencies,
            RelationalQueryableMethodTranslatingExpressionVisitorDependencies relationalDependencies,
-           QueryCompilationContext queryCompilationContext)
-           : base(dependencies, relationalDependencies, queryCompilationContext)
+           QueryCompilationContext queryCompilationContext,
+           ISqlServerSingletonOptions sqlServerSingletonOptions)
+           : base(dependencies, relationalDependencies, queryCompilationContext, sqlServerSingletonOptions)
         {
         }
 
         /// <inheritdoc />
-        protected WebroxSqliteQueryableMethodTranslatingExpressionVisitor(
-           WebroxSqliteQueryableMethodTranslatingExpressionVisitor parentVisitor)
+        protected WebroxSqlServerQueryableMethodTranslatingExpressionVisitor(
+           WebroxSqlServerQueryableMethodTranslatingExpressionVisitor parentVisitor)
            : base(parentVisitor)
         {
         }
@@ -28,7 +30,7 @@ namespace Webrox.EntityFrameworkCore.Sqlite.Query
         /// <inheritdoc />
         protected override QueryableMethodTranslatingExpressionVisitor CreateSubqueryVisitor()
         {
-            return new WebroxSqliteQueryableMethodTranslatingExpressionVisitor(this);
+            return new WebroxSqlServerQueryableMethodTranslatingExpressionVisitor(this);
         }
 
         /// <inheritdoc />

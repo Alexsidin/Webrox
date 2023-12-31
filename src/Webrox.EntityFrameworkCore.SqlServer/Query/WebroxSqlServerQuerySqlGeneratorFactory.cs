@@ -1,46 +1,53 @@
 ﻿using Microsoft.EntityFrameworkCore.Query;
+using Microsoft.EntityFrameworkCore.SqlServer.Infrastructure.Internal;
 using Microsoft.EntityFrameworkCore.Storage;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Webrox.EntityFrameworkCore.Core;
+using Webrox.EntityFrameworkCore.SqliSqlServerte.Query;
 
-namespace Webrox.EntityFrameworkCore.Sqlite.Query
+namespace Webrox.EntityFrameworkCore.SqlServer.Query
 {
     /// <inheritdoc />
     [SuppressMessage("Usage", "EF1001:Internal EF Core API usage.")]
-    public class WebroxSqliteQuerySqlGeneratorFactory : IQuerySqlGeneratorFactory
+    public class WebroxSqlServerQuerySqlGeneratorFactory : IQuerySqlGeneratorFactory
     {
         private readonly QuerySqlGeneratorDependencies _dependencies;
         private readonly IRelationalTypeMappingSource _typeMappingSource;
-        // private readonly ISqlServerSingletonOptions _sqlServerSingletonOptions;
+        private readonly ISqlServerSingletonOptions _sqlServerSingletonOptions;
         // private readonly ITenantDatabaseProviderFactory _databaseProviderFactory;
         private readonly WebroxQuerySqlGenerator _webroxQuerySqlGenerator;
 
         /// <summary>
-        /// Initializes new instance of <see cref="WebroxSqliteQuerySqlGeneratorFactory"/>.
+        /// Initializes new instance of <see cref="WebroxSqlServerQuerySqlGeneratorFactory"/>.
         /// </summary>
         /// <param name="dependencies">Dependencies.</param>
         /// <param name="typeMappingSource">Type mapping source.</param>
         /// <param name="sqlServerSingletonOptions">Options.</param>
         /// <param name="databaseProviderFactory">Factory.</param>
-        public WebroxSqliteQuerySqlGeneratorFactory(
+        public WebroxSqlServerQuerySqlGeneratorFactory(
            QuerySqlGeneratorDependencies dependencies,
            IRelationalTypeMappingSource typeMappingSource,
-            WebroxQuerySqlGenerator webroxQuerySqlGenerator
-           //ISqlServerSingletonOptions sqlServerSingletonOptions,
+            WebroxQuerySqlGenerator webroxQuerySqlGenerator,
+            ISqlServerSingletonOptions sqlServerSingletonOptions
            //ITenantDatabaseProviderFactory databaseProviderFactory
            )
         {
             _dependencies = dependencies ?? throw new ArgumentNullException(nameof(dependencies));
             _typeMappingSource = typeMappingSource ?? throw new ArgumentNullException(nameof(typeMappingSource));
             _webroxQuerySqlGenerator = webroxQuerySqlGenerator;
-            //_sqlServerSingletonOptions = sqlServerSingletonOptions;
+            _sqlServerSingletonOptions = sqlServerSingletonOptions;
             //_databaseProviderFactory = databaseProviderFactory ?? throw new ArgumentNullException(nameof(databaseProviderFactory));
         }
 
         /// <inheritdoc />
         public QuerySqlGenerator Create()
         {
-            return new WebroxSqliteQuerySqlGenerator(_dependencies, _typeMappingSource, _webroxQuerySqlGenerator);//, _sqlServerSingletonOptions, _databaseProviderFactory.Create());
+            return new WebroxSqlServerQuerySqlGenerator(_dependencies, _typeMappingSource, _sqlServerSingletonOptions, _webroxQuerySqlGenerator);//, _sqlServerSingletonOptions, _databaseProviderFactory.Create());
         }
     }
 }
