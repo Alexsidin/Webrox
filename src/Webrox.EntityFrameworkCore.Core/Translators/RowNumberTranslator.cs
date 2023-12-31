@@ -83,6 +83,7 @@ namespace Webrox.EntityFrameworkCore.Core.Translators
                         var orderings = ordering?.Expressions;
 
                         return new WindowExpression("RANK", null, partitions, orderings!, RelationalTypeMapping.NullMapping);
+                       // return new RowNumberExpression(partitions, orderings!, RelationalTypeMapping.NullMapping);
                     }
                 case nameof(DbFunctionsExtensions.DenseRank):
                     {
@@ -92,7 +93,7 @@ namespace Webrox.EntityFrameworkCore.Core.Translators
                         var ordering = arguments[^1] as ListExpressions<OrderingExpression, OrderByClause>;
                         var orderings = ordering?.Expressions;
 
-                        return new WindowExpression("DENSE_RANK", null, partitions, orderings!, RelationalTypeMapping.NullMapping);
+                       return new WindowExpression("DENSE_RANK", null, partitions, orderings!, RelationalTypeMapping.NullMapping);
                     }
                 case nameof(DbFunctionsExtensions.Sum):
                     {

@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Webrox.EntityFrameworkCore.Core
 {
@@ -34,7 +36,7 @@ namespace Webrox.EntityFrameworkCore.Core
                 services.AddScoped<IMethodCallTranslatorPlugin, WebroxMethodCallTranslatorPlugin>();
             }
         }
-
+        
         /// <inheritdoc/>
         public void Validate(IDbContextOptions options)
         {

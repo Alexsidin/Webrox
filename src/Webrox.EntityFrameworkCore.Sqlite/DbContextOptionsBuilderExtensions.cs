@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Query;
+using Webrox.EntityFrameworkCore.Sqlite.Query;
 
 namespace Webrox.EntityFrameworkCore.Sqlite
 {
@@ -18,6 +20,10 @@ namespace Webrox.EntityFrameworkCore.Sqlite
             var infrastructure = (IRelationalDbContextOptionsBuilderInfrastructure)optionsBuilder;
 
             Core.WebroxDbContextOptionsBuilderExtensions.AddRowNumberSupport(infrastructure);
+
+            infrastructure.OptionsBuilder.ReplaceService<IRelationalParameterBasedSqlProcessorFactory, WebroxSqliteParameterBasedSqlProcessorFactory>();
+            infrastructure.OptionsBuilder.ReplaceService<IQuerySqlGeneratorFactory, WebroxSqliteQuerySqlGeneratorFactory>();
+
 
             return optionsBuilder;
         }

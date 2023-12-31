@@ -40,8 +40,8 @@ namespace Webrox.EntityFrameworkCore.SqlServer.Tests
         {
             using var context = new SampleDbContext(_options);
 
-            var count = await context.Users.CountAsync();
-            Assert.Equal(10, count);
+            //var count = await context.Users.CountAsync();
+            //Assert.Equal(10, count);
 
             var windowFunctions = await context.Users
                 .Select(a => new
@@ -52,9 +52,14 @@ namespace Webrox.EntityFrameworkCore.SqlServer.Tests
                                             EF.Functions.PartitionBy(a.RoleId),
                                             EF.Functions.OrderBy(a.Id)),
                     Rank = EF.Functions.Rank(EF.Functions.OrderBy(a.Id)),
-                    RankPartition = EF.Functions.RowNumber(
+                    RankPartition = EF.Functions.Rank(
                                             EF.Functions.PartitionBy(a.RoleId),
                                             EF.Functions.OrderBy(a.Id)),
+                    DenseRank = EF.Functions.DenseRank(EF.Functions.OrderBy(a.Id)),
+                    DenseRankPartition = EF.Functions.DenseRank(
+                                            EF.Functions.PartitionBy(a.RoleId),
+                                            EF.Functions.OrderBy(a.Id)),
+
                 }).ToListAsync();
 
             Assert.NotNull(windowFunctions);

@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 using Microsoft.EntityFrameworkCore.Storage;
+using Webrox.EntityFrameworkCore.Core.Interfaces;
+using System.Collections.Concurrent;
 
 namespace Webrox.EntityFrameworkCore.Core.SqlExpressions
 {
@@ -13,7 +15,7 @@ namespace Webrox.EntityFrameworkCore.Core.SqlExpressions
     //     An expression that represents a Window (ROW_NUMBER,RANK,DENSE_RANK,etc) operation in a SQL tree.
     //     This type is typically used by database providers (and other extensions). It
     //     is generally not used in application code.
-    public class WindowExpression : SqlExpression
+    public class WindowExpression : SqlExpression, INotNullableSqlExpression
     {
         //
         // Summary:
@@ -23,7 +25,7 @@ namespace Webrox.EntityFrameworkCore.Core.SqlExpressions
         //
         // Summary:
         //  An expression (for SUM,MAX,MIN,AVG window functions).
-        public SqlExpression ColumnExpression { get; set; }
+        public virtual SqlExpression ColumnExpression { get; set; }
 
         //
         // Summary:
@@ -76,40 +78,31 @@ namespace Webrox.EntityFrameworkCore.Core.SqlExpressions
 
         protected override Expression VisitChildren(ExpressionVisitor visitor)
         {
-            if (visitor == null)
-            {
-                throw new ArgumentNullException(nameof(visitor));
-            }
-            
-            bool flag = false;
+            var changed = false;
+            var partitions = new List<SqlExpression>();
 
-            var expr = new SqlFunctionExpression(AggregateFunction,
-                true, typeof(long), RelationalTypeMapping.NullMapping);
-                
-            var visitedAggregateFunction = (SqlExpression)visitor.Visit(expr);
+            var newColumn = (SqlExpression)visitor.Visit(ColumnExpression);
+            changed |= newColumn != ColumnExpression;
+            partitions.Add(newColumn);
 
-            List<SqlExpression> list = new List<SqlExpression>();
-            foreach (SqlExpression partition in Partitions)
+            foreach (var partition in Partitions)
             {
-                SqlExpression sqlExpression = (SqlExpression)visitor.Visit(partition);
-                flag = flag || sqlExpression != partition;
-                list.Add(sqlExpression);
+                var newPartition = (SqlExpression)visitor.Visit(partition);
+                changed |= newPartition != partition;
+                partitions.Add(newPartition);
             }
 
-            List<OrderingExpression> list2 = new List<OrderingExpression>();
-            foreach (OrderingExpression ordering in Orderings)
+            var orderings = new List<OrderingExpression>();
+            foreach (var ordering in Orderings)
             {
-                OrderingExpression orderingExpression = (OrderingExpression)visitor.Visit(ordering);
-                flag = flag || orderingExpression != ordering;
-                list2.Add(orderingExpression);
+                var newOrdering = (OrderingExpression)visitor.Visit(ordering);
+                changed |= newOrdering != ordering;
+                orderings.Add(newOrdering);
             }
 
-            if (!flag)
-            {
-                return this;
-            }
-
-            return new WindowExpression(AggregateFunction, ColumnExpression, list, list2, TypeMapping);
+            return changed
+                ? new WindowExpression(AggregateFunction, ColumnExpression, partitions, orderings, TypeMapping)
+                : this;
         }
 
         //
@@ -128,7 +121,9 @@ namespace Webrox.EntityFrameworkCore.Core.SqlExpressions
         //
         // Returns:
         //     This expression if no children changed, or an expression with the updated children.
-        public virtual WindowExpression Update(IReadOnlyList<SqlExpression> partitions,
+        public virtual WindowExpression Update(
+            SqlExpression columnExpression,
+            IReadOnlyList<SqlExpression> partitions,
             IReadOnlyList<OrderingExpression> orderings)
         {
             if (orderings == null)
@@ -136,9 +131,11 @@ namespace Webrox.EntityFrameworkCore.Core.SqlExpressions
                 throw new ArgumentNullException(nameof(orderings));
             }
 
-            if (!((Partitions == null) ? (partitions == null) : Partitions.SequenceEqual(partitions)) || !Orderings.SequenceEqual(orderings))
+            if (!((Partitions == null) ? (partitions == null) : Partitions.SequenceEqual(partitions))
+                || !Orderings.SequenceEqual(orderings)
+                || !columnExpression.Equals(ColumnExpression))
             {
-                return new WindowExpression(AggregateFunction, ColumnExpression, partitions, orderings, TypeMapping);
+                return new WindowExpression(AggregateFunction, columnExpression, partitions, orderings, TypeMapping);
             }
 
             return this;
@@ -146,16 +143,8 @@ namespace Webrox.EntityFrameworkCore.Core.SqlExpressions
 
         protected override void Print(ExpressionPrinter expressionPrinter)
         {
-            if (expressionPrinter == null)
-            {
-                throw new ArgumentNullException(nameof(expressionPrinter));
-            }
-
             expressionPrinter.Append($"{AggregateFunction}(");
-            if (ColumnExpression != null)
-            {
-                expressionPrinter.Visit(ColumnExpression);
-            }
+            expressionPrinter.Visit(ColumnExpression);
             expressionPrinter.Append(") OVER(");
             if (Partitions.Any())
             {
@@ -169,41 +158,27 @@ namespace Webrox.EntityFrameworkCore.Core.SqlExpressions
             expressionPrinter.Append(")");
         }
 
-        public override bool Equals(object obj)
-        {
-            if (obj != null)
-            {
-                if (this != obj)
-                {
-                    WindowExpression WindowExpression = obj as WindowExpression;
-                    if (WindowExpression != null)
-                    {
-                        return Equals(WindowExpression);
-                    }
+        /// <inheritdoc />
+        public override bool Equals(object? obj)
+        => obj != null
+            && (ReferenceEquals(this, obj)
+                || obj is WindowExpression windowExpression
+                && Equals(windowExpression));
 
-                    return false;
-                }
+        private bool Equals(WindowExpression windowExpression)
+       => base.Equals(windowExpression)
+           && AggregateFunction?.Equals(windowExpression?.AggregateFunction) == true
+           && ColumnExpression?.Equals(windowExpression?.ColumnExpression) == true
+           && (Partitions == null ? windowExpression.Partitions == null : Partitions.SequenceEqual(windowExpression.Partitions))
+           && Orderings.SequenceEqual(windowExpression.Orderings);
 
-                return true;
-            }
-
-            return false;
-        }
-
-        private bool Equals(WindowExpression WindowExpression)
-        {
-            if (base.Equals((object)WindowExpression) && ((Partitions == null) ? (WindowExpression.Partitions == null) : Partitions.SequenceEqual(WindowExpression.Partitions)))
-            {
-                return Orderings.SequenceEqual(WindowExpression.Orderings);
-            }
-
-            return false;
-        }
-
+        /// <inheritdoc />
         public override int GetHashCode()
         {
             HashCode hashCode = default(HashCode);
             hashCode.Add(base.GetHashCode());
+            hashCode.Add(AggregateFunction?.GetHashCode());
+            hashCode.Add(ColumnExpression);
             foreach (SqlExpression partition in Partitions)
             {
                 hashCode.Add(partition);
