@@ -24,7 +24,6 @@ namespace Webrox.EntityFrameworkCore.Sqlite
             infrastructure.OptionsBuilder.ReplaceService<IRelationalParameterBasedSqlProcessorFactory, WebroxSqliteParameterBasedSqlProcessorFactory>();
             infrastructure.OptionsBuilder.ReplaceService<IQuerySqlGeneratorFactory, WebroxSqliteQuerySqlGeneratorFactory>();
 
-
             return optionsBuilder;
         }
     }

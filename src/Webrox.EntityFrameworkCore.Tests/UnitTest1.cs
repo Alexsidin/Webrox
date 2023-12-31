@@ -1,13 +1,13 @@
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Threading.Tasks;
-using Xunit;
-using Webrox.EntityFrameworkCore.Sqlite;
 using System.Linq;
+using System.Threading.Tasks;
 using Webrox.EntityFrameworkCore.Core;
+using Webrox.EntityFrameworkCore.Sqlite;
+using Xunit;
 
-namespace Webrox.EntityFrameworkCore.SqlServer.Tests
+namespace Webrox.EntityFrameworkCore.Tests
 {
     public class UnitTest1 : IDisposable
     {
