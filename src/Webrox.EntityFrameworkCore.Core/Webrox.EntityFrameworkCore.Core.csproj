@@ -1,1 +1,12 @@
-﻿<Project Sdk="Microsoft.NET.Sdk" />
+﻿<Project Sdk="Microsoft.NET.Sdk" >
+	<PropertyGroup>
+		<EFVersionPackage>7.0</EFVersionPackage>
+		<TargetFramework>net7.0</TargetFramework>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="$(EFVersionPackage)" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="$(EFVersionPackage)" />
+	</ItemGroup>
+
+</Project>

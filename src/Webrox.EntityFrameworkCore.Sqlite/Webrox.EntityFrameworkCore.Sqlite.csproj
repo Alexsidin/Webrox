@@ -1,5 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="$(EFVersionPackage)" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="$(EFVersionPackage)" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(EFVersionPackage)" />
+		<ProjectReference Include="..\Webrox.EntityFrameworkCore.Core\Webrox.EntityFrameworkCore.Core.csproj" />
+	</ItemGroup>
 </Project>
