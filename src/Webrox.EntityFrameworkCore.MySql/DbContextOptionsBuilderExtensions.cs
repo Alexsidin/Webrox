@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Infrastructure;
-using MySql.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Query;
+using MySqlLib = MySql.EntityFrameworkCore.Infrastructure;
 
 namespace Webrox.EntityFrameworkCore.MySql
 {
@@ -13,12 +14,15 @@ namespace Webrox.EntityFrameworkCore.MySql
         /// </summary>
         /// <param name="optionsBuilder">options Builder</param>
         /// <returns><see cref="MySQLDbContextOptionsBuilder"/></returns>
-        public static MySQLDbContextOptionsBuilder AddRowNumberSupport(
-                   this MySQLDbContextOptionsBuilder optionsBuilder)
+        public static MySqlLib.MySQLDbContextOptionsBuilder AddRowNumberSupport(
+                   this MySqlLib.MySQLDbContextOptionsBuilder optionsBuilder)
         {
             var infrastructure = (IRelationalDbContextOptionsBuilderInfrastructure)optionsBuilder;
 
             Core.WebroxDbContextOptionsBuilderExtensions.AddRowNumberSupport(infrastructure);
+            
+            infrastructure.OptionsBuilder.ReplaceService<IRelationalParameterBasedSqlProcessorFactory, WebroxMySqlParameterBasedSqlProcessorFactory>();
+            infrastructure.OptionsBuilder.ReplaceService<IQuerySqlGeneratorFactory, WebroxMySqlQuerySqlGeneratorFactory>();
 
             return optionsBuilder;
         }

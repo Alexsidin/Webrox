@@ -65,7 +65,7 @@
 		<ProjectReference Include="..\Webrox.EntityFrameworkCore.Core\Webrox.EntityFrameworkCore.Core.csproj" />
 	</ItemGroup>
 	
-	<ItemGroup Condition="$(ProjectName.Equals('Webrox.EntityFrameworkCore.SqlServer.Tests'))">
+	<ItemGroup Condition="$(ProjectName.Equals('Webrox.EntityFrameworkCore.Tests'))">
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(EFVersionPackage)" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(EFVersionPackage)" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="$(EFVersionPackage)" />
