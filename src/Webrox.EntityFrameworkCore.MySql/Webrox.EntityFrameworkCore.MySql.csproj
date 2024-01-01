@@ -1,3 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
+	<PropertyGroup>
+		<EFVersionPackage>7-*</EFVersionPackage>
+	</PropertyGroup>
 </Project>

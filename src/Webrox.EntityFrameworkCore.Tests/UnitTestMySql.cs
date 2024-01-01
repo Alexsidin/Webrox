@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using MySql.Data.MySqlClient;
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Webrox.EntityFrameworkCore.Core;
@@ -22,13 +24,39 @@ namespace Webrox.EntityFrameworkCore.Tests
 
             _options = new DbContextOptionsBuilder<SampleDbContext>()
                 .UseMySQL(_connection, opt =>
-                {                    
-                    opt.AddRowNumberSupport();
+                {
+                   opt.AddRowNumberSupport();
+                    
+                })
+                .LogTo(logText =>
+                {
+                    bool isMySQL = true;
+                    var splittedLogText = logText.Split(Environment.NewLine).ToList();
+                    splittedLogText[0] = $"{new string('-', 2)}{(isMySQL ? "MySQL" : "SQLServer")}{new string('-', 80)}";
+                    splittedLogText.Insert(0, string.Empty);
+                    splittedLogText.Insert(2, string.Empty);
+
+                    logText = string.Join(Environment.NewLine, splittedLogText);
+
+                    //logger?.LogTrace(logText);
+
+                    var fgColor = Console.ForegroundColor;
+                    Console.ForegroundColor = isMySQL ? ConsoleColor.Blue : ConsoleColor.Yellow;
+                    Console.WriteLine(logText);
+                    Debug.WriteLine(logText);
+                    Console.ForegroundColor = fgColor;
+                },
+                (b, c) =>
+                {
+                    return (b.Id == RelationalEventId.CommandExecuting); //only SQL Queries
                 })
                 .Options;
 
             using (var context = new SampleDbContext(_options))
+            {
                 context.Database.EnsureCreated();
+            }
+
         }
 
         public void Dispose()
@@ -41,8 +69,8 @@ namespace Webrox.EntityFrameworkCore.Tests
         {
             using var context = new SampleDbContext(_options);
 
-            //var count = await context.Users.CountAsync();
-            //Assert.Equal(10, count);
+            var count = await context.Users.CountAsync();
+            Assert.Equal(10, count);
 
             var windowFunctions = await context.Users
                 .Select(a => new
