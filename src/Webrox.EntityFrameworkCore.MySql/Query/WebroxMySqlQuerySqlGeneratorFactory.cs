@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.Storage;
+using MySql.EntityFrameworkCore.Design.Tests;
 using MySql.EntityFrameworkCore.Infrastructure.Internal;
 using System.Diagnostics.CodeAnalysis;
 using Webrox.EntityFrameworkCore.Core;
@@ -41,7 +42,7 @@ namespace Webrox.EntityFrameworkCore.MySql.Query
         /// <inheritdoc />
         public QuerySqlGenerator Create()
         {
-            return new WebroxMySqlQuerySqlGenerator(_dependencies, _typeMappingSource, _mySQLOptions, _webroxQuerySqlGenerator);//, _sqlServerSingletonOptions, _databaseProviderFactory.Create());
+            return new WebroxMySqlQuerySqlGeneratorProxy().Create(_dependencies, _webroxQuerySqlGenerator);//, _sqlServerSingletonOptions, _databaseProviderFactory.Create());
         }
     }
 }

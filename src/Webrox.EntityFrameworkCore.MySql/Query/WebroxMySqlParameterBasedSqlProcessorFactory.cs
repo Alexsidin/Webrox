@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Query;
+using MySql.EntityFrameworkCore.Design.Tests;
 using MySql.EntityFrameworkCore.Infrastructure.Internal;
 
 namespace Webrox.EntityFrameworkCore.MySql.Query
@@ -24,7 +25,7 @@ namespace Webrox.EntityFrameworkCore.MySql.Query
         /// <inheritdoc />
         public RelationalParameterBasedSqlProcessor Create(bool useRelationalNulls)
         {
-            return new WebroxMySqlParameterBasedSqlProcessor(_dependencies, useRelationalNulls, _mySQLOptions);
+            return new WebroxMySqlParameterBasedSqlProcessorProxy().Create(_dependencies, useRelationalNulls, _mySQLOptions);
         }
     }
 }

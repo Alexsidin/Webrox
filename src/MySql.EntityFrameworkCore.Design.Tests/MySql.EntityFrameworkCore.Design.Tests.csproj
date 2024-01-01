@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<SignAssembly>True</SignAssembly>
+		<DelaySign>True</DelaySign>
+		<AssemblyOriginatorKeyFile>ConnectorNetPublicKey.snk</AssemblyOriginatorKeyFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Webrox.EntityFrameworkCore.Core\Webrox.EntityFrameworkCore.Core.csproj" />
+	</ItemGroup>
+</Project>

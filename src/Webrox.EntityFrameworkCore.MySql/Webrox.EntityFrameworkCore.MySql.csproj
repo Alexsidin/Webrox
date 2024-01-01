@@ -1,5 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<EFVersionPackage>7-*</EFVersionPackage>
+		<TargetFramework>net7.0</TargetFramework>
 	</PropertyGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\MySql.EntityFrameworkCore.Design.Tests\MySql.EntityFrameworkCore.Design.Tests.csproj" />
+	</ItemGroup>
 </Project>
