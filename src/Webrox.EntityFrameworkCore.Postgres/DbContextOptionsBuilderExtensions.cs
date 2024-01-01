@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Query;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure;
+using Webrox.EntityFrameworkCore.Postgres.Query;
 
 namespace Webrox.EntityFrameworkCore.Postgres
 {
@@ -19,6 +21,9 @@ namespace Webrox.EntityFrameworkCore.Postgres
             var infrastructure = (IRelationalDbContextOptionsBuilderInfrastructure)optionsBuilder;
 
             Core.WebroxDbContextOptionsBuilderExtensions.AddRowNumberSupport(infrastructure);
+
+            infrastructure.OptionsBuilder.ReplaceService<IRelationalParameterBasedSqlProcessorFactory, WebroxPostgreSqlParameterBasedSqlProcessorFactory>();
+            infrastructure.OptionsBuilder.ReplaceService<IQuerySqlGeneratorFactory, WebroxPostgreSqlQuerySqlGeneratorFactory>();
 
             return optionsBuilder;
         }

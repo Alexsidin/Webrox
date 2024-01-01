@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Query;
+using Webrox.EntityFrameworkCore.SqlServer.Query;
 
 namespace Webrox.EntityFrameworkCore.SqlServer
 {
@@ -18,6 +20,9 @@ namespace Webrox.EntityFrameworkCore.SqlServer
             var infrastructure = (IRelationalDbContextOptionsBuilderInfrastructure)optionsBuilder;
 
             Core.WebroxDbContextOptionsBuilderExtensions.AddRowNumberSupport(infrastructure);
+
+            infrastructure.OptionsBuilder.ReplaceService<IRelationalParameterBasedSqlProcessorFactory, WebroxSqlServerParameterBasedSqlProcessorFactory>();
+            infrastructure.OptionsBuilder.ReplaceService<IQuerySqlGeneratorFactory, WebroxSqlServerQuerySqlGeneratorFactory>();
 
             return optionsBuilder;
         }
