@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" >
 	<PropertyGroup>
-		<EFVersionPackage>7.0</EFVersionPackage>
-		<TargetFramework>net7.0</TargetFramework>
+		<EFVersionPackage>8.0</EFVersionPackage>
+		<TargetFramework>net8.0</TargetFramework>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	</PropertyGroup>
 	<ItemGroup>

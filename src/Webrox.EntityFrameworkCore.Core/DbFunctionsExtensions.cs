@@ -18,7 +18,7 @@ namespace Webrox.EntityFrameworkCore.Core
         /// <param name="_">DbFunctions</param>
         /// <param name="orderBy">order by using EF.Functions.OrderBy(...).ThenBy(...)</param>
         /// <returns></returns>
-        public static ulong RowNumber(this DbFunctions _,
+        public static long RowNumber(this DbFunctions _,
                                        OrderByClause orderBy)
         {
             throw new InvalidOperationException(_ErrorLinq);
@@ -31,7 +31,7 @@ namespace Webrox.EntityFrameworkCore.Core
         /// <param name="partition">partition by using EF.Functions.PartitionBy(...).ThenPartitionBy(...)</param>
         /// <param name="orderBy">order by using EF.Functions.OrderBy(...).ThenBy(...)</param>
         /// <returns></returns>
-        public static ulong RowNumber(this DbFunctions _,
+        public static long RowNumber(this DbFunctions _,
                                        PartitionByClause partition,
                                        OrderByClause orderBy)
         {
@@ -48,7 +48,7 @@ namespace Webrox.EntityFrameworkCore.Core
         /// <param name="_">DbFunctions</param>
         /// <param name="orderBy">order by using EF.Functions.OrderBy(...).ThenBy(...)</param>
         /// <returns></returns>
-        public static ulong Rank(this DbFunctions _,
+        public static long Rank(this DbFunctions _,
                                        OrderByClause orderBy)
         {
             throw new InvalidOperationException(_ErrorLinq);
@@ -61,7 +61,7 @@ namespace Webrox.EntityFrameworkCore.Core
         /// <param name="partition">partition by using EF.Functions.PartitionBy(...).ThenPartitionBy(...)</param>
         /// <param name="orderBy">order by using EF.Functions.OrderBy(...).ThenBy(...)</param>
         /// <returns></returns>
-        public static ulong Rank(this DbFunctions _,
+        public static long Rank(this DbFunctions _,
                                        PartitionByClause partition,
                                        OrderByClause orderBy)
         {
@@ -78,7 +78,7 @@ namespace Webrox.EntityFrameworkCore.Core
         /// <param name="_">DbFunctions</param>
         /// <param name="orderBy">order by using EF.Functions.OrderBy(...).ThenBy(...)</param>
         /// <returns></returns>
-        public static ulong DenseRank(this DbFunctions _,
+        public static long DenseRank(this DbFunctions _,
                                        OrderByClause orderBy)
         {
             throw new InvalidOperationException(_ErrorLinq);
@@ -91,7 +91,7 @@ namespace Webrox.EntityFrameworkCore.Core
         /// <param name="partition">partition by using EF.Functions.PartitionBy(...).ThenPartitionBy(...)</param>
         /// <param name="orderBy">order by using EF.Functions.OrderBy(...).ThenBy(...)</param>
         /// <returns></returns>
-        public static ulong DenseRank(this DbFunctions _,
+        public static long DenseRank(this DbFunctions _,
                                        PartitionByClause partition,
                                        OrderByClause orderBy)
         {
@@ -145,7 +145,7 @@ namespace Webrox.EntityFrameworkCore.Core
         /// <param name="expression">an Expression</param>
         /// <param name="orderBy">order by using EF.Functions.OrderBy(...).ThenBy(...)</param>
         /// <returns></returns>
-        public static decimal Average<T>(this DbFunctions _,
+        public static double Average<T>(this DbFunctions _,
                                   T expression,
                                   OrderByClause orderBy)
         {
@@ -160,7 +160,7 @@ namespace Webrox.EntityFrameworkCore.Core
         /// <param name="partition">partition by using EF.Functions.PartitionBy(...).ThenPartitionBy(...)</param>
         /// <param name="orderBy">order by using EF.Functions.OrderBy(...).ThenBy(...)</param>
         /// <returns></returns>
-        public static decimal Average<T>(this DbFunctions _,
+        public static double Average<T>(this DbFunctions _,
                                        T expression,
                                        PartitionByClause partition,
                                        OrderByClause orderBy)

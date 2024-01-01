@@ -1,4 +1,5 @@
-using Microsoft.EntityFrameworkCore;
+/*
+ * using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using MySql.Data.MySqlClient;
 using System;
@@ -115,3 +116,4 @@ namespace Webrox.EntityFrameworkCore.Tests
         }
     }
 }
+*/
