@@ -1,10 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore.Query;
+using MySql.EntityFrameworkCore.Infrastructure.Internal;
 
 namespace Webrox.EntityFrameworkCore.MySql.Query
 {
     /// <inheritdoc />
     public class WebroxMySqlParameterBasedSqlProcessorFactory : IRelationalParameterBasedSqlProcessorFactory
     {
+        private readonly IMySQLOptions _mySQLOptions;
         private readonly RelationalParameterBasedSqlProcessorDependencies _dependencies;
 
         /// <summary>
@@ -12,15 +14,17 @@ namespace Webrox.EntityFrameworkCore.MySql.Query
         /// </summary>
         /// <param name="dependencies">Dependencies.</param>
         public WebroxMySqlParameterBasedSqlProcessorFactory(
-           RelationalParameterBasedSqlProcessorDependencies dependencies)
+           RelationalParameterBasedSqlProcessorDependencies dependencies,
+           IMySQLOptions mySQLOptions)
         {
             _dependencies = dependencies;
+            _mySQLOptions = mySQLOptions;
         }
 
         /// <inheritdoc />
         public RelationalParameterBasedSqlProcessor Create(bool useRelationalNulls)
         {
-            return new WebroxMySqlParameterBasedSqlProcessor(_dependencies, useRelationalNulls);
+            return new WebroxMySqlParameterBasedSqlProcessor(_dependencies, useRelationalNulls, _mySQLOptions);
         }
     }
 }

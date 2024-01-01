@@ -33,7 +33,7 @@
 	</ItemGroup>
 	
 	<PropertyGroup>
-		<EFVersionPackage>*</EFVersionPackage>
+		<EFVersionPackage>*-*</EFVersionPackage>
 	</PropertyGroup>
 	
 	<ItemGroup>

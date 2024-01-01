@@ -1,27 +1,28 @@
-using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using MySql.Data.MySqlClient;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Webrox.EntityFrameworkCore.Core;
+using Webrox.EntityFrameworkCore.MySql;
 using Webrox.EntityFrameworkCore.Sqlite;
 using Xunit;
 
 namespace Webrox.EntityFrameworkCore.Tests
 {
-    public class UnitTest1 : IDisposable
+    public class UnitTestMySql : IDisposable
     {
-        private readonly SqliteConnection _connection;
+        private readonly MySqlConnection _connection;
         private readonly DbContextOptions<SampleDbContext> _options;
 
-        public UnitTest1()
+        public UnitTestMySql()
         {
-            _connection = new SqliteConnection("datasource=:memory:");
+            _connection = new MySqlConnection("server=localhost;user id=root;password=Clef2Cqrit100%;persistsecurityinfo=True;database=efcore;port=3306;");
             _connection.Open();
 
             _options = new DbContextOptionsBuilder<SampleDbContext>()
-                .UseSqlite(_connection, opt =>
-                {
+                .UseMySQL(_connection, opt =>
+                {                    
                     opt.AddRowNumberSupport();
                 })
                 .Options;
@@ -36,7 +37,7 @@ namespace Webrox.EntityFrameworkCore.Tests
         }
      
         [Fact]
-        public async Task TestRowNumber_UsingInMemoryProvider()
+        public async Task TestRowNumber_UsingSqliteInMemoryProvider()
         {
             using var context = new SampleDbContext(_options);
 

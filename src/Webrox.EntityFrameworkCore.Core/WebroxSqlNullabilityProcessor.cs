@@ -9,12 +9,15 @@ namespace Webrox.EntityFrameworkCore.Sqlite.Query
     /// </summary>
     public class WebroxSqlNullabilityProcessor : SqlNullabilityProcessor
     {
+        private readonly ISqlExpressionFactory _sqlExpressionFactory;
+
         /// <inheritdoc />
         public WebroxSqlNullabilityProcessor(
            RelationalParameterBasedSqlProcessorDependencies dependencies,
            bool useRelationalNulls)
            : base(dependencies, useRelationalNulls)
         {
+            this._sqlExpressionFactory = dependencies.SqlExpressionFactory;
         }
 
         /// <inheritdoc />

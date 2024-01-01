@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.Storage;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure.Internal;
+using MySql.EntityFrameworkCore.Infrastructure.Internal;
 using System.Diagnostics.CodeAnalysis;
 using Webrox.EntityFrameworkCore.Core;
 
@@ -12,7 +12,7 @@ namespace Webrox.EntityFrameworkCore.MySql.Query
     {
         private readonly QuerySqlGeneratorDependencies _dependencies;
         private readonly IRelationalTypeMappingSource _typeMappingSource;
-        private readonly INpgsqlSingletonOptions _npgsqlSingletonOptions;
+        private readonly IMySQLOptions _mySQLOptions;
         // private readonly ITenantDatabaseProviderFactory _databaseProviderFactory;
         private readonly WebroxQuerySqlGenerator _webroxQuerySqlGenerator;
 
@@ -27,21 +27,21 @@ namespace Webrox.EntityFrameworkCore.MySql.Query
            QuerySqlGeneratorDependencies dependencies,
            IRelationalTypeMappingSource typeMappingSource,
             WebroxQuerySqlGenerator webroxQuerySqlGenerator,
-            INpgsqlSingletonOptions npgsqlSingletonOptions
+            IMySQLOptions mySQLOptions
            //ITenantDatabaseProviderFactory databaseProviderFactory
            )
         {
             _dependencies = dependencies ?? throw new ArgumentNullException(nameof(dependencies));
             _typeMappingSource = typeMappingSource ?? throw new ArgumentNullException(nameof(typeMappingSource));
             _webroxQuerySqlGenerator = webroxQuerySqlGenerator;
-            _npgsqlSingletonOptions = npgsqlSingletonOptions;
+            _mySQLOptions = mySQLOptions;
             //_databaseProviderFactory = databaseProviderFactory ?? throw new ArgumentNullException(nameof(databaseProviderFactory));
         }
 
         /// <inheritdoc />
         public QuerySqlGenerator Create()
         {
-            return new WebroxMySqlQuerySqlGenerator(_dependencies, _typeMappingSource, _npgsqlSingletonOptions, _webroxQuerySqlGenerator);//, _sqlServerSingletonOptions, _databaseProviderFactory.Create());
+            return new WebroxMySqlQuerySqlGenerator(_dependencies, _typeMappingSource, _mySQLOptions, _webroxQuerySqlGenerator);//, _sqlServerSingletonOptions, _databaseProviderFactory.Create());
         }
     }
 }

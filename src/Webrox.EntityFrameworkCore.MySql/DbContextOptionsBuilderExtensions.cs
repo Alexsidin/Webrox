@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Query;
+using Webrox.EntityFrameworkCore.MySql.Query;
 using MySqlLib = MySql.EntityFrameworkCore.Infrastructure;
 
 namespace Webrox.EntityFrameworkCore.MySql

@@ -1,6 +1,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<PropertyGroup>
-		<EFVersionPackage>*</EFVersionPackage>
+		<EFVersionPackage>*-*</EFVersionPackage>
 		<TargetFramework>net8.0</TargetFramework>
 	</PropertyGroup>
 
@@ -10,7 +10,11 @@
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(EFVersionPackage)" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(EFVersionPackage)" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="$(EFVersionPackage)" />
+		<PackageReference Include="MySql.EntityFrameworkCore"  Version="$(EFVersionPackage)" />
+		<PackageReference Include="MySql.Data"  Version="$(EFVersionPackage)" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="$(EFVersionPackage)" />
 		<ProjectReference Include="..\Webrox.EntityFrameworkCore.Sqlite\Webrox.EntityFrameworkCore.Sqlite.csproj" />
+		<ProjectReference Include="..\Webrox.EntityFrameworkCore.MySql\Webrox.EntityFrameworkCore.MySql.csproj" />
 
 	</ItemGroup>
 </Project>

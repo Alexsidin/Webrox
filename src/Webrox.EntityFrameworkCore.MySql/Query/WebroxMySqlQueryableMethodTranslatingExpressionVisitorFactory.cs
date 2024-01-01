@@ -1,32 +1,42 @@
 ﻿using Microsoft.EntityFrameworkCore.Query;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure.Internal;
 namespace Webrox.EntityFrameworkCore.MySql.Query
 {
     /// <summary>
     /// Factory for creation of the <see cref="WebroxMySqlQueryableMethodTranslatingExpressionVisitor"/>.
     /// </summary>
-    public sealed class WebroxMySqlQueryableMethodTranslatingExpressionVisitorFactory : IQueryableMethodTranslatingExpressionVisitorFactory
+    public class WebroxMySqlQueryableMethodTranslatingExpressionVisitorFactory : IQueryableMethodTranslatingExpressionVisitorFactory
     {
-        private readonly QueryableMethodTranslatingExpressionVisitorDependencies _dependencies;
-        private readonly RelationalQueryableMethodTranslatingExpressionVisitorDependencies _relationalDependencies;
-
+        private readonly RelationalSqlTranslatingExpressionVisitorDependencies _dependencies;
+        private readonly QueryableMethodTranslatingExpressionVisitor _queryableMethodTranslatingExpressionVisitor;
         /// <summary>
         /// Initializes new instance of <see cref="WebroxMySqlQueryableMethodTranslatingExpressionVisitorFactory"/>.
         /// </summary>
         /// <param name="dependencies">Dependencies.</param>
         /// <param name="relationalDependencies">Relational dependencies.</param>
         public WebroxMySqlQueryableMethodTranslatingExpressionVisitorFactory(
-           QueryableMethodTranslatingExpressionVisitorDependencies dependencies,
-           RelationalQueryableMethodTranslatingExpressionVisitorDependencies relationalDependencies)
+            RelationalSqlTranslatingExpressionVisitorDependencies dependencies,
+            QueryableMethodTranslatingExpressionVisitor queryableMethodTranslatingExpressionVisitor
+            )
         {
             _dependencies = dependencies ?? throw new ArgumentNullException(nameof(dependencies));
-            _relationalDependencies = relationalDependencies ?? throw new ArgumentNullException(nameof(relationalDependencies));
+            _queryableMethodTranslatingExpressionVisitor= queryableMethodTranslatingExpressionVisitor ?? throw new ArgumentNullException(nameof(queryableMethodTranslatingExpressionVisitor));
         }
 
         /// <inheritdoc />
+  //      public QueryableMethodTranslatingExpressionVisitor Create(QueryCompilationContext model)
+		//{
+  //          return new WebroxMySqlQueryableMethodTranslatingExpressionVisitor(this._dependencies, model, _queryableMethodTranslatingExpressionVisitor);
+
+  //      }
+
         public QueryableMethodTranslatingExpressionVisitor Create(QueryCompilationContext queryCompilationContext)
         {
-            return new WebroxMySqlQueryableMethodTranslatingExpressionVisitor(_dependencies, _relationalDependencies, queryCompilationContext);
+            throw new NotImplementedException();
         }
+
+        //public QueryableMethodTranslatingExpressionVisitor Create(QueryCompilationContext queryCompilationContext)
+        //    {
+        //        return new WebroxMySqlQueryableMethodTranslatingExpressionVisitor(_dependencies);
+        //    }
     }
 }
