@@ -21,8 +21,12 @@ namespace Webrox.EntityFrameworkCore.SqlServer
 
             Core.WebroxDbContextOptionsBuilderExtensions.AddRowNumberSupport(infrastructure);
 
+            // Add custom functions Windowing
             infrastructure.OptionsBuilder.ReplaceService<IRelationalParameterBasedSqlProcessorFactory, WebroxSqlServerParameterBasedSqlProcessorFactory>();
             infrastructure.OptionsBuilder.ReplaceService<IQuerySqlGeneratorFactory, WebroxSqlServerQuerySqlGeneratorFactory>();
+
+            //rewrite Linq/Select
+            infrastructure.OptionsBuilder.ReplaceService<IQueryTranslationPreprocessorFactory, WebroxSqlServerQueryTranslationPreprocessorFactory>();
 
             return optionsBuilder;
         }

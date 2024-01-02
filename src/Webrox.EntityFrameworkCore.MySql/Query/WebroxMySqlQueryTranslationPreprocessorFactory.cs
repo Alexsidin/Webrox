@@ -1,16 +1,21 @@
 ﻿using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.Query.Internal;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure.Internal;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Query.Internal;
 
-namespace Webrox.EntityFrameworkCore.Sqlite.Query
+namespace Webrox.EntityFrameworkCore.MySql.Query
 {
     /// <summary>
     /// Factory for creation of the <see cref="WebroxSqliteRelationalSqlTranslatingExpressionVisitor"/>.
     /// </summary>
-    public sealed class WebroxSqliteQueryTranslationPreprocessorFactory :
+    public sealed class WebroxMySqlQueryTranslationPreprocessorFactory :
         QueryTranslationPreprocessorFactory
     {
         private readonly ISqlExpressionFactory _sqlExpressionFactory;
-        public WebroxSqliteQueryTranslationPreprocessorFactory(QueryTranslationPreprocessorDependencies dependencies, ISqlExpressionFactory sqlExpressionFactory)
+        public WebroxMySqlQueryTranslationPreprocessorFactory(
+            QueryTranslationPreprocessorDependencies dependencies,
+            ISqlExpressionFactory sqlExpressionFactory
+            )
             : base(dependencies)
         {
             _sqlExpressionFactory = sqlExpressionFactory;
@@ -18,7 +23,7 @@ namespace Webrox.EntityFrameworkCore.Sqlite.Query
 
         public override QueryTranslationPreprocessor Create(QueryCompilationContext queryCompilationContext)
         {
-            return new WebroxSqliteQueryTranslationPreprocessor(Dependencies,queryCompilationContext, _sqlExpressionFactory);
+            return new WebroxMySqlQueryTranslationPreprocessor(Dependencies,queryCompilationContext, _sqlExpressionFactory);
         }
     }
 }

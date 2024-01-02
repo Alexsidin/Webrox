@@ -23,18 +23,12 @@ namespace Webrox.EntityFrameworkCore.Sqlite
 
             Core.WebroxDbContextOptionsBuilderExtensions.AddRowNumberSupport(infrastructure);
 
+            // Add custom functions Windowing
             infrastructure.OptionsBuilder.ReplaceService<IRelationalParameterBasedSqlProcessorFactory, WebroxSqliteParameterBasedSqlProcessorFactory>();
             infrastructure.OptionsBuilder.ReplaceService<IQuerySqlGeneratorFactory, WebroxSqliteQuerySqlGeneratorFactory>();
-            infrastructure.OptionsBuilder.ReplaceService<IQueryableMethodTranslatingExpressionVisitorFactory, WebroxSqliteQueryableMethodTranslatingExpressionVisitorFactory>();
-            infrastructure.OptionsBuilder.ReplaceService<IRelationalSqlTranslatingExpressionVisitorFactory, WebroxSqliteRelationalSqlTranslatingExpressionVisitorFactory> ();
+            
+            //rewrite Linq/Select
             infrastructure.OptionsBuilder.ReplaceService<IQueryTranslationPreprocessorFactory, WebroxSqliteQueryTranslationPreprocessorFactory>();
-                                                         
-            //infrastructure.OptionsBuilder.ReplaceService<IQueryTranslationPreprocessorFactory, WebroxSqliteQueryTranslationPreprocessorFactory>();
-
-            //WebroxSqliteQueryTranslationPreprocessorFactory:
-            //QueryTranslationPreprocessorFactory
-            //IQueryTranslationPreprocessorFactory
-
 
             return optionsBuilder;
         }

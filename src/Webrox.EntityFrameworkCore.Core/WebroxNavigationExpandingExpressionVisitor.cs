@@ -20,19 +20,30 @@ namespace Webrox.EntityFrameworkCore.Sqlite.Query
     {
         private readonly ISqlExpressionFactory _sqlExpressionFactory;
 
-        Dictionary<string, List<MethodInfo>> queryableMethodGroups = typeof(Queryable)
+        static Dictionary<string, List<MethodInfo>> queryableMethodGroups = typeof(Queryable)
             .GetMethods(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
             .GroupBy(mi => mi.Name)
             .ToDictionary(e => e.Key, l => l.ToList());
 
-        MethodInfo GetMethod(string name, int genericParameterCount, Func<Type[], Type[]> parameterGenerator)
+        static MethodInfo GetMethod(string name, int genericParameterCount, Func<Type[], Type[]> parameterGenerator)
             => queryableMethodGroups[name].Single(
                 mi => ((genericParameterCount == 0 && !mi.IsGenericMethod)
                         || (mi.IsGenericMethod && mi.GetGenericArguments().Length == genericParameterCount))
                     && mi.GetParameters().Select(e => e.ParameterType).SequenceEqual(
                         parameterGenerator(mi.IsGenericMethod ? mi.GetGenericArguments() : Array.Empty<Type>())));
 
-        MethodInfo _methodSelect;
+        static MethodInfo _methodSelect;
+
+        static WebroxNavigationExpandingExpressionVisitor()
+        {
+            _methodSelect = GetMethod(
+             nameof(Queryable.Select), 2,
+             types => new[]
+             {
+                typeof(IQueryable<>).MakeGenericType(types[0]),
+                typeof(Expression<>).MakeGenericType(typeof(Func<,,>).MakeGenericType(types[0], typeof(int), types[1]))
+             });
+        }
 
         public WebroxNavigationExpandingExpressionVisitor(QueryTranslationPreprocessor queryTranslationPreprocessor,
             QueryCompilationContext queryCompilationContext,
@@ -41,16 +52,7 @@ namespace Webrox.EntityFrameworkCore.Sqlite.Query
             ISqlExpressionFactory sqlExpressionFactory)
             : base(queryTranslationPreprocessor, queryCompilationContext, evaluatableExpressionFilter, extensibilityHelper)
         {
-
-
-
-            _methodSelect = GetMethod(
-              nameof(Queryable.Select), 2,
-              types => new[]
-              {
-                typeof(IQueryable<>).MakeGenericType(types[0]),
-                typeof(Expression<>).MakeGenericType(typeof(Func<,,>).MakeGenericType(types[0], typeof(int), types[1]))
-              });
+           
             _sqlExpressionFactory = sqlExpressionFactory;
         }
 

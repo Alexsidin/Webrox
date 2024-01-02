@@ -10,11 +10,11 @@
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(EFVersionPackage)" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(EFVersionPackage)" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="$(EFVersionPackage)" />
-		<!--<PackageReference Include="MySql.EntityFrameworkCore"  Version="$(EFVersionPackage)" />-->
-		<!--<PackageReference Include="MySql.Data"  Version="$(EFVersionPackage)" />-->
+		<PackageReference Include="MySql.EntityFrameworkCore"  Version="$(EFVersionPackage)" />
+		<PackageReference Include="MySql.Data"  Version="$(EFVersionPackage)" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="$(EFVersionPackage)" />
-		<ProjectReference Include="..\Webrox.EntityFrameworkCore.Sqlite\Webrox.EntityFrameworkCore.Sqlite.csproj" />
-		<!--<ProjectReference Include="..\Webrox.EntityFrameworkCore.MySql\Webrox.EntityFrameworkCore.MySql.csproj" />-->
+		<!--<ProjectReference Include="..\Webrox.EntityFrameworkCore.Sqlite\Webrox.EntityFrameworkCore.Sqlite.csproj" />-->
+		<ProjectReference Include="..\Webrox.EntityFrameworkCore.MySql\Webrox.EntityFrameworkCore.MySql.csproj" />
 
 	</ItemGroup>
 </Project>

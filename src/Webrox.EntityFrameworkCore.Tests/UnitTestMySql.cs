@@ -1,5 +1,4 @@
-/*
- * using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using MySql.Data.MySqlClient;
 using System;
@@ -26,8 +25,8 @@ namespace Webrox.EntityFrameworkCore.Tests
             _options = new DbContextOptionsBuilder<SampleDbContext>()
                 .UseMySQL(_connection, opt =>
                 {
-                   opt.AddRowNumberSupport();
-                    
+                    opt.AddRowNumberSupport();
+
                 })
                 .LogTo(logText =>
                 {
@@ -64,7 +63,7 @@ namespace Webrox.EntityFrameworkCore.Tests
         {
             _connection.Close();
         }
-     
+
         [Fact]
         public async Task TestRowNumber_UsingSqliteInMemoryProvider()
         {
@@ -114,6 +113,26 @@ namespace Webrox.EntityFrameworkCore.Tests
             Assert.Equal(10, windowFunctions.Count);
 
         }
+
+        [Fact]
+        public async Task TestSelect_UsingSqliteInMemoryProvider()
+        {
+            using var context = new SampleDbContext(_options);
+
+            //var count = await context.Users.CountAsync();
+            //Assert.Equal(10, count);
+
+            var windowFunctions = await context.Users
+                .Select((a, index) => new
+                {
+                    Id = a.Id,
+                    Index = index
+                })
+                .ToListAsync();
+
+            Assert.NotNull(windowFunctions);
+            Assert.Equal(10, windowFunctions.Count);
+
+        }
     }
 }
-*/

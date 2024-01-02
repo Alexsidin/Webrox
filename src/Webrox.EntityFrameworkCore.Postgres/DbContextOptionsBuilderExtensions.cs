@@ -22,8 +22,12 @@ namespace Webrox.EntityFrameworkCore.Postgres
 
             Core.WebroxDbContextOptionsBuilderExtensions.AddRowNumberSupport(infrastructure);
 
+            // Add custom functions Windowing
             infrastructure.OptionsBuilder.ReplaceService<IRelationalParameterBasedSqlProcessorFactory, WebroxPostgreSqlParameterBasedSqlProcessorFactory>();
             infrastructure.OptionsBuilder.ReplaceService<IQuerySqlGeneratorFactory, WebroxPostgreSqlQuerySqlGeneratorFactory>();
+
+            //rewrite Linq/Select
+            infrastructure.OptionsBuilder.ReplaceService<IQueryTranslationPreprocessorFactory, WebroxPostgresQueryTranslationPreprocessorFactory>();
 
             return optionsBuilder;
         }

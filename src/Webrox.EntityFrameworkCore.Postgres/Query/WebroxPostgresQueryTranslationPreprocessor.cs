@@ -1,10 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.Query.Internal;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure.Internal;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Query.Internal;
 using System.Linq.Expressions;
+using Webrox.EntityFrameworkCore.Sqlite.Query;
 
-namespace Webrox.EntityFrameworkCore.Sqlite.Query
+namespace Webrox.EntityFrameworkCore.Postgres.Query
 {
-    public class WebroxSqliteQueryTranslationPreprocessor : QueryTranslationPreprocessor
+    public class WebroxPostgresQueryTranslationPreprocessor : NpgsqlQueryTranslationPreprocessor
     {
         private readonly ISqlExpressionFactory _sqlExpressionFactory;
         /// <summary>
@@ -12,11 +15,14 @@ namespace Webrox.EntityFrameworkCore.Sqlite.Query
         /// </summary>
         /// <param name="dependencies">Parameter object containing dependencies for this class.</param>
         /// <param name="queryCompilationContext">The query compilation context object to use.</param>
-        public WebroxSqliteQueryTranslationPreprocessor(
+        public WebroxPostgresQueryTranslationPreprocessor(
             QueryTranslationPreprocessorDependencies dependencies,
             QueryCompilationContext queryCompilationContext,
-            ISqlExpressionFactory sqlExpressionFactory)
-            : base(dependencies, queryCompilationContext)
+            RelationalQueryTranslationPreprocessorDependencies relationalDependencies,
+            INpgsqlSingletonOptions npgsqlSingletonOptions,
+            ISqlExpressionFactory sqlExpressionFactory
+            )
+            : base(dependencies, relationalDependencies, npgsqlSingletonOptions, queryCompilationContext)
         {
             _sqlExpressionFactory = sqlExpressionFactory;
         }

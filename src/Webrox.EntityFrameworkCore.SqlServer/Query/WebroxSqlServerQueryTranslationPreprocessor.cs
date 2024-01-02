@@ -2,9 +2,10 @@
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using System.Linq.Expressions;
 
-namespace Webrox.EntityFrameworkCore.Sqlite.Query
+namespace Webrox.EntityFrameworkCore.SqlServer.Query
 {
-    public class WebroxSqliteQueryTranslationPreprocessor : QueryTranslationPreprocessor
+    public class WebroxSqlServerQueryTranslationPreprocessor : 
+        QueryTranslationPreprocessor
     {
         private readonly ISqlExpressionFactory _sqlExpressionFactory;
         /// <summary>
@@ -12,7 +13,7 @@ namespace Webrox.EntityFrameworkCore.Sqlite.Query
         /// </summary>
         /// <param name="dependencies">Parameter object containing dependencies for this class.</param>
         /// <param name="queryCompilationContext">The query compilation context object to use.</param>
-        public WebroxSqliteQueryTranslationPreprocessor(
+        public WebroxSqlServerQueryTranslationPreprocessor(
             QueryTranslationPreprocessorDependencies dependencies,
             QueryCompilationContext queryCompilationContext,
             ISqlExpressionFactory sqlExpressionFactory)

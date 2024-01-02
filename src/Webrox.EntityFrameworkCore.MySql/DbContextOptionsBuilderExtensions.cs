@@ -21,9 +21,14 @@ namespace Webrox.EntityFrameworkCore.MySql
             var infrastructure = (IRelationalDbContextOptionsBuilderInfrastructure)optionsBuilder;
 
             Core.WebroxDbContextOptionsBuilderExtensions.AddRowNumberSupport(infrastructure);
-            
+
+            // Add custom functions Windowing
             infrastructure.OptionsBuilder.ReplaceService<IRelationalParameterBasedSqlProcessorFactory, WebroxMySqlParameterBasedSqlProcessorFactory>();
             infrastructure.OptionsBuilder.ReplaceService<IQuerySqlGeneratorFactory, WebroxMySqlQuerySqlGeneratorFactory>();
+
+            //rewrite Linq/Select
+            infrastructure.OptionsBuilder.ReplaceService<IQueryTranslationPreprocessorFactory, WebroxPostgresQueryTranslationPreprocessorFactory>();
+
 
             return optionsBuilder;
         }

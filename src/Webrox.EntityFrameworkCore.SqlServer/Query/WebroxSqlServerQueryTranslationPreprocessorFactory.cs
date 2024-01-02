@@ -1,16 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 
-namespace Webrox.EntityFrameworkCore.Sqlite.Query
+namespace Webrox.EntityFrameworkCore.SqlServer.Query
 {
     /// <summary>
     /// Factory for creation of the <see cref="WebroxSqliteRelationalSqlTranslatingExpressionVisitor"/>.
     /// </summary>
-    public sealed class WebroxSqliteQueryTranslationPreprocessorFactory :
+    public sealed class WebroxSqlServerQueryTranslationPreprocessorFactory :
         QueryTranslationPreprocessorFactory
     {
         private readonly ISqlExpressionFactory _sqlExpressionFactory;
-        public WebroxSqliteQueryTranslationPreprocessorFactory(QueryTranslationPreprocessorDependencies dependencies, ISqlExpressionFactory sqlExpressionFactory)
+        public WebroxSqlServerQueryTranslationPreprocessorFactory(QueryTranslationPreprocessorDependencies dependencies, ISqlExpressionFactory sqlExpressionFactory)
             : base(dependencies)
         {
             _sqlExpressionFactory = sqlExpressionFactory;
@@ -18,7 +18,7 @@ namespace Webrox.EntityFrameworkCore.Sqlite.Query
 
         public override QueryTranslationPreprocessor Create(QueryCompilationContext queryCompilationContext)
         {
-            return new WebroxSqliteQueryTranslationPreprocessor(Dependencies,queryCompilationContext, _sqlExpressionFactory);
+            return new WebroxSqlServerQueryTranslationPreprocessor(Dependencies,queryCompilationContext, _sqlExpressionFactory);
         }
     }
 }
