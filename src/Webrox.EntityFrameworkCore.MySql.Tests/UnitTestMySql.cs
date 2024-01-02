@@ -65,7 +65,7 @@ namespace Webrox.EntityFrameworkCore.MySql.Tests
         }
 
         [Fact]
-        public async Task TestRowNumber_UsingSqliteInMemoryProvider()
+        public async Task TestRowNumber_UsingMySql()
         {
             using var context = new SampleDbContext(_options);
 
@@ -115,7 +115,7 @@ namespace Webrox.EntityFrameworkCore.MySql.Tests
         }
 
         [Fact]
-        public async Task TestSelect_UsingSqliteInMemoryProvider()
+        public async Task TestSelect_UsingMySql()
         {
             using var context = new SampleDbContext(_options);
 

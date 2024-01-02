@@ -131,4 +131,3 @@ namespace Webrox.EntityFrameworkCore.Sqlite.Tests
         }
     }
 }
-
