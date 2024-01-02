@@ -29,10 +29,11 @@ namespace Webrox.EntityFrameworkCore.MySql
             infrastructure.OptionsBuilder.ReplaceService<IQuerySqlGeneratorFactory, WebroxMySqlQuerySqlGeneratorFactory>();
 
             //rewrite Linq/Select
-            infrastructure.OptionsBuilder.ReplaceService<IRelationalSqlTranslatingExpressionVisitorFactory,
-                WebroxMySqlTranslatingExpressionVisitorFactory
-                >();
-            //infrastructure.OptionsBuilder.ReplaceService<IQueryTranslationPreprocessorFactory, WebroxPostgresQueryTranslationPreprocessorFactory>();
+            //infrastructure.OptionsBuilder.ReplaceService<IRelationalSqlTranslatingExpressionVisitorFactory,
+            //    WebroxMySqlTranslatingExpressionVisitorFactory
+            //    >();
+            
+            infrastructure.OptionsBuilder.ReplaceService<IQueryTranslationPreprocessorFactory, WebroxMySqlQueryTranslationPreprocessorFactory>();
 
 
             return optionsBuilder;

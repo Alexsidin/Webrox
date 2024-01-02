@@ -14,7 +14,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Webrox.EntityFrameworkCore.Sqlite.Query
+namespace Webrox.EntityFrameworkCore.Core
 {
     public class WebroxNavigationExpandingExpressionVisitor : NavigationExpandingExpressionVisitor
     {
