@@ -17,6 +17,7 @@ namespace Webrox.EntityFrameworkCore.Postgres.Query
     {
         private readonly ISqlExpressionFactory _sqlExpressionFactory;
         private readonly INpgsqlSingletonOptions _npgsqlSingletonOptions;
+        private readonly RelationalQueryTranslationPreprocessorDependencies _relationalDependencies;
 
         public WebroxPostgresQueryTranslationPreprocessorFactory(
             QueryTranslationPreprocessorDependencies dependencies,
@@ -32,21 +33,18 @@ namespace Webrox.EntityFrameworkCore.Postgres.Query
         {
             _sqlExpressionFactory = sqlExpressionFactory;
             _npgsqlSingletonOptions = npgsqlSingletonOptions;
+            _relationalDependencies = relationalDependencies;
         }
 
         public override QueryTranslationPreprocessor Create(QueryCompilationContext queryCompilationContext)
         {
-#if NET8_0_OR_GREATER
-            
             return new WebroxPostgresQueryTranslationPreprocessor(Dependencies,
-                queryCompilationContext, 
-                RelationalDependencies,
+                queryCompilationContext,
+                _relationalDependencies,
                 _npgsqlSingletonOptions,
                 _sqlExpressionFactory);
             
-#else
-            return base.Create(queryCompilationContext);
-#endif
+
         }
     }
 }

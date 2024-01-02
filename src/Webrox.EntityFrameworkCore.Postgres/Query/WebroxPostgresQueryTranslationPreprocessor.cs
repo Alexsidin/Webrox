@@ -1,4 +1,4 @@
-﻿#if NET8_0_OR_GREATER
+﻿
 
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.Query.Internal;
@@ -10,8 +10,12 @@ using Webrox.EntityFrameworkCore.Sqlite.Query;
 
 namespace Webrox.EntityFrameworkCore.Postgres.Query
 {
-    public class WebroxPostgresQueryTranslationPreprocessor : 
+    public class WebroxPostgresQueryTranslationPreprocessor :
+#if NET8_0_OR_GREATER
         NpgsqlQueryTranslationPreprocessor
+#else
+        QueryTranslationPreprocessor
+#endif
     {
         private readonly ISqlExpressionFactory _sqlExpressionFactory;
         /// <summary>
@@ -26,7 +30,13 @@ namespace Webrox.EntityFrameworkCore.Postgres.Query
             INpgsqlSingletonOptions npgsqlSingletonOptions,
             ISqlExpressionFactory sqlExpressionFactory
             )
-            : base(dependencies, relationalDependencies, npgsqlSingletonOptions, queryCompilationContext)
+#if NET8_0_OR_GREATER
+            : base(dependencies, relationalDependencies
+                , npgsqlSingletonOptions, queryCompilationContext)
+#else
+            : base(dependencies , queryCompilationContext)
+#endif
+
         {
             _sqlExpressionFactory = sqlExpressionFactory;
         }
@@ -59,4 +69,3 @@ namespace Webrox.EntityFrameworkCore.Postgres.Query
         }
     }
 }
-#endif
