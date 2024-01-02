@@ -33,6 +33,9 @@ namespace Webrox.EntityFrameworkCore.MySql.Query
             //net 7
             query = new InvocationExpressionRemovingExpressionVisitor().Visit(query);
             query = NormalizeQueryableMethod(query);
+#if NET8_0_OR_GREATER
+            query = new CallForwardingExpressionVisitor().Visit(query);
+#endif
             query = new NullCheckRemovingExpressionVisitor().Visit(query);
             query = new SubqueryMemberPushdownExpressionVisitor(QueryCompilationContext.Model).Visit(query);
             query = new WebroxNavigationExpandingExpressionVisitor(
@@ -44,22 +47,6 @@ namespace Webrox.EntityFrameworkCore.MySql.Query
                 .Expand(query);
             query = new QueryOptimizingExpressionVisitor().Visit(query);
             query = new NullCheckRemovingExpressionVisitor().Visit(query);
-
-            //net 8
-            //query = new InvocationExpressionRemovingExpressionVisitor().Visit(query);
-            //query = NormalizeQueryableMethod(query);
-            //query = new CallForwardingExpressionVisitor().Visit(query);
-            //query = new NullCheckRemovingExpressionVisitor().Visit(query);
-            //query = new SubqueryMemberPushdownExpressionVisitor(QueryCompilationContext.Model).Visit(query);
-            //query = new WebroxNavigationExpandingExpressionVisitor(
-            //        this,
-            //        QueryCompilationContext,
-            //        Dependencies.EvaluatableExpressionFilter,
-            //        Dependencies.NavigationExpansionExtensibilityHelper,
-            //        _sqlExpressionFactory)
-            //    .Expand(query);
-            //query = new QueryOptimizingExpressionVisitor().Visit(query);
-            //query = new NullCheckRemovingExpressionVisitor().Visit(query);
 
             return query;
         }

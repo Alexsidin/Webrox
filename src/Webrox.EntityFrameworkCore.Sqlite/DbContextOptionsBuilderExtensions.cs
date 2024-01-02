@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Infrastructure;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using Microsoft.EntityFrameworkCore.Sqlite.Query.Internal;
@@ -20,7 +21,6 @@ namespace Webrox.EntityFrameworkCore.Sqlite
                    this SqliteDbContextOptionsBuilder optionsBuilder)
         {
             var infrastructure = (IRelationalDbContextOptionsBuilderInfrastructure)optionsBuilder;
-
             Core.WebroxDbContextOptionsBuilderExtensions.AddRowNumberSupport(infrastructure);
 
             // Add custom functions Windowing

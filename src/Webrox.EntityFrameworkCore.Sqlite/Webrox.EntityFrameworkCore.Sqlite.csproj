@@ -1,12 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
 	<PropertyGroup>
+		<TargetFrameworks>net7.0;net8.0;</TargetFrameworks>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="$(TargetFramework.Equals('net7.0'))">
+		<EFVersionPackage>7.0</EFVersionPackage>
+		<EFVersionPackageSqlite>7.0</EFVersionPackageSqlite>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="$(TargetFramework.Equals('net8.0'))">
+		<EFVersionPackage>8.0</EFVersionPackage>
+		<EFVersionPackageSqlite>8.0</EFVersionPackageSqlite>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="$(EFVersionPackage)" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="$(EFVersionPackage)" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(EFVersionPackage)" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(EFVersionPackageSqlite)" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="$(EFVersionPackageSqlite)" />
 		<ProjectReference Include="..\Webrox.EntityFrameworkCore.Core\Webrox.EntityFrameworkCore.Core.csproj" />
 	</ItemGroup>
 </Project>

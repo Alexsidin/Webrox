@@ -1,9 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" >
 	<PropertyGroup>
-		<EFVersionPackage>7.0</EFVersionPackage>
-		<TargetFramework>net7.0</TargetFramework>
-		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<TargetFrameworks>net7.0;net8.0;</TargetFrameworks>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 	</PropertyGroup>
+
+	<PropertyGroup Condition="$(TargetFramework.Equals('net7.0'))">
+		<EFVersionPackage>7.0</EFVersionPackage>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="$(TargetFramework.Equals('net8.0'))">
+		<EFVersionPackage>8.0</EFVersionPackage>
+	</PropertyGroup>
+	
 	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="$(EFVersionPackage)" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="$(EFVersionPackage)" />

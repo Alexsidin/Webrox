@@ -1,13 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore.Query;
+﻿#if NET8_0_OR_GREATER
+
+using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure.Internal;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Query.Internal;
 using System.Linq.Expressions;
+using Webrox.EntityFrameworkCore.Core;
 using Webrox.EntityFrameworkCore.Sqlite.Query;
 
 namespace Webrox.EntityFrameworkCore.Postgres.Query
 {
-    public class WebroxPostgresQueryTranslationPreprocessor : NpgsqlQueryTranslationPreprocessor
+    public class WebroxPostgresQueryTranslationPreprocessor : 
+        NpgsqlQueryTranslationPreprocessor
     {
         private readonly ISqlExpressionFactory _sqlExpressionFactory;
         /// <summary>
@@ -36,7 +40,9 @@ namespace Webrox.EntityFrameworkCore.Postgres.Query
         {
             query = new InvocationExpressionRemovingExpressionVisitor().Visit(query);
             query = NormalizeQueryableMethod(query);
+#if NET8_0_OR_GREATER
             query = new CallForwardingExpressionVisitor().Visit(query);
+#endif
             query = new NullCheckRemovingExpressionVisitor().Visit(query);
             query = new SubqueryMemberPushdownExpressionVisitor(QueryCompilationContext.Model).Visit(query);
             query = new WebroxNavigationExpandingExpressionVisitor(
@@ -53,3 +59,4 @@ namespace Webrox.EntityFrameworkCore.Postgres.Query
         }
     }
 }
+#endif

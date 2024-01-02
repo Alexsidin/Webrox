@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Query;
+﻿
+using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.Sqlite.Query.Internal;
+using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 
@@ -10,7 +12,12 @@ namespace Webrox.EntityFrameworkCore.Sqlite.Query
     /// Extends <see cref="RelationalParameterBasedSqlProcessor"/>.
     /// </summary>
     [SuppressMessage("Usage", "EF1001:Internal EF Core API usage.")]
-    public class WebroxSqliteParameterBasedSqlProcessor : SqliteParameterBasedSqlProcessor
+    public class WebroxSqliteParameterBasedSqlProcessor :
+#if NET8_0_OR_GREATER
+        SqliteParameterBasedSqlProcessor
+#else
+        RelationalParameterBasedSqlProcessor
+#endif
     {
         /// <inheritdoc />
         public WebroxSqliteParameterBasedSqlProcessor(
@@ -18,6 +25,7 @@ namespace Webrox.EntityFrameworkCore.Sqlite.Query
            bool useRelationalNulls)
            : base(dependencies, useRelationalNulls)
         {
+            
         }
 
         /// <inheritdoc />

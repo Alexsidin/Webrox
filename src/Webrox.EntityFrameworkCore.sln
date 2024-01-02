@@ -23,14 +23,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{812F1A1F-5BB2-491A-AC6A-E61A19C009AF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Webrox.EntityFrameworkCore.Tests", "Webrox.EntityFrameworkCore.Tests\Webrox.EntityFrameworkCore.Tests.csproj", "{FEAE8D35-9035-46AC-8878-36148ADF411C}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MySQL", "MySQL", "{E63EC087-6584-45B3-82E6-4740957F9C92}"
-	ProjectSection(SolutionItems) = preProject
-		Webrox.EntityFrameworkCore.MySql\AssemblyInfo.cs = Webrox.EntityFrameworkCore.MySql\AssemblyInfo.cs
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySql.EntityFrameworkCore.Design.Tests", "MySql.EntityFrameworkCore.Design.Tests\MySql.EntityFrameworkCore.Design.Tests.csproj", "{63669828-A1E4-4AE5-9FEE-43887A5B75BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webrox.EntityFrameworkCore.Sqlite.Tests", "Webrox.EntityFrameworkCore.Sqlite.Tests\Webrox.EntityFrameworkCore.Sqlite.Tests.csproj", "{260F7C3E-DFA0-41F1-91BB-AF0477704E3D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Webrox.EntityFrameworkCore.MySql.Tests", "Webrox.EntityFrameworkCore.MySql.Tests\Webrox.EntityFrameworkCore.MySql.Tests.csproj", "{24DEEBBF-8126-44DA-9496-B53A96A99A0A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,21 +57,26 @@ Global
 		{96305F51-2290-4EB1-A625-F640B7FBC1EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96305F51-2290-4EB1-A625-F640B7FBC1EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96305F51-2290-4EB1-A625-F640B7FBC1EF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FEAE8D35-9035-46AC-8878-36148ADF411C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FEAE8D35-9035-46AC-8878-36148ADF411C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FEAE8D35-9035-46AC-8878-36148ADF411C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FEAE8D35-9035-46AC-8878-36148ADF411C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{63669828-A1E4-4AE5-9FEE-43887A5B75BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{63669828-A1E4-4AE5-9FEE-43887A5B75BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63669828-A1E4-4AE5-9FEE-43887A5B75BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{63669828-A1E4-4AE5-9FEE-43887A5B75BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{260F7C3E-DFA0-41F1-91BB-AF0477704E3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{260F7C3E-DFA0-41F1-91BB-AF0477704E3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{260F7C3E-DFA0-41F1-91BB-AF0477704E3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{260F7C3E-DFA0-41F1-91BB-AF0477704E3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24DEEBBF-8126-44DA-9496-B53A96A99A0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24DEEBBF-8126-44DA-9496-B53A96A99A0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24DEEBBF-8126-44DA-9496-B53A96A99A0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24DEEBBF-8126-44DA-9496-B53A96A99A0A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{FEAE8D35-9035-46AC-8878-36148ADF411C} = {812F1A1F-5BB2-491A-AC6A-E61A19C009AF}
 		{63669828-A1E4-4AE5-9FEE-43887A5B75BB} = {E63EC087-6584-45B3-82E6-4740957F9C92}
+		{260F7C3E-DFA0-41F1-91BB-AF0477704E3D} = {812F1A1F-5BB2-491A-AC6A-E61A19C009AF}
+		{24DEEBBF-8126-44DA-9496-B53A96A99A0A} = {812F1A1F-5BB2-491A-AC6A-E61A19C009AF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5D55A635-96F9-432B-B78E-7D853B2BB3DC}

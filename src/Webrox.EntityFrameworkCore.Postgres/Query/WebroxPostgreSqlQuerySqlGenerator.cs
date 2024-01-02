@@ -23,7 +23,12 @@ namespace Webrox.EntityFrameworkCore.Postgres.Query
            WebroxQuerySqlGenerator webroxQuerySqlGenerator
             //ITenantDatabaseProvider databaseProvider
             )
-           : base(dependencies, typeMappingSource, npgsqlSingletonOptions.ReverseNullOrderingEnabled, npgsqlSingletonOptions.PostgresVersion)
+           : base(dependencies,
+#if NET8_0_OR_GREATER
+                 typeMappingSource,
+#endif
+                 npgsqlSingletonOptions.ReverseNullOrderingEnabled, 
+                 npgsqlSingletonOptions.PostgresVersion)
         {
             _webroxQuerySqlGenerator = webroxQuerySqlGenerator;
            // _databaseProvider = databaseProvider ?? throw new ArgumentNullException(nameof(databaseProvider));

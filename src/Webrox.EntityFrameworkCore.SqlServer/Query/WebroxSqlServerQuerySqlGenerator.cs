@@ -19,11 +19,17 @@ namespace Webrox.EntityFrameworkCore.SqlServer.Query
         public WebroxSqlServerQuerySqlGenerator(
            QuerySqlGeneratorDependencies dependencies,
            IRelationalTypeMappingSource typeMappingSource,
+#if NET8_0_OR_GREATER
            ISqlServerSingletonOptions sqlServerSingletonOptions,
+#endif
            WebroxQuerySqlGenerator webroxQuerySqlGenerator
             //ITenantDatabaseProvider databaseProvider
             )
+#if NET8_0_OR_GREATER
            : base(dependencies, typeMappingSource, sqlServerSingletonOptions)
+#else
+            : base(dependencies, typeMappingSource)
+#endif
         {
             _webroxQuerySqlGenerator = webroxQuerySqlGenerator;
            // _databaseProvider = databaseProvider ?? throw new ArgumentNullException(nameof(databaseProvider));

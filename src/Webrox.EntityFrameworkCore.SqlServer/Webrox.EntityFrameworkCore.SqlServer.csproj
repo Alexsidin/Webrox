@@ -1,11 +1,23 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
+		<TargetFrameworks>net7.0;net8.0;</TargetFrameworks>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	</PropertyGroup>
+
+	<PropertyGroup Condition="$(TargetFramework.Equals('net7.0'))">
+		<EFVersionPackage>7.0</EFVersionPackage>
+		<EFVersionPackageSqlServer>7.0</EFVersionPackageSqlServer>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="$(TargetFramework.Equals('net8.0'))">
+		<EFVersionPackage>8.0</EFVersionPackage>
+		<EFVersionPackageSqlServer>8.0</EFVersionPackageSqlServer>
+	</PropertyGroup>
+	
 	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="$(EFVersionPackage)" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="$(EFVersionPackage)" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(EFVersionPackage)" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(EFVersionPackageSqlServer)" />
 		<ProjectReference Include="..\Webrox.EntityFrameworkCore.Core\Webrox.EntityFrameworkCore.Core.csproj" />
 	</ItemGroup>
 </Project>

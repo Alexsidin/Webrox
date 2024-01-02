@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using System.Linq.Expressions;
+using Webrox.EntityFrameworkCore.Core;
 
 namespace Webrox.EntityFrameworkCore.Sqlite.Query
 {
@@ -30,7 +31,9 @@ namespace Webrox.EntityFrameworkCore.Sqlite.Query
         {
             query = new InvocationExpressionRemovingExpressionVisitor().Visit(query);
             query = NormalizeQueryableMethod(query);
+#if NET8_0_OR_GREATER
             query = new CallForwardingExpressionVisitor().Visit(query);
+#endif
             query = new NullCheckRemovingExpressionVisitor().Visit(query);
             query = new SubqueryMemberPushdownExpressionVisitor(QueryCompilationContext.Model).Visit(query);
             query = new WebroxNavigationExpandingExpressionVisitor(

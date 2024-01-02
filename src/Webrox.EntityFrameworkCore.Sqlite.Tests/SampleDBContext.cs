@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Webrox.EntityFrameworkCore.Tests
+namespace Webrox.EntityFrameworkCore.Sqlite.Tests
 {
     internal class SampleDbContext : DbContext
     {

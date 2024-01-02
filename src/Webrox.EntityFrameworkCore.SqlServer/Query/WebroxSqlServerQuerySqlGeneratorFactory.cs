@@ -12,7 +12,9 @@ namespace Webrox.EntityFrameworkCore.SqlServer.Query
     {
         private readonly QuerySqlGeneratorDependencies _dependencies;
         private readonly IRelationalTypeMappingSource _typeMappingSource;
+#if NET8_0_OR_GREATER
         private readonly ISqlServerSingletonOptions _sqlServerSingletonOptions;
+#endif
         // private readonly ITenantDatabaseProviderFactory _databaseProviderFactory;
         private readonly WebroxQuerySqlGenerator _webroxQuerySqlGenerator;
 
@@ -26,22 +28,28 @@ namespace Webrox.EntityFrameworkCore.SqlServer.Query
         public WebroxSqlServerQuerySqlGeneratorFactory(
            QuerySqlGeneratorDependencies dependencies,
            IRelationalTypeMappingSource typeMappingSource,
-            WebroxQuerySqlGenerator webroxQuerySqlGenerator,
-            ISqlServerSingletonOptions sqlServerSingletonOptions
-           //ITenantDatabaseProviderFactory databaseProviderFactory
-           )
+            WebroxQuerySqlGenerator webroxQuerySqlGenerator
+#if NET8_0_OR_GREATER
+            ,ISqlServerSingletonOptions sqlServerSingletonOptions
+#endif
+            )
         {
             _dependencies = dependencies ?? throw new ArgumentNullException(nameof(dependencies));
             _typeMappingSource = typeMappingSource ?? throw new ArgumentNullException(nameof(typeMappingSource));
             _webroxQuerySqlGenerator = webroxQuerySqlGenerator;
+#if NET8_0_OR_GREATER
             _sqlServerSingletonOptions = sqlServerSingletonOptions;
-            //_databaseProviderFactory = databaseProviderFactory ?? throw new ArgumentNullException(nameof(databaseProviderFactory));
+#endif
         }
 
         /// <inheritdoc />
         public QuerySqlGenerator Create()
         {
-            return new WebroxSqlServerQuerySqlGenerator(_dependencies, _typeMappingSource, _sqlServerSingletonOptions, _webroxQuerySqlGenerator);//, _sqlServerSingletonOptions, _databaseProviderFactory.Create());
+            return new WebroxSqlServerQuerySqlGenerator(_dependencies, _typeMappingSource,
+#if NET8_0_OR_GREATER
+                _sqlServerSingletonOptions, 
+#endif
+                _webroxQuerySqlGenerator);
         }
     }
 }
