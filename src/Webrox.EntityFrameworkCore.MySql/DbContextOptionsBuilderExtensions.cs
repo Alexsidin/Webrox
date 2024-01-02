@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Query;
+using MySql.EntityFrameworkCore.Design.Tests;
+using Webrox.EntityFrameworkCore.Core;
 using Webrox.EntityFrameworkCore.MySql.Query;
 using MySqlLib = MySql.EntityFrameworkCore.Infrastructure;
 
@@ -20,14 +22,17 @@ namespace Webrox.EntityFrameworkCore.MySql
         {
             var infrastructure = (IRelationalDbContextOptionsBuilderInfrastructure)optionsBuilder;
 
-            Core.WebroxDbContextOptionsBuilderExtensions.AddRowNumberSupport(infrastructure);
+            WebroxDbContextOptionsBuilderExtensions.AddRowNumberSupport(infrastructure);
 
             // Add custom functions Windowing
             infrastructure.OptionsBuilder.ReplaceService<IRelationalParameterBasedSqlProcessorFactory, WebroxMySqlParameterBasedSqlProcessorFactory>();
             infrastructure.OptionsBuilder.ReplaceService<IQuerySqlGeneratorFactory, WebroxMySqlQuerySqlGeneratorFactory>();
 
             //rewrite Linq/Select
-            infrastructure.OptionsBuilder.ReplaceService<IQueryTranslationPreprocessorFactory, WebroxPostgresQueryTranslationPreprocessorFactory>();
+            infrastructure.OptionsBuilder.ReplaceService<IRelationalSqlTranslatingExpressionVisitorFactory,
+                WebroxMySqlTranslatingExpressionVisitorFactory
+                >();
+            //infrastructure.OptionsBuilder.ReplaceService<IQueryTranslationPreprocessorFactory, WebroxPostgresQueryTranslationPreprocessorFactory>();
 
 
             return optionsBuilder;
