@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Query;
+using Microsoft.EntityFrameworkCore.Query.Internal;
+using Microsoft.EntityFrameworkCore.Sqlite.Query.Internal;
 using Webrox.EntityFrameworkCore.Sqlite.Query;
 
 namespace Webrox.EntityFrameworkCore.Sqlite
@@ -23,6 +25,16 @@ namespace Webrox.EntityFrameworkCore.Sqlite
 
             infrastructure.OptionsBuilder.ReplaceService<IRelationalParameterBasedSqlProcessorFactory, WebroxSqliteParameterBasedSqlProcessorFactory>();
             infrastructure.OptionsBuilder.ReplaceService<IQuerySqlGeneratorFactory, WebroxSqliteQuerySqlGeneratorFactory>();
+            infrastructure.OptionsBuilder.ReplaceService<IQueryableMethodTranslatingExpressionVisitorFactory, WebroxSqliteQueryableMethodTranslatingExpressionVisitorFactory>();
+            infrastructure.OptionsBuilder.ReplaceService<IRelationalSqlTranslatingExpressionVisitorFactory, WebroxSqliteRelationalSqlTranslatingExpressionVisitorFactory> ();
+            infrastructure.OptionsBuilder.ReplaceService<IQueryTranslationPreprocessorFactory, WebroxSqliteQueryTranslationPreprocessorFactory>();
+                                                         
+            //infrastructure.OptionsBuilder.ReplaceService<IQueryTranslationPreprocessorFactory, WebroxSqliteQueryTranslationPreprocessorFactory>();
+
+            //WebroxSqliteQueryTranslationPreprocessorFactory:
+            //QueryTranslationPreprocessorFactory
+            //IQueryTranslationPreprocessorFactory
+
 
             return optionsBuilder;
         }

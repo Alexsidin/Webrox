@@ -17,6 +17,8 @@ namespace Webrox.EntityFrameworkCore.Core.Translators
     {
         private readonly ISqlExpressionFactory _sqlExpressionFactory;
 
+        //private MethodInfo methodSelectIndex = typeof()
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -34,6 +36,12 @@ namespace Webrox.EntityFrameworkCore.Core.Translators
 
             switch (method.Name)
             {
+                case "Select":
+                    {
+                        var orderByAsc = arguments.Skip(1).Select(e => new OrderingExpression(_sqlExpressionFactory.ApplyDefaultTypeMapping(e), true)).ToList();
+                        return new ListExpressions<OrderingExpression, OrderByClause>(orderByAsc);
+                    }
+                    break;
                 case nameof(DbFunctionsExtensions.OrderBy):
                     {
                         var orderByAsc = arguments.Skip(1).Select(e => new OrderingExpression(_sqlExpressionFactory.ApplyDefaultTypeMapping(e), true)).ToList();

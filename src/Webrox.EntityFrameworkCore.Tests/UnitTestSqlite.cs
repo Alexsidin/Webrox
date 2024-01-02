@@ -1,6 +1,8 @@
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Webrox.EntityFrameworkCore.Core;
@@ -23,6 +25,28 @@ namespace Webrox.EntityFrameworkCore.Tests
                 .UseSqlite(_connection, opt =>
                 {
                     opt.AddRowNumberSupport();
+                })
+                .LogTo(logText =>
+                {
+                    bool isMySQL = true;
+                    var splittedLogText = logText.Split(Environment.NewLine).ToList();
+                    splittedLogText[0] = $"{new string('-', 2)}{(isMySQL ? "MySQL" : "SQLServer")}{new string('-', 80)}";
+                    splittedLogText.Insert(0, string.Empty);
+                    splittedLogText.Insert(2, string.Empty);
+
+                    logText = string.Join(Environment.NewLine, splittedLogText);
+
+                    //logger?.LogTrace(logText);
+
+                    var fgColor = Console.ForegroundColor;
+                    Console.ForegroundColor = isMySQL ? ConsoleColor.Blue : ConsoleColor.Yellow;
+                    Console.WriteLine(logText);
+                    Debug.WriteLine(logText);
+                    Console.ForegroundColor = fgColor;
+                },
+                (b, c) =>
+                {
+                    return (b.Id == RelationalEventId.CommandExecuting); //only SQL Queries
                 })
                 .Options;
 
@@ -79,6 +103,29 @@ namespace Webrox.EntityFrameworkCore.Tests
 
 
                 }).ToListAsync();
+
+            Assert.NotNull(windowFunctions);
+            Assert.Equal(10, windowFunctions.Count);
+
+        }
+
+        [Fact]
+        public async Task TestSelect_UsingSqliteInMemoryProvider()
+        {
+            using var context = new SampleDbContext(_options);
+
+            //var count = await context.Users.CountAsync();
+            //Assert.Equal(10, count);
+
+            var windowFunctions = await context.Users
+                .Select((a,index) => new
+                {
+                    Id = a.Id,
+                    Index = index
+
+                })
+                .Where(a=> a.Index>5 && a.Index<8)
+                .ToListAsync();
 
             Assert.NotNull(windowFunctions);
             Assert.Equal(10, windowFunctions.Count);
