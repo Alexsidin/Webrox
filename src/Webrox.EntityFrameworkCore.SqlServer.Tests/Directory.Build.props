@@ -1,7 +1,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<PropertyGroup>
-		<EFVersionPackage>7.0</EFVersionPackage>
-		<TargetFramework>net7.0</TargetFramework>
+		<EFVersionPackage>6.0</EFVersionPackage>
+		<TargetFramework>net6.0</TargetFramework>
 	</PropertyGroup>
 
 	<ItemGroup>

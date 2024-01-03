@@ -30,6 +30,7 @@ namespace Webrox.EntityFrameworkCore.SqlServer.Query
         /// <returns>A query expression after transformations.</returns>
         public override Expression Process(Expression query)
         {
+            
             query = new InvocationExpressionRemovingExpressionVisitor().Visit(query);
             query = NormalizeQueryableMethod(query);
 #if NET8_0_OR_GREATER

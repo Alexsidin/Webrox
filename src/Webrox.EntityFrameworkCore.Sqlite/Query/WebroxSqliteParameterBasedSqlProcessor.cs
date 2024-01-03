@@ -1,5 +1,7 @@
 ﻿
 using Microsoft.EntityFrameworkCore.Query;
+using Microsoft.EntityFrameworkCore.Query.Internal;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Microsoft.EntityFrameworkCore.Sqlite.Query.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics.CodeAnalysis;
@@ -30,7 +32,19 @@ namespace Webrox.EntityFrameworkCore.Sqlite.Query
         }
 
         /// <inheritdoc />
-        protected override Expression ProcessSqlNullability(Expression expression, IReadOnlyDictionary<string, object?> parametersValues, out bool canCache)
+        protected override
+#if NET7_0_OR_GREATER
+            Expression
+#else
+            SelectExpression
+#endif
+            ProcessSqlNullability(
+#if NET7_0_OR_GREATER
+            Expression
+#else
+            SelectExpression
+#endif
+            expression, IReadOnlyDictionary<string, object?> parametersValues, out bool canCache)
         {
             if (expression == null)
             {

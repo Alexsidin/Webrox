@@ -28,7 +28,11 @@ namespace Webrox.EntityFrameworkCore.SqlServer.Query
 #if NET8_0_OR_GREATER
            : base(dependencies, typeMappingSource, sqlServerSingletonOptions)
 #else
-            : base(dependencies, typeMappingSource)
+            : base(dependencies
+#if NET7_0_OR_GREATER
+                  , typeMappingSource
+#endif
+                  )
 #endif
         {
             _webroxQuerySqlGenerator = webroxQuerySqlGenerator;

@@ -48,9 +48,15 @@ namespace Webrox.EntityFrameworkCore.Core.Infrastructure
         public WebroxNavigationExpandingExpressionVisitor(QueryTranslationPreprocessor queryTranslationPreprocessor,
             QueryCompilationContext queryCompilationContext,
             IEvaluatableExpressionFilter evaluatableExpressionFilter,
+#if NET6_0_OR_GREATER
             INavigationExpansionExtensibilityHelper extensibilityHelper,
+#endif
             ISqlExpressionFactory sqlExpressionFactory)
-            : base(queryTranslationPreprocessor, queryCompilationContext, evaluatableExpressionFilter, extensibilityHelper)
+            : base(queryTranslationPreprocessor, queryCompilationContext, evaluatableExpressionFilter
+#if NET6_0_OR_GREATER
+                  ,extensibilityHelper
+#endif
+                  )
         {
 
             _sqlExpressionFactory = sqlExpressionFactory;

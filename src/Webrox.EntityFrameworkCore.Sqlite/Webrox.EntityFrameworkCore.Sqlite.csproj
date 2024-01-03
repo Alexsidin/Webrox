@@ -1,10 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net7.0;net8.0;</TargetFrameworks>
+		<TargetFrameworks>net6.0;net7.0;net8.0;</TargetFrameworks>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="$(TargetFramework.Equals('net6.0'))">
+		<EFVersionPackage>6.0</EFVersionPackage>
+		<EFVersionPackageSqlite>6.0</EFVersionPackageSqlite>
+	</PropertyGroup>
+	
 	<PropertyGroup Condition="$(TargetFramework.Equals('net7.0'))">
 		<EFVersionPackage>7.0</EFVersionPackage>
 		<EFVersionPackageSqlite>7.0</EFVersionPackageSqlite>
