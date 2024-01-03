@@ -33,6 +33,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Webrox.EntityFrameworkCore.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webrox.EntityFrameworkCore.Postgres.Tests", "Webrox.EntityFrameworkCore.Postgres.Tests\Webrox.EntityFrameworkCore.Postgres.Tests.csproj", "{234F91F9-23AA-4046-B378-E8FFE0734282}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webrox.EntityFrameworkCore.SqlServer.Tests", "Webrox.EntityFrameworkCore.SqlServer.Tests\Webrox.EntityFrameworkCore.SqlServer.Tests.csproj", "{AA6EC1D1-655A-4FAD-A2B2-A21E24B420F5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{234F91F9-23AA-4046-B378-E8FFE0734282}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{234F91F9-23AA-4046-B378-E8FFE0734282}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{234F91F9-23AA-4046-B378-E8FFE0734282}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA6EC1D1-655A-4FAD-A2B2-A21E24B420F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA6EC1D1-655A-4FAD-A2B2-A21E24B420F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA6EC1D1-655A-4FAD-A2B2-A21E24B420F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA6EC1D1-655A-4FAD-A2B2-A21E24B420F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -84,6 +90,7 @@ Global
 		{260F7C3E-DFA0-41F1-91BB-AF0477704E3D} = {812F1A1F-5BB2-491A-AC6A-E61A19C009AF}
 		{24DEEBBF-8126-44DA-9496-B53A96A99A0A} = {812F1A1F-5BB2-491A-AC6A-E61A19C009AF}
 		{234F91F9-23AA-4046-B378-E8FFE0734282} = {812F1A1F-5BB2-491A-AC6A-E61A19C009AF}
+		{AA6EC1D1-655A-4FAD-A2B2-A21E24B420F5} = {812F1A1F-5BB2-491A-AC6A-E61A19C009AF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5D55A635-96F9-432B-B78E-7D853B2BB3DC}

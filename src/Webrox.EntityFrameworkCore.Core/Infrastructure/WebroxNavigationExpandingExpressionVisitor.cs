@@ -92,7 +92,7 @@ namespace Webrox.EntityFrameworkCore.Core.Infrastructure
             selectorBody = ReplacingExpressionVisitor.Replace(
                 selector.Parameters[1],
                 Expression.Convert(new RowNumberExpression(null,
-                new List<OrderingExpression>(new[] { new OrderingExpression(_sqlExpressionFactory.Fragment("NULL"), true) }), RelationalTypeMapping.NullMapping), typeof(int)),
+                new List<OrderingExpression>(new[] { new OrderingExpression(_sqlExpressionFactory.Fragment("(SELECT NULL)"), true) }), RelationalTypeMapping.NullMapping), typeof(int)),
                 selectorBody);
 
             var miApplySelector = source.GetType().GetMethod("ApplySelector");

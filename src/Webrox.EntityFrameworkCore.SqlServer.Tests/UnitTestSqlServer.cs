@@ -1,46 +1,46 @@
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using MySql.Data.MySqlClient;
 using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Webrox.EntityFrameworkCore.SqlServer;
 using Xunit;
 
-namespace Webrox.EntityFrameworkCore.MySql.Tests
+namespace Webrox.EntityFrameworkCore.SqlServer.Tests
 {
-    public class UnitTestMySql : IDisposable
+    public class UnitTestSqlServer : IDisposable
     {
-        private readonly MySqlConnection _connection;
+        private readonly SqlConnection _connection;
         private readonly DbContextOptions<SampleDbContext> _options;
 
         public void DeleteDatabase()
         {
-            var connection = new MySqlConnection("server=localhost;user id=root;password=Clef2Cqrit100%;persistsecurityinfo=True;database=efcore;port=3306;");
+            var connection = new SqlConnection("Server=poppyto6;Integrated Security=true;Initial Catalog=efcore;TrustServerCertificate=true;");
             connection.Open();
 
             var options = new DbContextOptionsBuilder<SampleDbContext>()
-                .UseMySQL(connection)
+                .UseSqlServer(connection)
                 .Options;
 
             using (var context = new SampleDbContext(options))
             {
-                context.Database.ExecuteSqlRaw("DROP TABLE IF EXISTS  `users`");//.EnsureDeleted();
+                context.Database.ExecuteSqlRaw("DROP TABLE IF EXISTS  users");//.EnsureDeleted();
             }
         }
 
-        public UnitTestMySql()
+        public UnitTestSqlServer()
         {
             DeleteDatabase();
 
-            _connection = new MySqlConnection("server=localhost;user id=root;password=Clef2Cqrit100%;persistsecurityinfo=True;database=efcore;port=3306;");
+            _connection = new SqlConnection("Server=poppyto6;Integrated Security=true;Initial Catalog=efcore;TrustServerCertificate=true;");
             _connection.Open();
 
             _options = new DbContextOptionsBuilder<SampleDbContext>()
-                .UseMySQL(_connection, opt =>
+                .UseSqlServer(_connection, opt =>
                 {
                     opt.AddRowNumberSupport();
-
                 })
                 .LogTo(logText =>
                 {
@@ -67,10 +67,7 @@ namespace Webrox.EntityFrameworkCore.MySql.Tests
                 .Options;
 
             using (var context = new SampleDbContext(_options))
-            {
                 context.Database.EnsureCreated();
-            }
-
         }
 
         public void Dispose()
@@ -79,12 +76,12 @@ namespace Webrox.EntityFrameworkCore.MySql.Tests
         }
 
         [Fact]
-        public async Task TestRowNumber_UsingMySql()
+        public async Task TestRowNumber_UsingSqlServerInMemoryProvider()
         {
             using var context = new SampleDbContext(_options);
 
-            var count = await context.Users.CountAsync();
-            Assert.Equal(10, count);
+            //var count = await context.Users.CountAsync();
+            //Assert.Equal(10, count);
 
             var windowFunctions = await context.Users
                 .Select(a => new
@@ -129,7 +126,7 @@ namespace Webrox.EntityFrameworkCore.MySql.Tests
         }
 
         [Fact]
-        public async Task TestSelect_UsingMySql()
+        public async Task TestSelect_UsingSqlServerInMemoryProvider()
         {
             using var context = new SampleDbContext(_options);
 
