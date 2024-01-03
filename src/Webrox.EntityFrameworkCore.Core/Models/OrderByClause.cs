@@ -1,4 +1,4 @@
-﻿namespace Webrox.Models
+﻿namespace Webrox.EntityFrameworkCore.Core.Models
 {
     /// <summary>
     /// Order by clause

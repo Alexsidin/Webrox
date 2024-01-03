@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.SqlServer.Infrastructure.Internal;
 using Microsoft.EntityFrameworkCore.Storage;
 using System.Diagnostics.CodeAnalysis;
-using Webrox.EntityFrameworkCore.Core;
+using Webrox.EntityFrameworkCore.Core.Infrastructure;
 
 namespace Webrox.EntityFrameworkCore.SqlServer.Query
 {

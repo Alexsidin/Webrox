@@ -19,7 +19,14 @@ namespace Webrox.EntityFrameworkCore.SqlServer
         {
             var infrastructure = (IRelationalDbContextOptionsBuilderInfrastructure)optionsBuilder;
 
+
+/* Unmerged change from project 'Webrox.EntityFrameworkCore.SqlServer (net8.0)'
+Before:
             Core.WebroxDbContextOptionsBuilderExtensions.AddRowNumberSupport(infrastructure);
+After:
+            WebroxDbContextOptionsBuilderExtensions.AddRowNumberSupport(infrastructure);
+*/
+            Core.Infrastructure.WebroxDbContextOptionsBuilderExtensions.AddRowNumberSupport(infrastructure);
 
             // Add custom functions Windowing
             infrastructure.OptionsBuilder.ReplaceService<IRelationalParameterBasedSqlProcessorFactory, WebroxSqlServerParameterBasedSqlProcessorFactory>();

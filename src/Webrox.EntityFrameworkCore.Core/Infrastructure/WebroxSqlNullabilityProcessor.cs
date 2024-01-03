@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Webrox.EntityFrameworkCore.Core.Interfaces;
 
-namespace Webrox.EntityFrameworkCore.Sqlite.Query
+namespace Webrox.EntityFrameworkCore.Core.Infrastructure
 {
     /// <summary>
     /// Extends <see cref="SqlNullabilityProcessor"/>.
@@ -17,7 +17,7 @@ namespace Webrox.EntityFrameworkCore.Sqlite.Query
            bool useRelationalNulls)
            : base(dependencies, useRelationalNulls)
         {
-            this._sqlExpressionFactory = dependencies.SqlExpressionFactory;
+            _sqlExpressionFactory = dependencies.SqlExpressionFactory;
         }
 
         /// <inheritdoc />

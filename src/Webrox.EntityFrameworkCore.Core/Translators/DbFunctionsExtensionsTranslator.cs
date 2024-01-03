@@ -5,15 +5,16 @@ using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Microsoft.EntityFrameworkCore.Storage;
 using System.Reflection;
 using Webrox.EntityFrameworkCore.Core.Expressions;
+using Webrox.EntityFrameworkCore.Core.Interfaces;
+using Webrox.EntityFrameworkCore.Core.Models;
 using Webrox.EntityFrameworkCore.Core.SqlExpressions;
-using Webrox.Models;
 
 namespace Webrox.EntityFrameworkCore.Core.Translators
 {
     /// <summary>
     /// Row Number Translator
     /// </summary>
-    public class RowNumberTranslator : IMethodCallTranslator
+    public class DbFunctionsExtensionsTranslator : IMethodCallTranslator
     {
         private readonly ISqlExpressionFactory _sqlExpressionFactory;
 
@@ -23,7 +24,7 @@ namespace Webrox.EntityFrameworkCore.Core.Translators
         /// Constructor
         /// </summary>
         /// <param name="sqlExpressionFactory"></param>
-        public RowNumberTranslator(ISqlExpressionFactory sqlExpressionFactory)
+        public DbFunctionsExtensionsTranslator(ISqlExpressionFactory sqlExpressionFactory)
         {
             _sqlExpressionFactory = sqlExpressionFactory;
         }
@@ -31,48 +32,42 @@ namespace Webrox.EntityFrameworkCore.Core.Translators
         /// <thendoc />
         public SqlExpression? Translate(SqlExpression? instance, MethodInfo method, IReadOnlyList<SqlExpression> arguments, IDiagnosticsLogger<DbLoggerCategory.Query> logger)
         {
-            if (method.DeclaringType != typeof(DbFunctionsExtensions))
+            if (!method.DeclaringType.Namespace.StartsWith("Webrox.EntityFrameworkCore"))
                 return null;
 
             switch (method.Name)
             {
-                case "Select":
+                case nameof(IDbFunctionsExtensions.OrderBy):
                     {
                         var orderByAsc = arguments.Skip(1).Select(e => new OrderingExpression(_sqlExpressionFactory.ApplyDefaultTypeMapping(e), true)).ToList();
                         return new ListExpressions<OrderingExpression, OrderByClause>(orderByAsc);
                     }
-                    break;
-                case nameof(DbFunctionsExtensions.OrderBy):
-                    {
-                        var orderByAsc = arguments.Skip(1).Select(e => new OrderingExpression(_sqlExpressionFactory.ApplyDefaultTypeMapping(e), true)).ToList();
-                        return new ListExpressions<OrderingExpression, OrderByClause>(orderByAsc);
-                    }
-                case nameof(DbFunctionsExtensions.OrderByDescending):
+                case nameof(IDbFunctionsExtensions.OrderByDescending):
                     {
                         var orderByDesc = arguments.Skip(1).Select(e => new OrderingExpression(_sqlExpressionFactory.ApplyDefaultTypeMapping(e), false)).ToList();
                         return new ListExpressions<OrderingExpression, OrderByClause>(orderByDesc);
                     }
-                case nameof(DbFunctionsExtensions.ThenBy):
+                case nameof(IDbFunctionsExtensions.ThenBy):
                     {
                         var thenByAsc = arguments.Skip(1).Select(e => new OrderingExpression(_sqlExpressionFactory.ApplyDefaultTypeMapping(e), true));
                         return ((ListExpressions<OrderingExpression, OrderByClause>)arguments[0]).AddColumns(thenByAsc);
                     }
-                case nameof(DbFunctionsExtensions.ThenByDescending):
+                case nameof(IDbFunctionsExtensions.ThenByDescending):
                     {
                         var thenByDesc = arguments.Skip(1).Select(e => new OrderingExpression(_sqlExpressionFactory.ApplyDefaultTypeMapping(e), false));
                         return ((ListExpressions<OrderingExpression, OrderByClause>)arguments[0]).AddColumns(thenByDesc);
                     }
-                case nameof(DbFunctionsExtensions.PartitionBy):
+                case nameof(IDbFunctionsExtensions.PartitionBy):
                     {
                         var partitionBy = arguments.Skip(1).ToList();
                         return new ListExpressions<SqlExpression, PartitionByClause>(partitionBy);
                     }
-                case nameof(DbFunctionsExtensions.ThenPartitionBy):
+                case nameof(IDbFunctionsExtensions.ThenPartitionBy):
                     {
                         var thenPartitionBy = arguments.Skip(1);
                         return ((ListExpressions<SqlExpression, PartitionByClause>)arguments[0]).AddColumns(thenPartitionBy);
                     }
-                case nameof(DbFunctionsExtensions.RowNumber):
+                case nameof(IDbFunctionsExtensions.RowNumber):
                     {
                         var partitionBy = arguments[^2] as ListExpressions<SqlExpression, PartitionByClause>;
                         var partitions = partitionBy?.Expressions;
@@ -82,28 +77,29 @@ namespace Webrox.EntityFrameworkCore.Core.Translators
 
                         return new RowNumberExpression(partitions, orderings!, RelationalTypeMapping.NullMapping);
                     }
-                case nameof(DbFunctionsExtensions.Rank):
+                case nameof(IDbFunctionsExtensions.Rank):
                     return CreateWindowExpression("RANK", arguments, isNoColumnExpression: true);
-                case nameof(DbFunctionsExtensions.DenseRank):
+                case nameof(IDbFunctionsExtensions.DenseRank):
                     return CreateWindowExpression("DENSE_RANK", arguments, isNoColumnExpression: true);
-                case nameof(DbFunctionsExtensions.Sum):
+                case nameof(IDbFunctionsExtensions.Sum):
                     return CreateWindowExpression("SUM", arguments);
-                case nameof(DbFunctionsExtensions.Average):
+                case nameof(IDbFunctionsExtensions.Average):
                     return CreateWindowExpression("AVG", arguments);
-                case nameof(DbFunctionsExtensions.Min):
-                    return CreateWindowExpression("MIN", arguments);
-                case nameof(DbFunctionsExtensions.Max):
-                    return CreateWindowExpression("MAX", arguments);
-                case nameof(DbFunctionsExtensions.NTile):
+                case nameof(IDbFunctionsExtensions.Min):
+                    return CreateWindowExpression("MIN", arguments, convertToType: typeof(long));
+                case nameof(IDbFunctionsExtensions.Max):
+                    return CreateWindowExpression("MAX", arguments, convertToType: typeof(long));
+                case nameof(IDbFunctionsExtensions.NTile):
                     return CreateWindowExpression("NTILE", arguments);
                 default:
                     return null;
             }
         }
 
-        WindowExpression CreateWindowExpression(string aggregateFunction,
+        SqlExpression CreateWindowExpression(string aggregateFunction,
             IReadOnlyList<SqlExpression> arguments,
-            bool isNoColumnExpression = false
+            bool isNoColumnExpression = false,
+            Type convertToType = null
             )
         {
             var partitionBy = arguments[^2] as ListExpressions<SqlExpression, PartitionByClause>;
@@ -114,8 +110,12 @@ namespace Webrox.EntityFrameworkCore.Core.Translators
             var ordering = arguments[^1] as ListExpressions<OrderingExpression, OrderByClause>;
             var orderings = ordering?.Expressions;
 
-            return new WindowExpression(aggregateFunction, expression, partitions, orderings!, RelationalTypeMapping.NullMapping);
-
+            SqlExpression retExpression = new WindowExpression(aggregateFunction, expression, partitions, orderings!, RelationalTypeMapping.NullMapping);
+            if (convertToType != null)
+            {
+                retExpression = _sqlExpressionFactory.Convert(retExpression, convertToType);
+            }
+            return retExpression;
         }
     }
 }

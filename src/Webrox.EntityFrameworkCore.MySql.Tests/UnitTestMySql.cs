@@ -5,9 +5,6 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Webrox.EntityFrameworkCore.Core;
-using Webrox.EntityFrameworkCore.MySql;
-using Webrox.EntityFrameworkCore.Sqlite;
 using Xunit;
 
 namespace Webrox.EntityFrameworkCore.MySql.Tests

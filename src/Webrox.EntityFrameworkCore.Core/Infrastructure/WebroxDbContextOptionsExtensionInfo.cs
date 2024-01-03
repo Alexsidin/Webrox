@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Text;
 
-namespace Webrox.EntityFrameworkCore.Core
+namespace Webrox.EntityFrameworkCore.Core.Infrastructure
 {
     class WebroxDbContextOptionsExtensionInfo : DbContextOptionsExtensionInfo
     {
@@ -48,7 +48,7 @@ namespace Webrox.EntityFrameworkCore.Core
 
 #if NET6_0_OR_GREATER
         /// <inheritdoc />
-        public override bool ShouldUseSameServiceProvider(Microsoft.EntityFrameworkCore.Infrastructure.DbContextOptionsExtensionInfo other)
+        public override bool ShouldUseSameServiceProvider(DbContextOptionsExtensionInfo other)
         {
             return other is WebroxDbContextOptionsExtensionInfo otherSqlServerInfo
                    && _extension.AddRowNumberSupport == otherSqlServerInfo._extension.AddRowNumberSupport

@@ -14,7 +14,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Webrox.EntityFrameworkCore.Core
+namespace Webrox.EntityFrameworkCore.Core.Infrastructure
 {
     public class WebroxNavigationExpandingExpressionVisitor : NavigationExpandingExpressionVisitor
     {
@@ -27,8 +27,8 @@ namespace Webrox.EntityFrameworkCore.Core
 
         static MethodInfo GetMethod(string name, int genericParameterCount, Func<Type[], Type[]> parameterGenerator)
             => queryableMethodGroups[name].Single(
-                mi => ((genericParameterCount == 0 && !mi.IsGenericMethod)
-                        || (mi.IsGenericMethod && mi.GetGenericArguments().Length == genericParameterCount))
+                mi => (genericParameterCount == 0 && !mi.IsGenericMethod
+                        || mi.IsGenericMethod && mi.GetGenericArguments().Length == genericParameterCount)
                     && mi.GetParameters().Select(e => e.ParameterType).SequenceEqual(
                         parameterGenerator(mi.IsGenericMethod ? mi.GetGenericArguments() : Array.Empty<Type>())));
 
@@ -52,21 +52,21 @@ namespace Webrox.EntityFrameworkCore.Core
             ISqlExpressionFactory sqlExpressionFactory)
             : base(queryTranslationPreprocessor, queryCompilationContext, evaluatableExpressionFilter, extensibilityHelper)
         {
-           
+
             _sqlExpressionFactory = sqlExpressionFactory;
         }
 
         protected override Expression VisitMethodCall(MethodCallExpression methodCallExpression)
         {
             var method = methodCallExpression.Method;
-            
-            if (method.DeclaringType == typeof(Queryable) 
+
+            if (method.DeclaringType == typeof(Queryable)
                 && method.Name == nameof(Queryable.Select)
                 && method.IsGenericMethod)
             {
                 var typesGenerics = method.GetGenericArguments();
 
-                if ((typesGenerics.Length == 2) && (method == _methodSelect?.MakeGenericMethod(typesGenerics)))
+                if (typesGenerics.Length == 2 && method == _methodSelect?.MakeGenericMethod(typesGenerics))
                 {
                     var firstArgument = Visit(methodCallExpression.Arguments[0]);
                     var lambda = methodCallExpression.Arguments[1].UnwrapLambdaFromQuote();

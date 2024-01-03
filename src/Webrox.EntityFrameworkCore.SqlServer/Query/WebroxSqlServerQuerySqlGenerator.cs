@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 using Microsoft.EntityFrameworkCore.Storage;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
-using Webrox.EntityFrameworkCore.Core;
+using Webrox.EntityFrameworkCore.Core.Infrastructure;
 using Webrox.EntityFrameworkCore.Core.SqlExpressions;
 
 namespace Webrox.EntityFrameworkCore.SqlServer.Query

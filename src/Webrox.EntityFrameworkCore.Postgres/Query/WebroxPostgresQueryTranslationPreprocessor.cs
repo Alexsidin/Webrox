@@ -5,8 +5,7 @@ using Microsoft.EntityFrameworkCore.Query.Internal;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure.Internal;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Query.Internal;
 using System.Linq.Expressions;
-using Webrox.EntityFrameworkCore.Core;
-using Webrox.EntityFrameworkCore.Sqlite.Query;
+using Webrox.EntityFrameworkCore.Core.Infrastructure;
 
 namespace Webrox.EntityFrameworkCore.Postgres.Query
 {

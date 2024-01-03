@@ -3,9 +3,9 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Query.Internal;
 using Microsoft.EntityFrameworkCore.Storage;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
-using Webrox.EntityFrameworkCore.Core;
 using Webrox.EntityFrameworkCore.Core.SqlExpressions;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure.Internal;
+using Webrox.EntityFrameworkCore.Core.Infrastructure;
 
 namespace Webrox.EntityFrameworkCore.Postgres.Query
 {

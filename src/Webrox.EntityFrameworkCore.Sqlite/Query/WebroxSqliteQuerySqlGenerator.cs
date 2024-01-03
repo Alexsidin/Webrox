@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Sqlite.Query.Internal;
 using Microsoft.EntityFrameworkCore.Storage;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
-using Webrox.EntityFrameworkCore.Core;
+using Webrox.EntityFrameworkCore.Core.Infrastructure;
 using Webrox.EntityFrameworkCore.Core.SqlExpressions;
 
 namespace Webrox.EntityFrameworkCore.Sqlite.Query

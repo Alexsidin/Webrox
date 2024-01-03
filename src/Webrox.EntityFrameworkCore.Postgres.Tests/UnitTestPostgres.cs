@@ -11,12 +11,12 @@ using Xunit;
 
 namespace Webrox.EntityFrameworkCore.Postgres.Tests
 {
-    public class UnitTestMySql : IDisposable
+    public class UnitTestPostgres : IDisposable
     {
         private readonly NpgsqlConnection _connection;
         private readonly DbContextOptions<SampleDbContext> _options;
 
-        public UnitTestMySql()
+        public UnitTestPostgres()
         {
             _connection = new NpgsqlConnection("Host=localhost;Port=5432;Username=postgres;Password=Popome690$;Database=efcore;");
             _connection.Open();
@@ -64,7 +64,7 @@ namespace Webrox.EntityFrameworkCore.Postgres.Tests
         }
 
         [Fact]
-        public async Task TestRowNumber_UsingMySql()
+        public async Task TestRowNumber_UsingPostgres()
         {
             using var context = new SampleDbContext(_options);
 
@@ -100,7 +100,7 @@ namespace Webrox.EntityFrameworkCore.Postgres.Tests
                                             EF.Functions.PartitionBy(a.RoleId),
                                             EF.Functions.OrderBy(a.Id)),
 
-                    Max = EF.Functions.Max(a.Id, EF.Functions.OrderBy(a.Id)),
+                    Max = EF.Functions.Max(a.SubRoleId, EF.Functions.OrderBy(a.Id)),
                     MaxPartition = EF.Functions.Max(a.Id,
                                             EF.Functions.PartitionBy(a.RoleId),
                                             EF.Functions.OrderBy(a.Id)),
@@ -114,7 +114,7 @@ namespace Webrox.EntityFrameworkCore.Postgres.Tests
         }
 
         [Fact]
-        public async Task TestSelect_UsingMySql()
+        public async Task TestSelect_UsingPostgres()
         {
             using var context = new SampleDbContext(_options);
 

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using System.Linq.Expressions;
-using Webrox.EntityFrameworkCore.Core;
+using Webrox.EntityFrameworkCore.Core.Infrastructure;
 
 namespace Webrox.EntityFrameworkCore.Sqlite.Query
 {

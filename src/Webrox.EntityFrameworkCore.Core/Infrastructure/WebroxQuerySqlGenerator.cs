@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Webrox.EntityFrameworkCore.Core.SqlExpressions;
 
-namespace Webrox.EntityFrameworkCore.Core
+namespace Webrox.EntityFrameworkCore.Core.Infrastructure
 {
     public class WebroxQuerySqlGenerator
     {

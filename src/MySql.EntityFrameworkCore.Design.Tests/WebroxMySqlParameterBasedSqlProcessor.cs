@@ -2,12 +2,12 @@
 using MySqlLib = MySql.EntityFrameworkCore;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
-using Webrox.EntityFrameworkCore.Sqlite.Query;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using MySql.EntityFrameworkCore.Infrastructure.Internal;
 using Webrox.EntityFrameworkCore.Core.Interfaces;
 using Webrox.EntityFrameworkCore.Core;
+using Webrox.EntityFrameworkCore.Core.Infrastructure;
 
 namespace MySql.EntityFrameworkCore.Design.Tests
 {

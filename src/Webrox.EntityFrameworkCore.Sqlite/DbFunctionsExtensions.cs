@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Webrox.Models;
+using Webrox.EntityFrameworkCore.Core.Models;
 
-namespace Webrox.EntityFrameworkCore.Core
+namespace Webrox.EntityFrameworkCore.Sqlite
 {
+ 
     /// <summary>
     /// Extensions for EF.Functions
     /// </summary>
@@ -111,7 +112,7 @@ namespace Webrox.EntityFrameworkCore.Core
         /// <param name="expression">an Expression</param>
         /// <param name="orderBy">order by using EF.Functions.OrderBy(...).ThenBy(...)</param>
         /// <returns></returns>
-        public static object Sum<T>(this DbFunctions _,
+        public static long Sum<T>(this DbFunctions _,
                                   T expression,
                                   OrderByClause orderBy)
         {
@@ -126,7 +127,7 @@ namespace Webrox.EntityFrameworkCore.Core
         /// <param name="partition">partition by using EF.Functions.PartitionBy(...).ThenPartitionBy(...)</param>
         /// <param name="orderBy">order by using EF.Functions.OrderBy(...).ThenBy(...)</param>
         /// <returns></returns>
-        public static object Sum<T>(this DbFunctions _,
+        public static long Sum<T>(this DbFunctions _,
                                        T expression,
                                        PartitionByClause partition,
                                        OrderByClause orderBy)
@@ -238,7 +239,7 @@ namespace Webrox.EntityFrameworkCore.Core
 
         #endregion
 
-        #region Sum
+        #region NTile
 
         /// <summary>
         /// NTile without partitions

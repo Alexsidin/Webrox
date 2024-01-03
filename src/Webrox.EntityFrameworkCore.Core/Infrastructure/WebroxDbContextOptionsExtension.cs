@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Webrox.EntityFrameworkCore.Core
+namespace Webrox.EntityFrameworkCore.Core.Infrastructure
 {
     /// <summary>
     /// Webrox DbContextOptionsExtension
@@ -16,7 +16,7 @@ namespace Webrox.EntityFrameworkCore.Core
         /// Row Number Support
         /// </summary>
         public bool AddRowNumberSupport { get; set; }
-        
+
         /// <inheritdoc/>
         public DbContextOptionsExtensionInfo Info => _info;
 
@@ -37,7 +37,7 @@ namespace Webrox.EntityFrameworkCore.Core
                 services.AddScoped<IMethodCallTranslatorPlugin, WebroxMethodCallTranslatorPlugin>();
             }
         }
-        
+
         /// <inheritdoc/>
         public void Validate(IDbContextOptions options)
         {

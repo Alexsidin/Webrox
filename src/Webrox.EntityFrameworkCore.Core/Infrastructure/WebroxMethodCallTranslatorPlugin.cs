@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Query;
 using Webrox.EntityFrameworkCore.Core.Translators;
 
-namespace Webrox.EntityFrameworkCore.Core
+namespace Webrox.EntityFrameworkCore.Core.Infrastructure
 {
     /// <summary>
     /// Webrox MethodCallTranslatorPlugin 
@@ -22,7 +22,7 @@ namespace Webrox.EntityFrameworkCore.Core
             _sqlExpressionFactory = sqlExpressionFactory;
             Translators = new List<IMethodCallTranslator>
                     {
-                        new RowNumberTranslator(_sqlExpressionFactory)
+                        new DbFunctionsExtensionsTranslator(_sqlExpressionFactory)
                     };
         }
     }

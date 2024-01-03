@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Query;
 using MySql.EntityFrameworkCore.Design.Tests;
-using Webrox.EntityFrameworkCore.Core;
+using Webrox.EntityFrameworkCore.Core.Infrastructure;
 using Webrox.EntityFrameworkCore.MySql.Query;
 using MySqlLib = MySql.EntityFrameworkCore.Infrastructure;
 

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
-using Webrox.EntityFrameworkCore.Sqlite.Query;
+using Webrox.EntityFrameworkCore.Core.Infrastructure;
 
 namespace Webrox.EntityFrameworkCore.SqlServer.Query
 {

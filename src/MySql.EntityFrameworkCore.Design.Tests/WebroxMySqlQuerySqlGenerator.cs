@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
-using Webrox.EntityFrameworkCore.Core;
+using Webrox.EntityFrameworkCore.Core.Infrastructure;
 using Webrox.EntityFrameworkCore.Core.SqlExpressions;
 
 namespace MySql.EntityFrameworkCore.Design.Tests

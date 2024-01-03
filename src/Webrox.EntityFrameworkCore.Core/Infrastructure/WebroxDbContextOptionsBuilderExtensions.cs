@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Query;
 
-namespace Webrox.EntityFrameworkCore.Core
+namespace Webrox.EntityFrameworkCore.Core.Infrastructure
 {
     /// <summary>
     /// Webrox DbContextOptionsBuilderExtensions
@@ -22,7 +22,7 @@ namespace Webrox.EntityFrameworkCore.Core
             var extension = infrastructure.OptionsBuilder.Options
                                           .FindExtension<WebroxDbContextOptionsExtension>()
                                           ?? new WebroxDbContextOptionsExtension();
-            
+
             extension.AddRowNumberSupport = true;
 
             optionsBuilder.AddOrUpdateExtension(extension);

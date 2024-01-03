@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using MySql.EntityFrameworkCore.Design.Tests;
 using MySql.EntityFrameworkCore.Infrastructure.Internal;
 using System.Diagnostics.CodeAnalysis;
-using Webrox.EntityFrameworkCore.Core;
+using Webrox.EntityFrameworkCore.Core.Infrastructure;
 
 namespace Webrox.EntityFrameworkCore.MySql.Query
 {

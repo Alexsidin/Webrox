@@ -24,16 +24,16 @@ namespace Webrox.EntityFrameworkCore.Postgres.Tests
             });
 
             modelBuilder.Entity<User>().HasData(
-                new User { Id = 1, RoleId = 1, Email = "sample1@gm.com" },
-                new User { Id = 2, RoleId = 3, Email = "sample2@gm.com" },
-                new User { Id = 3, RoleId = 2, Email = "sample3@gm.com" },
-                new User { Id = 5, RoleId = 2, Email = "sample5@gm.com" },
-                new User { Id = 6, RoleId = 1, Email = "sample6@gm.com" },
-                new User { Id = 7, RoleId = 2, Email = "sample7@gm.com" },
-                new User { Id = 8, RoleId = 3, Email = "sample8@gm.com" },
-                new User { Id = 20, RoleId = 1, Email = "sample20@gm.com" },
-                new User { Id = 21, RoleId = 3, Email = "sample21@gm.com" },
-                new User { Id = 30, RoleId = 1, Email = "sample30@gm.com" }
+                new User { Id = 1, RoleId = 1, SubRoleId = 3, Email = "sample1@gm.com" },
+                new User { Id = 2, RoleId = 3, SubRoleId = 3, Email = "sample2@gm.com" },
+                new User { Id = 3, RoleId = 2, SubRoleId = 2,  Email = "sample3@gm.com" },
+                new User { Id = 5, RoleId = 2, SubRoleId = 2,  Email = "sample5@gm.com" },
+                new User { Id = 6, RoleId = 1, SubRoleId = 1,  Email = "sample6@gm.com" },
+                new User { Id = 7, RoleId = 2, SubRoleId = 2,  Email = "sample7@gm.com" },
+                new User { Id = 8, RoleId = 3, SubRoleId = 3,  Email = "sample8@gm.com" },
+                new User { Id = 20, RoleId = 1, SubRoleId = 1, Email = "sample20@gm.com" },
+                new User { Id = 21, RoleId = 3, SubRoleId = 3, Email = "sample21@gm.com" },
+                new User { Id = 30, RoleId = 1, SubRoleId = 1, Email = "sample30@gm.com" }
 
                 );
         }
@@ -43,7 +43,7 @@ namespace Webrox.EntityFrameworkCore.Postgres.Tests
     {
         public int Id { get; set; }
         public int RoleId { get; set; }
-
+        public byte SubRoleId { get; set; }
         public string Email { get; set; }
     }
 }
