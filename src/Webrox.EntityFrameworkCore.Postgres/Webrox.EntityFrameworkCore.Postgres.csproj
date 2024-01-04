@@ -1,9 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>net7.0;net8.0</TargetFrameworks>
+		<TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="$(TargetFramework.Equals('net6.0'))">
+		<EFVersionPackage>6.0</EFVersionPackage>
+		<EFVersionPackagePostgres>6.0</EFVersionPackagePostgres>
+	</PropertyGroup>
+	
 	<PropertyGroup Condition="$(TargetFramework.Equals('net7.0'))">
 		<EFVersionPackage>7.0</EFVersionPackage>
 		<EFVersionPackagePostgres>7.0</EFVersionPackagePostgres>

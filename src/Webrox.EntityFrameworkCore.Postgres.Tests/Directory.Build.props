@@ -1,13 +1,14 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<PropertyGroup>
-		<EFVersionPackage>7.0</EFVersionPackage>
-		<TargetFramework>net7.0</TargetFramework>
+		<EFVersionPackage>6.0</EFVersionPackage>
+		<TargetFramework>net6.0</TargetFramework>
 	</PropertyGroup>
 
+	<Import Project="..\Webrox.EntityFrameworkCore.Tests.Shared\Webrox.EntityFrameworkCore.Tests.Shared.projitems" Label="Shared" />
+
 	<ItemGroup>
+
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="$(EFVersionPackage)" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="$(EFVersionPackage)" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="$(EFVersionPackage)" />
 		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="$(EFVersionPackage)" />
 		<ProjectReference Include="..\Webrox.EntityFrameworkCore.Postgres\Webrox.EntityFrameworkCore.Postgres.csproj" />
 

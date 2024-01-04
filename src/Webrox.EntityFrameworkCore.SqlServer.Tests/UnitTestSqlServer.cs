@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Webrox.EntityFrameworkCore.SqlServer;
 using Xunit;
+using Webrox.EntityFrameworkCore.Tests.Shared;
 
 namespace Webrox.EntityFrameworkCore.SqlServer.Tests
 {

@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using Webrox.EntityFrameworkCore.Core.SqlExpressions;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure.Internal;
 using Webrox.EntityFrameworkCore.Core.Infrastructure;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Internal;
 
 namespace Webrox.EntityFrameworkCore.Postgres.Query
 {
@@ -19,7 +20,11 @@ namespace Webrox.EntityFrameworkCore.Postgres.Query
         public WebroxPostgreSqlQuerySqlGenerator(
            QuerySqlGeneratorDependencies dependencies,
            IRelationalTypeMappingSource typeMappingSource,
+#if NET7_0_OR_GREATER
            INpgsqlSingletonOptions npgsqlSingletonOptions,
+#else
+           Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure.Internal.INpgsqlOptions npgsqlSingletonOptions,
+#endif
            WebroxQuerySqlGenerator webroxQuerySqlGenerator
             //ITenantDatabaseProvider databaseProvider
             )

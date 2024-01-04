@@ -25,15 +25,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{812F1A1F
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MySQL", "MySQL", "{E63EC087-6584-45B3-82E6-4740957F9C92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySql.EntityFrameworkCore.Design.Tests", "MySql.EntityFrameworkCore.Design.Tests\MySql.EntityFrameworkCore.Design.Tests.csproj", "{63669828-A1E4-4AE5-9FEE-43887A5B75BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MySql.EntityFrameworkCore.Design.Tests", "MySql.EntityFrameworkCore.Design.Tests\MySql.EntityFrameworkCore.Design.Tests.csproj", "{63669828-A1E4-4AE5-9FEE-43887A5B75BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webrox.EntityFrameworkCore.Sqlite.Tests", "Webrox.EntityFrameworkCore.Sqlite.Tests\Webrox.EntityFrameworkCore.Sqlite.Tests.csproj", "{260F7C3E-DFA0-41F1-91BB-AF0477704E3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Webrox.EntityFrameworkCore.Sqlite.Tests", "Webrox.EntityFrameworkCore.Sqlite.Tests\Webrox.EntityFrameworkCore.Sqlite.Tests.csproj", "{260F7C3E-DFA0-41F1-91BB-AF0477704E3D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Webrox.EntityFrameworkCore.MySql.Tests", "Webrox.EntityFrameworkCore.MySql.Tests\Webrox.EntityFrameworkCore.MySql.Tests.csproj", "{24DEEBBF-8126-44DA-9496-B53A96A99A0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webrox.EntityFrameworkCore.Postgres.Tests", "Webrox.EntityFrameworkCore.Postgres.Tests\Webrox.EntityFrameworkCore.Postgres.Tests.csproj", "{234F91F9-23AA-4046-B378-E8FFE0734282}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Webrox.EntityFrameworkCore.Postgres.Tests", "Webrox.EntityFrameworkCore.Postgres.Tests\Webrox.EntityFrameworkCore.Postgres.Tests.csproj", "{234F91F9-23AA-4046-B378-E8FFE0734282}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webrox.EntityFrameworkCore.SqlServer.Tests", "Webrox.EntityFrameworkCore.SqlServer.Tests\Webrox.EntityFrameworkCore.SqlServer.Tests.csproj", "{AA6EC1D1-655A-4FAD-A2B2-A21E24B420F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Webrox.EntityFrameworkCore.SqlServer.Tests", "Webrox.EntityFrameworkCore.SqlServer.Tests\Webrox.EntityFrameworkCore.SqlServer.Tests.csproj", "{AA6EC1D1-655A-4FAD-A2B2-A21E24B420F5}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Webrox.EntityFrameworkCore.Tests.Shared", "Webrox.EntityFrameworkCore.Tests.Shared\Webrox.EntityFrameworkCore.Tests.Shared.shproj", "{4192CFCB-D1F6-4E1A-A29C-DA15D944C0BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -91,8 +93,16 @@ Global
 		{24DEEBBF-8126-44DA-9496-B53A96A99A0A} = {812F1A1F-5BB2-491A-AC6A-E61A19C009AF}
 		{234F91F9-23AA-4046-B378-E8FFE0734282} = {812F1A1F-5BB2-491A-AC6A-E61A19C009AF}
 		{AA6EC1D1-655A-4FAD-A2B2-A21E24B420F5} = {812F1A1F-5BB2-491A-AC6A-E61A19C009AF}
+		{4192CFCB-D1F6-4E1A-A29C-DA15D944C0BD} = {812F1A1F-5BB2-491A-AC6A-E61A19C009AF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5D55A635-96F9-432B-B78E-7D853B2BB3DC}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Webrox.EntityFrameworkCore.Tests.Shared\Webrox.EntityFrameworkCore.Tests.Shared.projitems*{234f91f9-23aa-4046-b378-e8ffe0734282}*SharedItemsImports = 5
+		Webrox.EntityFrameworkCore.Tests.Shared\Webrox.EntityFrameworkCore.Tests.Shared.projitems*{24deebbf-8126-44da-9496-b53a96a99a0a}*SharedItemsImports = 5
+		Webrox.EntityFrameworkCore.Tests.Shared\Webrox.EntityFrameworkCore.Tests.Shared.projitems*{260f7c3e-dfa0-41f1-91bb-af0477704e3d}*SharedItemsImports = 5
+		Webrox.EntityFrameworkCore.Tests.Shared\Webrox.EntityFrameworkCore.Tests.Shared.projitems*{4192cfcb-d1f6-4e1a-a29c-da15d944c0bd}*SharedItemsImports = 13
+		Webrox.EntityFrameworkCore.Tests.Shared\Webrox.EntityFrameworkCore.Tests.Shared.projitems*{aa6ec1d1-655a-4fad-a2b2-a21e24b420f5}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

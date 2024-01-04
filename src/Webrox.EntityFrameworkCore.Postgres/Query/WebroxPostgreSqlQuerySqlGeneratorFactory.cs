@@ -12,7 +12,11 @@ namespace Webrox.EntityFrameworkCore.Postgres.Query
     {
         private readonly QuerySqlGeneratorDependencies _dependencies;
         private readonly IRelationalTypeMappingSource _typeMappingSource;
-        private readonly INpgsqlSingletonOptions _npgsqlSingletonOptions;
+#if NET7_0_OR_GREATER
+           INpgsqlSingletonOptions _npgsqlSingletonOptions;
+#else
+        Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure.Internal.INpgsqlOptions _npgsqlSingletonOptions;
+#endif
         // private readonly ITenantDatabaseProviderFactory _databaseProviderFactory;
         private readonly WebroxQuerySqlGenerator _webroxQuerySqlGenerator;
 
@@ -27,7 +31,11 @@ namespace Webrox.EntityFrameworkCore.Postgres.Query
            QuerySqlGeneratorDependencies dependencies,
            IRelationalTypeMappingSource typeMappingSource,
             WebroxQuerySqlGenerator webroxQuerySqlGenerator,
-            INpgsqlSingletonOptions npgsqlSingletonOptions
+#if NET7_0_OR_GREATER
+           INpgsqlSingletonOptions npgsqlSingletonOptions
+#else
+           Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure.Internal.INpgsqlOptions npgsqlSingletonOptions
+#endif
            //ITenantDatabaseProviderFactory databaseProviderFactory
            )
         {

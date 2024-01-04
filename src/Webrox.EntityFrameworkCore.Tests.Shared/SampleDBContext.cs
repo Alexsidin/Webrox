@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Reflection.Emit;
 
-namespace Webrox.EntityFrameworkCore.SqlServer.Tests
+namespace Webrox.EntityFrameworkCore.Tests.Shared
 {
     internal class SampleDbContext : DbContext
     {
@@ -46,6 +44,16 @@ namespace Webrox.EntityFrameworkCore.SqlServer.Tests
         public int Id { get; set; }
         public int RoleId { get; set; }
         public byte SubRoleId { get; set; }
+
+        public sbyte SubRoleId8 { get; set; }
+        public byte SubRoleIdu8 { get; set; }
+        public short SubRoleId16 { get; set; }
+        public ushort SubRoleIdu16 { get; set; }
+        public int SubRoleId32 { get; set; }
+        public uint SubRoleIdu32 { get; set; }
+        public long SubRoleId64 { get; set; }
+        public ulong SubRoleIdu64 { get; set; }
+
         public string Email { get; set; }
     }
 }

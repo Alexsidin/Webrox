@@ -26,7 +26,11 @@ namespace Webrox.EntityFrameworkCore.Postgres.Query
             QueryTranslationPreprocessorDependencies dependencies,
             QueryCompilationContext queryCompilationContext,
             RelationalQueryTranslationPreprocessorDependencies relationalDependencies,
-            INpgsqlSingletonOptions npgsqlSingletonOptions,
+#if NET7_0_OR_GREATER
+           INpgsqlSingletonOptions npgsqlSingletonOptions,
+#else
+           Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure.Internal.INpgsqlOptions npgsqlSingletonOptions,
+#endif            
             ISqlExpressionFactory sqlExpressionFactory
             )
 #if NET8_0_OR_GREATER

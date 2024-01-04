@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Webrox.EntityFrameworkCore.Core;
 using Webrox.EntityFrameworkCore.Postgres;
 using Xunit;
+using Webrox.EntityFrameworkCore.Tests.Shared;
 
 namespace Webrox.EntityFrameworkCore.Postgres.Tests
 {

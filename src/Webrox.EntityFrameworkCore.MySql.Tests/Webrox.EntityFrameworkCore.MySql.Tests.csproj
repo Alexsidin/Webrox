@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net7.0</TargetFramework>
 		<IsPackable>false</IsPackable>
 		<GenerateDocumentationFile>false</GenerateDocumentationFile>
 	</PropertyGroup>
@@ -16,5 +15,7 @@
 		</PackageReference>
 	</ItemGroup>
 
+	
+	
 
 </Project>

@@ -27,7 +27,12 @@ namespace MySql.EntityFrameworkCore.Design.Tests
     /// Extends <see cref="RelationalParameterBasedSqlProcessor"/>.
     /// </summary>
     [SuppressMessage("Usage", "EF1001:Internal EF Core API usage.")]
-    internal class WebroxMySqlParameterBasedSqlProcessor : MySql.EntityFrameworkCore.Query.Internal.MySQLParameterBasedSqlProcessor
+    internal class WebroxMySqlParameterBasedSqlProcessor
+#if NET7_0_OR_GREATER
+        : MySql.EntityFrameworkCore.Query.Internal.MySQLParameterBasedSqlProcessor
+#else
+        : RelationalParameterBasedSqlProcessor
+#endif
     {
         private readonly IMySQLOptions _mySQLOptions;
 
@@ -38,13 +43,29 @@ namespace MySql.EntityFrameworkCore.Design.Tests
             bool useRelationalNulls,
             IMySQLOptions mySQLOptions
             )
-           : base(dependencies, useRelationalNulls, mySQLOptions)
+           : base(dependencies, useRelationalNulls
+#if NET7_0_OR_GREATER
+                 , mySQLOptions
+#endif
+                 )
         {
             _mySQLOptions = mySQLOptions;
         }
 
         /// <inheritdoc />
-        protected override Expression ProcessSqlNullability(Expression expression, IReadOnlyDictionary<string, object?> parametersValues, out bool canCache)
+        protected override
+#if NET7_0_OR_GREATER
+            Expression
+#else
+            SelectExpression
+#endif
+            ProcessSqlNullability(
+#if NET7_0_OR_GREATER
+            Expression
+#else
+            SelectExpression
+#endif
+            expression, IReadOnlyDictionary<string, object?> parametersValues, out bool canCache)
         {
             if (expression == null)
             {
@@ -63,8 +84,9 @@ namespace MySql.EntityFrameworkCore.Design.Tests
     class WebroxMySqlNullabilityProcessor : WebroxSqlNullabilityProcessor
     {
         private readonly ISqlExpressionFactory _sqlExpressionFactory;
-        
-        private object _MySQLSqlNullabilityProcessor; //reflection
+#if NET7_0_OR_GREATER
+        private MySql.EntityFrameworkCore.Query.Internal.MySQLSqlNullabilityProcessor _MySQLSqlNullabilityProcessor; //reflection
+#endif
         private MethodInfo _VisitCustomSqlExpression;
 
         /// <inheritdoc />
@@ -74,12 +96,10 @@ namespace MySql.EntityFrameworkCore.Design.Tests
            : base(dependencies, useRelationalNulls)
         {
             this._sqlExpressionFactory = dependencies.SqlExpressionFactory;
-
-            var assembly = typeof(MySqlLib.Query.Internal.MySQLCommandParser).Assembly;
-            var type = assembly.GetType("MySql.EntityFrameworkCore.Query.Internal.MySQLSqlNullabilityProcessor");
-
-            _MySQLSqlNullabilityProcessor = Activator.CreateInstance(type, new object[] { dependencies, useRelationalNulls });
-            _VisitCustomSqlExpression = type.GetMethod(nameof(VisitCustomSqlExpression), BindingFlags.Instance | BindingFlags.NonPublic);
+#if NET7_0_OR_GREATER
+            _MySQLSqlNullabilityProcessor = new Query.Internal.MySQLSqlNullabilityProcessor(dependencies, useRelationalNulls);
+            _VisitCustomSqlExpression = _MySQLSqlNullabilityProcessor.GetType().GetMethod(nameof(VisitCustomSqlExpression), BindingFlags.Instance | BindingFlags.NonPublic);
+#endif
         }
 
         /// <inheritdoc />
@@ -90,7 +110,7 @@ namespace MySql.EntityFrameworkCore.Design.Tests
                 nullable = false;
                 return sqlExpression;
             }
-
+#if NET7_0_OR_GREATER
             var parameters = new object[]
             {
                 sqlExpression, allowOptimizedExpansion, null
@@ -99,7 +119,10 @@ namespace MySql.EntityFrameworkCore.Design.Tests
 
             nullable = (bool)parameters[2];
             return ret;
-            //return base.VisitCustomSqlExpression(sqlExpression, allowOptimizedExpansion, out nullable);
+#else
+            return base.VisitCustomSqlExpression(sqlExpression, allowOptimizedExpansion, out nullable);
+#endif
+            
         }
     }
 }

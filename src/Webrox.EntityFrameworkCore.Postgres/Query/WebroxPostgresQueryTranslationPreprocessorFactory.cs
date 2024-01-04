@@ -16,14 +16,22 @@ namespace Webrox.EntityFrameworkCore.Postgres.Query
 #endif
     {
         private readonly ISqlExpressionFactory _sqlExpressionFactory;
-        private readonly INpgsqlSingletonOptions _npgsqlSingletonOptions;
+#if NET7_0_OR_GREATER
+           INpgsqlSingletonOptions _npgsqlSingletonOptions;
+#else
+        Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure.Internal.INpgsqlOptions _npgsqlSingletonOptions;
+#endif
         private readonly RelationalQueryTranslationPreprocessorDependencies _relationalDependencies;
 
         public WebroxPostgresQueryTranslationPreprocessorFactory(
             QueryTranslationPreprocessorDependencies dependencies,
             RelationalQueryTranslationPreprocessorDependencies relationalDependencies,
             ISqlExpressionFactory sqlExpressionFactory,
+#if NET7_0_OR_GREATER
             INpgsqlSingletonOptions npgsqlSingletonOptions
+#else
+            Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure.Internal.INpgsqlOptions npgsqlSingletonOptions
+#endif
             )
             : base(dependencies
 #if NET8_0_OR_GREATER
