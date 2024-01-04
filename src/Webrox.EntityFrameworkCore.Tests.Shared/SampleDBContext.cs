@@ -53,6 +53,7 @@ namespace Webrox.EntityFrameworkCore.Tests.Shared
         public uint SubRoleIdu32 { get; set; }
         public long SubRoleId64 { get; set; }
         public ulong SubRoleIdu64 { get; set; }
+        public decimal SubRoleIdDecimal { get; set; }
 
         public string Email { get; set; }
     }

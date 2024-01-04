@@ -111,10 +111,10 @@ namespace Webrox.EntityFrameworkCore.Core.Translators
             var orderings = ordering?.Expressions;
 
             SqlExpression retExpression = new WindowExpression(aggregateFunction, expression, partitions, orderings!, RelationalTypeMapping.NullMapping);
-            if (convertToType != null)
-            {
-                retExpression = _sqlExpressionFactory.Convert(retExpression, convertToType);
-            }
+            //if (convertToType != null)
+            //{
+            //    retExpression = _sqlExpressionFactory.Convert(retExpression, convertToType);
+            //}
             return retExpression;
         }
     }
