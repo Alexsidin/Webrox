@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Webrox.EntityFrameworkCore.Core.Models;
 
 namespace Webrox.EntityFrameworkCore.SqlServer
