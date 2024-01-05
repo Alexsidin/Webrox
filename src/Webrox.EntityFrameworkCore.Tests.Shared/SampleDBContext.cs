@@ -24,10 +24,10 @@ namespace Webrox.EntityFrameworkCore.Tests.Shared
             });
 
             modelBuilder.Entity<User>().HasData(
-                new User { Id = 1, RoleId = 1, SubRoleId = 3, Email = "sample1@gm.com" },
-                new User { Id = 2, RoleId = 3, SubRoleId = 3, Email = "sample2@gm.com" },
-                new User { Id = 3, RoleId = 2, SubRoleId = 2, Email = "sample3@gm.com" },
-                new User { Id = 5, RoleId = 2, SubRoleId = 2, Email = "sample5@gm.com" },
+                new User { Id = 1, RoleId = 1, SubRoleId = 3, SubRoleId8 = 127, Email = "sample1@gm.com" },
+                new User { Id = 2, RoleId = 3, SubRoleId = 3, SubRoleId8 = 127, Email = "sample2@gm.com" },
+                new User { Id = 3, RoleId = 2, SubRoleId = 2, SubRoleId8 = 127, Email = "sample3@gm.com" },
+                new User { Id = 5, RoleId = 2, SubRoleId = 2, SubRoleId8 = 127, Email = "sample5@gm.com" },
                 new User { Id = 6, RoleId = 1, SubRoleId = 1, Email = "sample6@gm.com" },
                 new User { Id = 7, RoleId = 2, SubRoleId = 2, Email = "sample7@gm.com" },
                 new User { Id = 8, RoleId = 3, SubRoleId = 3, Email = "sample8@gm.com" },
@@ -54,6 +54,8 @@ namespace Webrox.EntityFrameworkCore.Tests.Shared
         public long SubRoleId64 { get; set; }
         public ulong SubRoleIdu64 { get; set; }
         public decimal SubRoleIdDecimal { get; set; }
+        public float SubRoleIdFloat{ get; set; }
+        public double SubRoleIdDouble{ get; set; }
 
         public string Email { get; set; }
     }

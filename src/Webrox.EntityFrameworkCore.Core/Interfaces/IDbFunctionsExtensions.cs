@@ -17,7 +17,6 @@ namespace Webrox.EntityFrameworkCore.Core.Interfaces
         decimal Average<T>();
         long Min<T>();
         long Max<T>();
-        ulong NTile<T>();
         public PartitionByClause PartitionBy<T>();
         public PartitionByClause ThenPartitionBy<T>();
         public OrderByClause OrderBy<T>();

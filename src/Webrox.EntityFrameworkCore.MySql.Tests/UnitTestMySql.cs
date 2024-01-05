@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Webrox.EntityFrameworkCore.Tests.Shared;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Webrox.EntityFrameworkCore.MySql.Tests
 {
@@ -28,9 +29,9 @@ namespace Webrox.EntityFrameworkCore.MySql.Tests
                 context.Database.ExecuteSqlRaw("DROP TABLE IF EXISTS  `users`");//.EnsureDeleted();
             }
         }
-
-        public UnitTestMySql()
+        public UnitTestMySql(ITestOutputHelper output)
         {
+            _output = output;
             DeleteDatabase();
 
             _connection = new MySqlConnection("server=localhost;user id=root;password=Clef2Cqrit100%;persistsecurityinfo=True;database=efcore;port=3306;");

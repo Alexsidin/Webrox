@@ -8,15 +8,16 @@ using System.Threading.Tasks;
 using Webrox.EntityFrameworkCore.Sqlite;
 using Xunit;
 using Webrox.EntityFrameworkCore.Tests.Shared;
+using Xunit.Abstractions;
 
 namespace Webrox.EntityFrameworkCore.Sqlite.Tests
 {
     public class UnitTestSqlite : UnitTest, IDisposable
     {
         private readonly SqliteConnection _connection;
-
-        public UnitTestSqlite()
+        public UnitTestSqlite(ITestOutputHelper output)
         {
+            _output = output;
             _connection = new SqliteConnection("datasource=:memory:");
             _connection.Open();
 

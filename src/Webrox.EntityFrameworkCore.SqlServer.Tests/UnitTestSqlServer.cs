@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Webrox.EntityFrameworkCore.SqlServer;
 using Xunit;
 using Webrox.EntityFrameworkCore.Tests.Shared;
+using Xunit.Abstractions;
 
 namespace Webrox.EntityFrameworkCore.SqlServer.Tests
 {
@@ -26,12 +27,13 @@ namespace Webrox.EntityFrameworkCore.SqlServer.Tests
 
             using (var context = new SampleDbContext(options))
             {
-                context.Database.ExecuteSqlRaw("DROP TABLE IF EXISTS  users");//.EnsureDeleted();
+                context.Database.ExecuteSqlRaw("IF OBJECT_ID('dbo.users', 'U') IS NOT NULL \r\n  DROP TABLE dbo.users");
             }
         }
 
-        public UnitTestSqlServer()
+        public UnitTestSqlServer(ITestOutputHelper output)
         {
+            _output = output;
             DeleteDatabase();
 
             _connection = new SqlConnection("Server=poppyto6;Integrated Security=true;Initial Catalog=efcore;TrustServerCertificate=true;");

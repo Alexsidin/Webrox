@@ -90,8 +90,6 @@ namespace Webrox.EntityFrameworkCore.Core.Translators
                     return CreateWindowExpression("MIN", arguments, convertToType: typeof(long));
                 case nameof(IDbFunctionsExtensions.Max):
                     return CreateWindowExpression("MAX", arguments, convertToType: typeof(long));
-                case nameof(IDbFunctionsExtensions.NTile):
-                    return CreateWindowExpression("NTILE", arguments);
                 default:
                     return null;
             }
@@ -113,7 +111,7 @@ namespace Webrox.EntityFrameworkCore.Core.Translators
 
             SqlExpression retExpression = new WindowExpression(aggregateFunction, expression, partitions, orderings!, RelationalTypeMapping.NullMapping);
 
-            new SubqueryMemberPushdownExpressionVisitor()
+            //new SubqueryMemberPushdownExpressionVisitor()
 
             //if (convertToType != null)
             //{

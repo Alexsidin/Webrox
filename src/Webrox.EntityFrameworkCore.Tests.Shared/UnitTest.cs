@@ -3,6 +3,9 @@ using Webrox.EntityFrameworkCore.Core;
 using System.Threading.Tasks;
 using System.Linq;
 using Xunit;
+using Xunit.Abstractions;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Webrox.EntityFrameworkCore.Tests.Shared
 {
@@ -10,53 +13,63 @@ namespace Webrox.EntityFrameworkCore.Tests.Shared
     {
         internal DbContextOptions<SampleDbContext> _options;
 
+        protected ITestOutputHelper _output;
+        static JsonSerializerOptions _jsonOptions;
+        static UnitTest()
+        {
+            _jsonOptions = new JsonSerializerOptions
+            {
+                WriteIndented = true
+            };
+        }
+
         [Fact]
         public async Task TestRowNumber()
         {
             using var context = new SampleDbContext(_options);
 
-            //var count = await context.Users.CountAsync();
-            //Assert.Equal(10, count);
+            var count = await context.Users.CountAsync();
+            Assert.Equal(10, count);
 
-            //var windowFunctions = await context.Users
-            //    .Select(a => new
-            //    {
-            //        Id = a.Id,
-            //        RowNumber = EF.Functions.RowNumber(EF.Functions.OrderBy(a.Id)),
-            //        RowNumberPartition = EF.Functions.RowNumber(
-            //                                EF.Functions.PartitionBy(a.RoleId),
-            //                                EF.Functions.OrderBy(a.Id)),
-            //        Rank = EF.Functions.Rank(EF.Functions.OrderBy(a.Id)),
-            //        RankPartition = EF.Functions.Rank(
-            //                                EF.Functions.PartitionBy(a.RoleId),
-            //                                EF.Functions.OrderBy(a.Id)),
-            //        DenseRank = EF.Functions.DenseRank(EF.Functions.OrderBy(a.Id)),
-            //        DenseRankPartition = EF.Functions.DenseRank(
-            //                                EF.Functions.PartitionBy(a.RoleId),
-            //                                EF.Functions.OrderBy(a.Id)),
-            //        Average = EF.Functions.Average(a.Id, EF.Functions.OrderBy(a.Id)),
-            //        AveragePartition = EF.Functions.Average(a.Id,
-            //                                EF.Functions.PartitionBy(a.RoleId),
-            //                                EF.Functions.OrderBy(a.Id)),
-            //        Sum = EF.Functions.Sum(a.Id, EF.Functions.OrderBy(a.Id)),
-            //        SumPartition = EF.Functions.Sum(a.Id,
-            //                                EF.Functions.PartitionBy(a.RoleId),
-            //                                EF.Functions.OrderBy(a.Id)),
-            //        Min = EF.Functions.Min(a.Id, EF.Functions.OrderBy(a.Id)),
-            //        MinPartition = EF.Functions.Min(a.Id,
-            //                                EF.Functions.PartitionBy(a.RoleId),
-            //                                EF.Functions.OrderBy(a.Id)),
+            var windowFunctions = await context.Users
+                .Select(a => new
+                {
+                    Id = a.Id,
+                    RowNumber = EF.Functions.RowNumber(EF.Functions.OrderBy(a.Id)),
+                    RowNumberPartition = EF.Functions.RowNumber(
+                                            EF.Functions.PartitionBy(a.RoleId),
+                                            EF.Functions.OrderBy(a.Id)),
+                    Rank = EF.Functions.Rank(EF.Functions.OrderBy(a.Id)),
+                    RankPartition = EF.Functions.Rank(
+                                            EF.Functions.PartitionBy(a.RoleId),
+                                            EF.Functions.OrderBy(a.Id)),
+                    DenseRank = EF.Functions.DenseRank(EF.Functions.OrderBy(a.Id)),
+                    DenseRankPartition = EF.Functions.DenseRank(
+                                            EF.Functions.PartitionBy(a.RoleId),
+                                            EF.Functions.OrderBy(a.Id)),
+                    Average = EF.Functions.Average(a.Id, EF.Functions.OrderBy(a.Id)),
+                    AveragePartition = EF.Functions.Average(a.Id,
+                                            EF.Functions.PartitionBy(a.RoleId),
+                                            EF.Functions.OrderBy(a.Id)),
+                    Sum = EF.Functions.Sum(a.Id, EF.Functions.OrderBy(a.Id)),
+                    SumPartition = EF.Functions.Sum(a.Id,
+                                            EF.Functions.PartitionBy(a.RoleId),
+                                            EF.Functions.OrderBy(a.Id)),
+                    Min = EF.Functions.Min(a.Id, EF.Functions.OrderBy(a.Id)),
+                    MinPartition = EF.Functions.Min(a.Id,
+                                            EF.Functions.PartitionBy(a.RoleId),
+                                            EF.Functions.OrderBy(a.Id)),
 
-            //        Max = EF.Functions.Max(a.Id, EF.Functions.OrderBy(a.Id)),
-            //        MaxPartition = EF.Functions.Max(a.Id,
-            //                                EF.Functions.PartitionBy(a.RoleId),
-            //                                EF.Functions.OrderBy(a.Id)),
+                    Max = EF.Functions.Max(a.Id, EF.Functions.OrderBy(a.Id)),
+                    MaxPartition = EF.Functions.Max(a.Id,
+                                            EF.Functions.PartitionBy(a.RoleId),
+                                            EF.Functions.OrderBy(a.Id)),
 
 
-            //    }).ToListAsync();
+                }).ToListAsync();
 
-            //Assert.NotNull(windowFunctions);
-            //Assert.Equal(10, windowFunctions.Count);
+            Assert.NotNull(windowFunctions);
+            Assert.Equal(10, windowFunctions.Count);
 
         }
 
@@ -93,16 +106,6 @@ namespace Webrox.EntityFrameworkCore.Tests.Shared
                 .Select(a => new
                 {
                     Id = a.Id,
-                    
-                    Average_8 = EF.Functions.Average(a.SubRoleId8, EF.Functions.OrderBy(a.Id)),
-                    Average_u8 = EF.Functions.Average(a.SubRoleIdu8, EF.Functions.OrderBy(a.Id)),
-                    Average_16 = EF.Functions.Average(a.SubRoleId16, EF.Functions.OrderBy(a.Id)),
-                    Average_u16 = EF.Functions.Average(a.SubRoleIdu16, EF.Functions.OrderBy(a.Id)),
-                    Average_32 = EF.Functions.Average(a.SubRoleId32, EF.Functions.OrderBy(a.Id)),
-                    Average_u32 = EF.Functions.Average(a.SubRoleIdu32, EF.Functions.OrderBy(a.Id)),
-                    Average_64 = EF.Functions.Average(a.SubRoleId64, EF.Functions.OrderBy(a.Id)),
-                    Average_u64 = EF.Functions.Average(a.SubRoleIdu64, EF.Functions.OrderBy(a.Id)),
-                    Average_dec = EF.Functions.Average(a.SubRoleIdDecimal, EF.Functions.OrderBy(a.Id)),
 
                     Sum_8 = EF.Functions.Sum(a.SubRoleId8, EF.Functions.OrderBy(a.Id)),
                     Sum_u8 = EF.Functions.Sum(a.SubRoleIdu8, EF.Functions.OrderBy(a.Id)),
@@ -113,6 +116,20 @@ namespace Webrox.EntityFrameworkCore.Tests.Shared
                     Sum_64 = EF.Functions.Sum(a.SubRoleId64, EF.Functions.OrderBy(a.Id)),
                     Sum_u64 = EF.Functions.Sum(a.SubRoleIdu64, EF.Functions.OrderBy(a.Id)),
                     Sum_dec = EF.Functions.Sum(a.SubRoleIdDecimal, EF.Functions.OrderBy(a.Id)),
+                    Sum_float = EF.Functions.Sum(a.SubRoleIdFloat, EF.Functions.OrderBy(a.Id)),
+                    Sum_double = EF.Functions.Sum(a.SubRoleIdDouble, EF.Functions.OrderBy(a.Id)),
+
+                    Average_8 = EF.Functions.Average(a.SubRoleId8, EF.Functions.OrderBy(a.Id)),
+                    Average_u8 = EF.Functions.Average(a.SubRoleIdu8, EF.Functions.OrderBy(a.Id)),
+                    Average_16 = EF.Functions.Average(a.SubRoleId16, EF.Functions.OrderBy(a.Id)),
+                    Average_u16 = EF.Functions.Average(a.SubRoleIdu16, EF.Functions.OrderBy(a.Id)),
+                    Average_32 = EF.Functions.Average(a.SubRoleId32, EF.Functions.OrderBy(a.Id)),
+                    Average_u32 = EF.Functions.Average(a.SubRoleIdu32, EF.Functions.OrderBy(a.Id)),
+                    Average_64 = EF.Functions.Average(a.SubRoleId64, EF.Functions.OrderBy(a.Id)),
+                    Average_u64 = EF.Functions.Average(a.SubRoleIdu64, EF.Functions.OrderBy(a.Id)),
+                    Average_dec = EF.Functions.Average(a.SubRoleIdDecimal, EF.Functions.OrderBy(a.Id)),
+                    Average_float = EF.Functions.Average(a.SubRoleIdFloat, EF.Functions.OrderBy(a.Id)),
+                    Average_double = EF.Functions.Average(a.SubRoleIdDouble, EF.Functions.OrderBy(a.Id)),
 
                     Min_8 = EF.Functions.Min(a.SubRoleId8, EF.Functions.OrderBy(a.Id)),
                     Min_u8 = EF.Functions.Min(a.SubRoleIdu8, EF.Functions.OrderBy(a.Id)),
@@ -123,6 +140,8 @@ namespace Webrox.EntityFrameworkCore.Tests.Shared
                     Min_64 = EF.Functions.Min(a.SubRoleId64, EF.Functions.OrderBy(a.Id)),
                     Min_u64 = EF.Functions.Min(a.SubRoleIdu64, EF.Functions.OrderBy(a.Id)),
                     Min_dec = EF.Functions.Min(a.SubRoleIdDecimal, EF.Functions.OrderBy(a.Id)),
+                    Min_float = EF.Functions.Min(a.SubRoleIdFloat, EF.Functions.OrderBy(a.Id)),
+                    Min_double = EF.Functions.Min(a.SubRoleIdDouble, EF.Functions.OrderBy(a.Id)),
 
                     Max_8 = EF.Functions.Max(a.SubRoleId8, EF.Functions.OrderBy(a.Id)),
                     Max_u8 = EF.Functions.Max(a.SubRoleIdu8, EF.Functions.OrderBy(a.Id)),
@@ -133,10 +152,12 @@ namespace Webrox.EntityFrameworkCore.Tests.Shared
                     Max_64 = EF.Functions.Max(a.SubRoleId64, EF.Functions.OrderBy(a.Id)),
                     Max_u64 = EF.Functions.Max(a.SubRoleIdu64, EF.Functions.OrderBy(a.Id)),
                     Max_dec = EF.Functions.Max(a.SubRoleIdDecimal, EF.Functions.OrderBy(a.Id)),
-
-                    // missing NTile
+                    Max_float = EF.Functions.Min(a.SubRoleIdFloat, EF.Functions.OrderBy(a.Id)),
+                    Max_double = EF.Functions.Min(a.SubRoleIdDouble, EF.Functions.OrderBy(a.Id)),
 
                 }).ToListAsync();
+
+            _output.WriteLine(JsonSerializer.Serialize(windowFunctions, _jsonOptions));
 
             Assert.NotNull(windowFunctions);
             Assert.Equal(10, windowFunctions.Count);

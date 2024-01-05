@@ -122,6 +122,8 @@ namespace Webrox.EntityFrameworkCore.SqlServer
         public static long Sum(this DbFunctions _, long expression, OrderByClause orderBy) { throw new InvalidOperationException(_ErrorLinq); }
         public static decimal Sum(this DbFunctions _, ulong expression, OrderByClause orderBy) { throw new InvalidOperationException(_ErrorLinq); }
         public static decimal Sum(this DbFunctions _, decimal expression, OrderByClause orderBy) { throw new InvalidOperationException(_ErrorLinq); }
+        public static double Sum(this DbFunctions _, float expression, OrderByClause orderBy) { throw new InvalidOperationException(_ErrorLinq); }
+        public static double Sum(this DbFunctions _, double expression, OrderByClause orderBy) { throw new InvalidOperationException(_ErrorLinq); }
 
         /// <summary>
         /// Sum with partitions
@@ -140,6 +142,8 @@ namespace Webrox.EntityFrameworkCore.SqlServer
         public static long Sum(this DbFunctions _, long expression, PartitionByClause partition, OrderByClause orderBy) { throw new InvalidOperationException(_ErrorLinq); }
         public static decimal Sum(this DbFunctions _, ulong expression, PartitionByClause partition, OrderByClause orderBy) { throw new InvalidOperationException(_ErrorLinq); }
         public static decimal Sum(this DbFunctions _, decimal expression, PartitionByClause partition, OrderByClause orderBy) { throw new InvalidOperationException(_ErrorLinq); }
+        public static double Sum(this DbFunctions _, float expression, PartitionByClause partition, OrderByClause orderBy) { throw new InvalidOperationException(_ErrorLinq); }
+        public static double Sum(this DbFunctions _, double expression, PartitionByClause partition, OrderByClause orderBy) { throw new InvalidOperationException(_ErrorLinq); }
 
         #endregion
 
@@ -161,6 +165,8 @@ namespace Webrox.EntityFrameworkCore.SqlServer
         public static long Average(this DbFunctions _, long expression, OrderByClause orderBy) { throw new InvalidOperationException(_ErrorLinq); }
         public static decimal Average(this DbFunctions _, ulong expression, OrderByClause orderBy) { throw new InvalidOperationException(_ErrorLinq); }
         public static decimal Average(this DbFunctions _, decimal expression, OrderByClause orderBy) { throw new InvalidOperationException(_ErrorLinq); }
+        public static double Average(this DbFunctions _, float expression, OrderByClause orderBy) { throw new InvalidOperationException(_ErrorLinq); }
+        public static double Average(this DbFunctions _, double expression, OrderByClause orderBy) { throw new InvalidOperationException(_ErrorLinq); }
 
         /// <summary>
         /// Avg with partitions
@@ -179,6 +185,8 @@ namespace Webrox.EntityFrameworkCore.SqlServer
         public static long Average(this DbFunctions _, long expression, PartitionByClause partition, OrderByClause orderBy) { throw new InvalidOperationException(_ErrorLinq); }
         public static decimal Average(this DbFunctions _, ulong expression, PartitionByClause partition, OrderByClause orderBy) { throw new InvalidOperationException(_ErrorLinq); }
         public static decimal Average(this DbFunctions _, decimal expression, PartitionByClause partition, OrderByClause orderBy) { throw new InvalidOperationException(_ErrorLinq); }
+        public static double Average(this DbFunctions _, float expression, PartitionByClause partition, OrderByClause orderBy) { throw new InvalidOperationException(_ErrorLinq); }
+        public static double Average(this DbFunctions _, double expression, PartitionByClause partition, OrderByClause orderBy) { throw new InvalidOperationException(_ErrorLinq); }
 
         #endregion
 
@@ -200,6 +208,8 @@ namespace Webrox.EntityFrameworkCore.SqlServer
         public static long Min(this DbFunctions _, long expression, OrderByClause orderBy) { throw new InvalidOperationException(_ErrorLinq); }
         public static decimal Min(this DbFunctions _, ulong expression, OrderByClause orderBy) { throw new InvalidOperationException(_ErrorLinq); }
         public static decimal Min(this DbFunctions _, decimal expression, OrderByClause orderBy) { throw new InvalidOperationException(_ErrorLinq); }
+        public static float Min(this DbFunctions _, float expression, OrderByClause orderBy) { throw new InvalidOperationException(_ErrorLinq); }
+        public static double Min(this DbFunctions _, double expression, OrderByClause orderBy) { throw new InvalidOperationException(_ErrorLinq); }
 
         /// <summary>
         /// Min with partitions
@@ -218,6 +228,8 @@ namespace Webrox.EntityFrameworkCore.SqlServer
         public static long Min(this DbFunctions _, long expression, PartitionByClause partition, OrderByClause orderBy) { throw new InvalidOperationException(_ErrorLinq); }
         public static decimal Min(this DbFunctions _, ulong expression, PartitionByClause partition, OrderByClause orderBy) { throw new InvalidOperationException(_ErrorLinq); }
         public static decimal Min(this DbFunctions _, decimal expression, PartitionByClause partition, OrderByClause orderBy) { throw new InvalidOperationException(_ErrorLinq); }
+        public static float Min(this DbFunctions _, float expression, PartitionByClause partition, OrderByClause orderBy) { throw new InvalidOperationException(_ErrorLinq); }
+        public static double Min(this DbFunctions _, double expression, PartitionByClause partition, OrderByClause orderBy) { throw new InvalidOperationException(_ErrorLinq); }
 
         #endregion
 
@@ -239,6 +251,8 @@ namespace Webrox.EntityFrameworkCore.SqlServer
         public static long Max(this DbFunctions _, long expression, OrderByClause orderBy) { throw new InvalidOperationException(_ErrorLinq); }
         public static decimal Max(this DbFunctions _, ulong expression, OrderByClause orderBy) { throw new InvalidOperationException(_ErrorLinq); }
         public static decimal Max(this DbFunctions _, decimal expression, OrderByClause orderBy) { throw new InvalidOperationException(_ErrorLinq); }
+        public static float Max(this DbFunctions _, float expression, OrderByClause orderBy) { throw new InvalidOperationException(_ErrorLinq); }
+        public static double Max(this DbFunctions _, double expression, OrderByClause orderBy) { throw new InvalidOperationException(_ErrorLinq); }
 
 
         /// <summary>
@@ -258,40 +272,8 @@ namespace Webrox.EntityFrameworkCore.SqlServer
         public static long Max(this DbFunctions _, long expression, PartitionByClause partition, OrderByClause orderBy) { throw new InvalidOperationException(_ErrorLinq); }
         public static decimal Max(this DbFunctions _, ulong expression, PartitionByClause partition, OrderByClause orderBy) { throw new InvalidOperationException(_ErrorLinq); }
         public static decimal Max(this DbFunctions _, decimal expression, PartitionByClause partition, OrderByClause orderBy) { throw new InvalidOperationException(_ErrorLinq); }
-
-        #endregion
-
-        #region NTile
-
-        /// <summary>
-        /// NTile without partitions
-        /// </summary>
-        /// <param name="_">DbFunctions</param>
-        /// <param name="expression">an Expression</param>
-        /// <param name="orderBy">order by using EF.Functions.OrderBy(...).ThenBy(...)</param>
-        /// <returns></returns>
-        public static long NTile<T>(this DbFunctions _,
-                                  T expression,
-                                  OrderByClause orderBy)
-        {
-            throw new InvalidOperationException(_ErrorLinq);
-        }
-
-        /// <summary>
-        /// NTile with partitions
-        /// </summary>
-        /// <param name="_">DbFunctions</param>
-        /// <param name="expression">an Expression</param>
-        /// <param name="partition">partition by using EF.Functions.PartitionBy(...).ThenPartitionBy(...)</param>
-        /// <param name="orderBy">order by using EF.Functions.OrderBy(...).ThenBy(...)</param>
-        /// <returns></returns>
-        public static long NTile<T>(this DbFunctions _,
-                                       T expression,
-                                       PartitionByClause partition,
-                                       OrderByClause orderBy)
-        {
-            throw new InvalidOperationException(_ErrorLinq);
-        }
+        public static float Max(this DbFunctions _, float expression, PartitionByClause partition, OrderByClause orderBy) { throw new InvalidOperationException(_ErrorLinq); }
+        public static double Max(this DbFunctions _, double expression, PartitionByClause partition, OrderByClause orderBy) { throw new InvalidOperationException(_ErrorLinq); }
 
         #endregion
 

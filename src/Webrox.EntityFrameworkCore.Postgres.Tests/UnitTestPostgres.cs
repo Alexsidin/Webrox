@@ -9,6 +9,7 @@ using Webrox.EntityFrameworkCore.Core;
 using Webrox.EntityFrameworkCore.Postgres;
 using Xunit;
 using Webrox.EntityFrameworkCore.Tests.Shared;
+using Xunit.Abstractions;
 
 namespace Webrox.EntityFrameworkCore.Postgres.Tests
 {
@@ -29,9 +30,9 @@ namespace Webrox.EntityFrameworkCore.Postgres.Tests
                 context.Database.ExecuteSqlRaw("DROP TABLE IF EXISTS users");//.EnsureDeleted();
             }
         }
-
-        public UnitTestPostgres()
+        public UnitTestPostgres(ITestOutputHelper output)
         {
+            _output = output;
             DeleteDatabase();
 
             _connection = new NpgsqlConnection("Host=localhost;Port=5432;Username=postgres;Password=Popome690$;Database=efcore;");

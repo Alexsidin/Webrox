@@ -236,41 +236,7 @@ namespace Webrox.EntityFrameworkCore.Postgres
         {
             throw new InvalidOperationException(_ErrorLinq);
         }
-
-        #endregion
-
-        #region NTile
-
-        /// <summary>
-        /// NTile without partitions
-        /// </summary>
-        /// <param name="_">DbFunctions</param>
-        /// <param name="expression">an Expression</param>
-        /// <param name="orderBy">order by using EF.Functions.OrderBy(...).ThenBy(...)</param>
-        /// <returns></returns>
-        public static long NTile<T>(this DbFunctions _,
-                                  T expression,
-                                  OrderByClause orderBy)  
-        {
-            throw new InvalidOperationException(_ErrorLinq);
-        }
-
-        /// <summary>
-        /// NTile with partitions
-        /// </summary>
-        /// <param name="_">DbFunctions</param>
-        /// <param name="expression">an Expression</param>
-        /// <param name="partition">partition by using EF.Functions.PartitionBy(...).ThenPartitionBy(...)</param>
-        /// <param name="orderBy">order by using EF.Functions.OrderBy(...).ThenBy(...)</param>
-        /// <returns></returns>
-        public static long NTile<T>(this DbFunctions _,
-                                       T expression,
-                                       PartitionByClause partition,
-                                       OrderByClause orderBy)
-        {
-            throw new InvalidOperationException(_ErrorLinq);
-        }
-
+        
         #endregion
 
         #region PartitionBy
