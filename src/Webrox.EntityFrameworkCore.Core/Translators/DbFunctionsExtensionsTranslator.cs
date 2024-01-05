@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Query;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Microsoft.EntityFrameworkCore.Storage;
 using System.Reflection;
@@ -111,6 +112,9 @@ namespace Webrox.EntityFrameworkCore.Core.Translators
             var orderings = ordering?.Expressions;
 
             SqlExpression retExpression = new WindowExpression(aggregateFunction, expression, partitions, orderings!, RelationalTypeMapping.NullMapping);
+
+            new SubqueryMemberPushdownExpressionVisitor()
+
             //if (convertToType != null)
             //{
             //    retExpression = _sqlExpressionFactory.Convert(retExpression, convertToType);

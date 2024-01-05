@@ -14,7 +14,6 @@ namespace Webrox.EntityFrameworkCore.MySql.Query
         private readonly QuerySqlGeneratorDependencies _dependencies;
         private readonly IRelationalTypeMappingSource _typeMappingSource;
         private readonly IMySQLOptions _mySQLOptions;
-        // private readonly ITenantDatabaseProviderFactory _databaseProviderFactory;
         private readonly WebroxQuerySqlGenerator _webroxQuerySqlGenerator;
 
         /// <summary>
@@ -29,14 +28,12 @@ namespace Webrox.EntityFrameworkCore.MySql.Query
            IRelationalTypeMappingSource typeMappingSource,
             WebroxQuerySqlGenerator webroxQuerySqlGenerator,
             IMySQLOptions mySQLOptions
-           //ITenantDatabaseProviderFactory databaseProviderFactory
            )
         {
             _dependencies = dependencies ?? throw new ArgumentNullException(nameof(dependencies));
             _typeMappingSource = typeMappingSource ?? throw new ArgumentNullException(nameof(typeMappingSource));
             _webroxQuerySqlGenerator = webroxQuerySqlGenerator;
             _mySQLOptions = mySQLOptions;
-            //_databaseProviderFactory = databaseProviderFactory ?? throw new ArgumentNullException(nameof(databaseProviderFactory));
         }
 
         /// <inheritdoc />

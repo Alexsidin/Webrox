@@ -10,5 +10,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)SampleDBContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTest.cs" />
   </ItemGroup>
 </Project>
