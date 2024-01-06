@@ -6,6 +6,7 @@ using Xunit;
 using Xunit.Abstractions;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Webrox.EntityFrameworkCore.Tests.Shared
 {
@@ -31,7 +32,7 @@ namespace Webrox.EntityFrameworkCore.Tests.Shared
             var count = await context.Users.CountAsync();
             Assert.Equal(10, count);
 
-            var windowFunctions = await context.Users
+            var query = context.Users
                 .Select(a => new
                 {
                     Id = a.Id,
@@ -66,7 +67,9 @@ namespace Webrox.EntityFrameworkCore.Tests.Shared
                                             EF.Functions.OrderBy(a.Id)),
 
 
-                }).ToListAsync();
+                });
+
+            var windowFunctions = await query.ToListAsync();
 
             Assert.NotNull(windowFunctions);
             Assert.Equal(10, windowFunctions.Count);
@@ -81,16 +84,20 @@ namespace Webrox.EntityFrameworkCore.Tests.Shared
             //var count = await context.Users.CountAsync();
             //Assert.Equal(10, count);
 
-            var windowFunctions = await context.Users
+            var query =  context.Users
                 .Select((a, index) => new
                 {
                     Id = a.Id,
-                    Index = index
+                    Index = index,
                 })
-                .ToListAsync();
+                ;
 
-            Assert.NotNull(windowFunctions);
-            Assert.Equal(10, windowFunctions.Count);
+            _output.WriteLine(query.ToQueryString());
+
+            var selectFunctions = await query.ToListAsync();
+
+            Assert.NotNull(selectFunctions);
+            Assert.Equal(10, selectFunctions.Count);
 
         }
 
@@ -102,7 +109,7 @@ namespace Webrox.EntityFrameworkCore.Tests.Shared
             //var count = await context.Users.CountAsync();
             //Assert.Equal(10, count);
 
-            var windowFunctions = await context.Users
+            var query = context.Users
                 .Select(a => new
                 {
                     Id = a.Id,
@@ -155,7 +162,12 @@ namespace Webrox.EntityFrameworkCore.Tests.Shared
                     Max_float = EF.Functions.Min(a.SubRoleIdFloat, EF.Functions.OrderBy(a.Id)),
                     Max_double = EF.Functions.Min(a.SubRoleIdDouble, EF.Functions.OrderBy(a.Id)),
 
-                }).ToListAsync();
+                });
+
+            _output.WriteLine(query.ToQueryString());
+
+
+            var windowFunctions = await query.ToListAsync();
 
             _output.WriteLine(JsonSerializer.Serialize(windowFunctions, _jsonOptions));
 

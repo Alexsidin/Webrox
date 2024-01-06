@@ -1,16 +1,31 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<PropertyGroup>
-		<EFVersionPackage>6.0</EFVersionPackage>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFramework>net8.0</TargetFramework>
 	</PropertyGroup>
-	
-	<Import Project="..\Webrox.EntityFrameworkCore.Tests.Shared\Webrox.EntityFrameworkCore.Tests.Shared.projitems" Label="Shared" />
+
+	<PropertyGroup Condition="$(TargetFramework.Equals('net6.0'))">
+		<EFVersionPackage>6.0</EFVersionPackage>
+		<EFVersionPackageSqlServer>6.0</EFVersionPackageSqlServer>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="$(TargetFramework.Equals('net7.0'))">
+		<EFVersionPackage>7.0</EFVersionPackage>
+		<EFVersionPackageSqlServer>7.0</EFVersionPackageSqlServer>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="$(TargetFramework.Equals('net8.0'))">
+		<EFVersionPackage>8.0</EFVersionPackage>
+		<EFVersionPackageSqlServer>8.0</EFVersionPackageSqlServer>
+	</PropertyGroup>
 
 	<ItemGroup>
-
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="$(EFVersionPackage)" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(EFVersionPackage)" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="$(EFVersionPackage)" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(EFVersionPackageSqlServer)" />
 		<ProjectReference Include="..\Webrox.EntityFrameworkCore.SqlServer\Webrox.EntityFrameworkCore.SqlServer.csproj" />
 
 	</ItemGroup>
+
+	<Import Project="..\Webrox.EntityFrameworkCore.Tests.Shared\Webrox.EntityFrameworkCore.Tests.Shared.projitems" Label="Shared" />
+
 </Project>

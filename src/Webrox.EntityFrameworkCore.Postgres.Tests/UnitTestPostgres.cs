@@ -21,11 +21,8 @@ namespace Webrox.EntityFrameworkCore.Postgres.Tests
         {
             using var connection = new NpgsqlConnection("Host=localhost;Port=5432;Username=postgres;Password=Popome690$;Database=efcore;");
             connection.Open();
-            var options = new DbContextOptionsBuilder<SampleDbContext>()
-                .UseNpgsql(connection)
-                .Options;
 
-            using (var context = new SampleDbContext(options))
+            using (var context = new SampleDbContext(_options))
             {
                 context.Database.ExecuteSqlRaw("DROP TABLE IF EXISTS users;");//.EnsureDeleted();
             }
@@ -33,11 +30,10 @@ namespace Webrox.EntityFrameworkCore.Postgres.Tests
         public UnitTestPostgres(ITestOutputHelper output)
         {
             _output = output;
-            DeleteDatabase();
+
 
             _connection = new NpgsqlConnection("Host=localhost;Port=5432;Username=postgres;Password=Popome690$;Database=efcore;");
             _connection.Open();
-
             _options = new DbContextOptionsBuilder<SampleDbContext>()
                 .UseNpgsql(_connection, opt =>
                 {
@@ -67,6 +63,8 @@ namespace Webrox.EntityFrameworkCore.Postgres.Tests
                     return (b.Id == RelationalEventId.CommandExecuting); //only SQL Queries
                 })
                 .Options;
+
+            DeleteDatabase();
 
 
             using (var context = new SampleDbContext(_options))

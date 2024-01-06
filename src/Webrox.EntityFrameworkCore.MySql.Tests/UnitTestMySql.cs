@@ -20,11 +20,7 @@ namespace Webrox.EntityFrameworkCore.MySql.Tests
             var connection = new MySqlConnection("server=localhost;user id=root;password=Clef2Cqrit100%;persistsecurityinfo=True;database=efcore;port=3306;");
             connection.Open();
 
-            var options = new DbContextOptionsBuilder<SampleDbContext>()
-                .UseMySQL(connection)
-                .Options;
-
-            using (var context = new SampleDbContext(options))
+            using (var context = new SampleDbContext(_options))
             {
                 context.Database.ExecuteSqlRaw("DROP TABLE IF EXISTS  `users`");//.EnsureDeleted();
             }
@@ -32,16 +28,13 @@ namespace Webrox.EntityFrameworkCore.MySql.Tests
         public UnitTestMySql(ITestOutputHelper output)
         {
             _output = output;
-            DeleteDatabase();
 
             _connection = new MySqlConnection("server=localhost;user id=root;password=Clef2Cqrit100%;persistsecurityinfo=True;database=efcore;port=3306;");
             _connection.Open();
-
             _options = new DbContextOptionsBuilder<SampleDbContext>()
                 .UseMySQL(_connection, opt =>
                 {
                     opt.AddRowNumberSupport();
-
                 })
                 .LogTo(logText =>
                 {
@@ -66,6 +59,11 @@ namespace Webrox.EntityFrameworkCore.MySql.Tests
                     return (b.Id == RelationalEventId.CommandExecuting); //only SQL Queries
                 })
                 .Options;
+
+            DeleteDatabase();
+
+            
+
 
             using (var context = new SampleDbContext(_options))
             {

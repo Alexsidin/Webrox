@@ -1,7 +1,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
+	
 	<PropertyGroup Condition="!$(ProjectName.Contains('Tests'))">
-		<!--<TargetFramework>net7.0</TargetFramework>-->
 		<Copyright>(c) $([System.DateTime]::Now.Year), Stephane Graziano. All rights reserved.</Copyright>
 		<Description>Use RowNumber with EntityFramework Core</Description>
 		<VersionPrefix>1.0.1</VersionPrefix>
@@ -32,12 +32,6 @@
 		<None Include="..\..\icon.png" Pack="true" PackagePath="" />
 	</ItemGroup>
 
-	<PropertyGroup>
-		<EFVersionPackage>7.*</EFVersionPackage>
-	</PropertyGroup>
-
-	<ItemGroup>
-	</ItemGroup>
 
 	<PropertyGroup Condition="!$(ProjectName.Contains('Tests'))">
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -58,4 +52,5 @@
 	<ItemGroup Condition="$(ProjectName.Equals('Webrox.EntityFrameworkCore.Tests'))">
 	</ItemGroup>
 
+	
 </Project>

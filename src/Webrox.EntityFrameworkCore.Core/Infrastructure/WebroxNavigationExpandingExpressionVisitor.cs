@@ -94,6 +94,12 @@ namespace Webrox.EntityFrameworkCore.Core.Infrastructure
                 pendingSelector,
                 selector.Body);
 
+            //bug Mysql
+            // MySQLTypeMappingSource
+            //QuerySqlGenerator cf
+            // _relationalCommandBuilder.Append(" AS ");
+            //_relationalCommandBuilder.Append(sqlUnaryExpression.TypeMapping!.StoreType);
+            //_relationalCommandBuilder.Append(")");
             //replace index by rownumber expression order by NULL
             selectorBody = ReplacingExpressionVisitor.Replace(
                 selector.Parameters[1],
