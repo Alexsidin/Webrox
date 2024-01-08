@@ -8,14 +8,14 @@ Implement various Linq functions with Entity Framework Core
 
 | SQL    | Linq |
 | ------: | ------- |
-| `ROW_NUMBER` |   [`EF.Functions.RowNumber`](#RowNumber) | 
-| `ROW_NUMBER`|   [`Select((entity, index)=>...)`](#RowNumber-Select-Syntax)  | 
-| `RANK` |   [`EF.Functions.Rank`](#Rank)| 
-| `DENSE_RANK` |   [`EF.Functions.DenseRank`](#DenseRank)| 
-| `AVG` |   [`EF.Functions.Average`](#Average)| 
-| `SUM` |   [`EF.Functions.Sum`](#Sum)| 
-| `MIN` |   [`EF.Functions.Min`](#Min)| 
-| `MAX` |   [`EF.Functions.Max`](#Max)| 
+| `ROW_NUMBER` |   [`EF.Functions.RowNumber`](#rownumber-syntax) | 
+| `ROW_NUMBER`|   [`Select((entity, index)=>...)`](#linq-select-syntax)  | 
+| `RANK` |   [`EF.Functions.Rank`](#rank-syntax)| 
+| `DENSE_RANK` |   [`EF.Functions.DenseRank`](#denserank-syntax)| 
+| `AVG` |   [`EF.Functions.Average`](#average-syntax)| 
+| `SUM` |   [`EF.Functions.Sum`](#sum-syntax)| 
+| `MIN` |   [`EF.Functions.Min`](#min-syntax)| 
+| `MAX` |   [`EF.Functions.Max`](#max-syntax)| 
 
 
 Supported providers : 
@@ -87,7 +87,7 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 # Functions Usage
 
 
-## RowNumber Syntax {#RowNumber}
+## RowNumber Syntax
 
 ### EF Functions
 
@@ -114,7 +114,7 @@ context.Table1.Select(t =>  new
 }
 ```
 
-### Linq Select syntax  {#RowNumber-Select-Syntax}
+### Linq Select syntax
 
 You can also use the function Select((e, index)=>{}) to access RowNumber. 
 
@@ -129,7 +129,7 @@ context.Table1.Select((t, index) =>  new
 ```
 
 
-## Rank Syntax {#Rank}
+## Rank Syntax
 
 
 ```
@@ -155,7 +155,7 @@ context.Table1.Select(t =>  new
 }
 ```
 
-## DenseRank Syntax {#DenseRank}
+## DenseRank Syntax
 
 
 ```
@@ -181,7 +181,7 @@ context.Table1.Select(t =>  new
 }
 ```
 
-## Average Syntax {#Average}
+## Average Syntax
 
 
 ```
@@ -207,7 +207,7 @@ context.Table1.Select(t =>  new
 }
 ```
 
-## Sum Syntax {#Sum}
+## Sum Syntax
 
 
 ```
@@ -233,7 +233,7 @@ context.Table1.Select(t =>  new
 }
 ```
 
-## Min Syntax {#Min}
+## Min Syntax
 
 
 ```
@@ -259,7 +259,7 @@ context.Table1.Select(t =>  new
 }
 ```
 
-## Max Syntax {#Max}
+## Max Syntax
 
 
 ```
