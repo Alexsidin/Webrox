@@ -10,17 +10,17 @@ Implement various Linq functions with Entity Framework Core
 | ------: | ------- |
 | `ROW_NUMBER` |   [`EF.Functions.RowNumber`](#RowNumber) | 
 | `ROW_NUMBER`|   [`Select((entity, index)=>...)`](#RowNumber-Select-Syntax)  | 
-| `RANK` |   [`EF.Functions.Rank`](#RowNumber)| 
-| `DENSE_RANK` |   [`EF.Functions.DenseRank`](#RowNumber)| 
-| `AVG` |   [`EF.Functions.Average`](#RowNumber)| 
-| `SUM` |   [`EF.Functions.Sum`](#RowNumber)| 
-| `MIN` |   [`EF.Functions.Min`](#RowNumber)| 
-| `MAX` |   [`EF.Functions.Max`](#RowNumber)| 
+| `RANK` |   [`EF.Functions.Rank`](#Rank)| 
+| `DENSE_RANK` |   [`EF.Functions.DenseRank`](#DenseRank)| 
+| `AVG` |   [`EF.Functions.Average`](#Average)| 
+| `SUM` |   [`EF.Functions.Sum`](#Sum)| 
+| `MIN` |   [`EF.Functions.Min`](#Min)| 
+| `MAX` |   [`EF.Functions.Max`](#Max)| 
 
 
 Supported providers : 
 
-| Provider | Nuget Package | Version |  .net 6 | .net 7 | .net 8 |
+| Provider | Nuget Package | .net 6 | .net 7 | .net 8 |
 | ------: | ------- | ------- | ----- | ---- |
 | SQL Server | Microsoft.EntityFrameworkCore.SqlServer | :heavy_check_mark:  EF6 | :heavy_check_mark: + EF7 | :heavy_check_mark: + EF8 |
 | SQLite | Microsoft.EntityFrameworkCore.Sqlite | :heavy_check_mark: + EF6 | :heavy_check_mark: + EF7 | :heavy_check_mark: + EF8 |
