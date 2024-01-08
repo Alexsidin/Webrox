@@ -1,11 +1,12 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
 	
+	
 	<PropertyGroup Condition="!$(ProjectName.Contains('Tests'))">
-		<Copyright>(c) $([System.DateTime]::Now.Year), Stephane Graziano. All rights reserved.</Copyright>
-		<Description>Use RowNumber with EntityFramework Core</Description>
-		<VersionPrefix>1.0.1</VersionPrefix>
-		<Authors>Stephane Graziano</Authors>
+		<VersionPrefix>2.0.0</VersionPrefix>
+		<Copyright>(c) $([System.DateTime]::Now.Year), Stephane Graziano (poppyto). All rights reserved.</Copyright>
+		<Description>Use Ranking and Window functions withing EntityFramework Core for databases (RowNumber, Rank, DenseRank, Average, Sum, Min, Max)</Description>
+		<Authors>Stephane Graziano (Poppyto)</Authors>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<PackageProjectUrl>https://github.com/Poppyto/Webrox.EntityFrameworkCore</PackageProjectUrl>
 		<PackageIcon>icon.png</PackageIcon>
@@ -22,9 +23,12 @@
 		<Nullable>enable</Nullable>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
-		<PackageTags>RowNumber;Row;Number;OrderBy;Linq,SqlServer;MySQL;Postgre;PostgreSQL;Sqlite</PackageTags>
+		<PackageTags>RowNumber;Row;Number;Rank,DenseRank,Average,Sum,Min,Max,OrderBy;PartitionBy,Linq,SqlServer;MySQL;Postgre;PostgreSQL;Sqlite;</PackageTags>
 		<IncludeSymbols>True</IncludeSymbols>
 	</PropertyGroup>
+
+
+	
 
 	<ItemGroup Condition="!$(ProjectName.Contains('Tests'))">
 		<None Include="..\..\Readme.md" Pack="true" PackagePath="" />
@@ -51,6 +55,8 @@
 
 	<ItemGroup Condition="$(ProjectName.Equals('Webrox.EntityFrameworkCore.Tests'))">
 	</ItemGroup>
+
+
 
 	
 </Project>

@@ -16,7 +16,7 @@ namespace Webrox.EntityFrameworkCore.Postgres
         /// </summary>
         /// <param name="optionsBuilder">options Builder</param>
         /// <returns><see cref="NpgsqlDbContextOptionsBuilder"/></returns>
-        public static NpgsqlDbContextOptionsBuilder AddRowNumberSupport(
+        public static NpgsqlDbContextOptionsBuilder AddWebroxFeatures(
                    this NpgsqlDbContextOptionsBuilder optionsBuilder)
         {
             var infrastructure = (IRelationalDbContextOptionsBuilderInfrastructure)optionsBuilder;
@@ -24,11 +24,11 @@ namespace Webrox.EntityFrameworkCore.Postgres
 
 /* Unmerged change from project 'Webrox.EntityFrameworkCore.Postgres (net7.0)'
 Before:
-            Core.WebroxDbContextOptionsBuilderExtensions.AddRowNumberSupport(infrastructure);
+            Core.WebroxDbContextOptionsBuilderExtensions.AddWebroxFeatures(infrastructure);
 After:
-            Core.Infrastructure.WebroxDbContextOptionsBuilderExtensions.AddRowNumberSupport(infrastructure);
+            Core.Infrastructure.WebroxDbContextOptionsBuilderExtensions.AddWebroxFeatures(infrastructure);
 */
-            WebroxDbContextOptionsBuilderExtensions.AddRowNumberSupport(infrastructure);
+            WebroxDbContextOptionsBuilderExtensions.AddWebroxFeatures(infrastructure);
 
             // Add custom functions Windowing
             infrastructure.OptionsBuilder.ReplaceService<IRelationalParameterBasedSqlProcessorFactory, WebroxPostgreSqlParameterBasedSqlProcessorFactory>();

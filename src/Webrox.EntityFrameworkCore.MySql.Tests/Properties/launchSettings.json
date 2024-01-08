@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Webrox.EntityFrameworkCore.MySql.Tests": {
+      "commandName": "Project",
+      "nativeDebugging": false
+    }
+  }
+}

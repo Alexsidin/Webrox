@@ -1,7 +1,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
 	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
+		<TargetFramework>net7.0</TargetFramework>
 	</PropertyGroup>
 	
 	<PropertyGroup Condition="$(TargetFramework.Equals('net6.0'))">
@@ -15,7 +15,7 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="$(TargetFramework.Equals('net8.0'))">
-		<EFVersionPackage>8.0</EFVersionPackage>
+		<EFVersionPackage>7.10</EFVersionPackage>
 		<EFVersionPackageMySQL>8.0-preview</EFVersionPackageMySQL>
 	</PropertyGroup>
 

@@ -17,7 +17,7 @@ namespace Webrox.EntityFrameworkCore.MySql.Tests
 
         public void DeleteDatabase()
         {
-            var connection = new MySqlConnection("server=localhost;user id=root;password=Clef2Cqrit100%;persistsecurityinfo=True;database=efcore;port=3306;");
+            var connection = new MySqlConnection("server=localhost;user id=efcore;password=efcore;persistsecurityinfo=True;database=efcore;port=3306;");
             connection.Open();
 
             using (var context = new SampleDbContext(_options))
@@ -29,12 +29,12 @@ namespace Webrox.EntityFrameworkCore.MySql.Tests
         {
             _output = output;
 
-            _connection = new MySqlConnection("server=localhost;user id=root;password=Clef2Cqrit100%;persistsecurityinfo=True;database=efcore;port=3306;");
+            _connection = new MySqlConnection("server=localhost;user id=efcore;password=efcore;persistsecurityinfo=True;database=efcore;port=3306;");
             _connection.Open();
             _options = new DbContextOptionsBuilder<SampleDbContext>()
                 .UseMySQL(_connection, opt =>
                 {
-                    opt.AddRowNumberSupport();
+                    opt.AddWebroxFeatures();
                 })
                 .LogTo(logText =>
                 {

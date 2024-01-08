@@ -17,12 +17,12 @@ namespace Webrox.EntityFrameworkCore.MySql
         /// </summary>
         /// <param name="optionsBuilder">options Builder</param>
         /// <returns><see cref="MySQLDbContextOptionsBuilder"/></returns>
-        public static MySqlLib.MySQLDbContextOptionsBuilder AddRowNumberSupport(
+        public static MySqlLib.MySQLDbContextOptionsBuilder AddWebroxFeatures(
                    this MySqlLib.MySQLDbContextOptionsBuilder optionsBuilder)
         {
             var infrastructure = (IRelationalDbContextOptionsBuilderInfrastructure)optionsBuilder;
 
-            WebroxDbContextOptionsBuilderExtensions.AddRowNumberSupport(infrastructure);
+            WebroxDbContextOptionsBuilderExtensions.AddWebroxFeatures(infrastructure);
 
             // Add custom functions Windowing
             infrastructure.OptionsBuilder.ReplaceService<IRelationalParameterBasedSqlProcessorFactory, WebroxMySqlParameterBasedSqlProcessorFactory>();

@@ -2,8 +2,9 @@
 	<PropertyGroup>
 		<TargetFrameworks>net6.0;net7.0;net8.0;</TargetFrameworks>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		
 	</PropertyGroup>
-
+	
 	<PropertyGroup Condition="$(TargetFramework.Equals('net6.0'))">
 		<EFVersionPackage>6.0</EFVersionPackage>
 		<EFVersionPackageMySQL>6.0</EFVersionPackageMySQL>
@@ -15,9 +16,10 @@
 	</PropertyGroup>
 	
 	<PropertyGroup Condition="$(TargetFramework.Equals('net8.0'))">
-		<EFVersionPackage>8.0</EFVersionPackage>
+		<EFVersionPackage>7.10</EFVersionPackage>
 		<EFVersionPackageMySQL>8.0-preview</EFVersionPackageMySQL>
 	</PropertyGroup>
+
 	
 	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="$(EFVersionPackage)" />

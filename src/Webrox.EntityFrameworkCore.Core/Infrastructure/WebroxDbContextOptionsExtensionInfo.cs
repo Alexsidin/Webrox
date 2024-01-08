@@ -17,9 +17,6 @@ namespace Webrox.EntityFrameworkCore.Core.Infrastructure
         {
             var sb = new StringBuilder();
 
-            if (_extension.AddRowNumberSupport)
-                sb.Append("RowNumberSupport ");
-
             return sb.ToString();
         }
 
@@ -41,7 +38,6 @@ namespace Webrox.EntityFrameworkCore.Core.Infrastructure
         {
             var hashCode = new HashCode();
             hashCode.Add(base.GetHashCode());
-            hashCode.Add(_extension.AddRowNumberSupport);
 
             return hashCode.ToHashCode();
         }
@@ -51,16 +47,13 @@ namespace Webrox.EntityFrameworkCore.Core.Infrastructure
         public override bool ShouldUseSameServiceProvider(DbContextOptionsExtensionInfo other)
         {
             return other is WebroxDbContextOptionsExtensionInfo otherSqlServerInfo
-                   && _extension.AddRowNumberSupport == otherSqlServerInfo._extension.AddRowNumberSupport
+                   && _extension.AddWebroxFeatures == otherSqlServerInfo._extension.AddWebroxFeatures
                    ;
         }
 #endif
         /// <inheritdoc />
         public override void PopulateDebugInfo(IDictionary<string, string> debugInfo)
         {
-            debugInfo["Webrox:RowNumberSupport"] = _extension.AddRowNumberSupport.ToString(CultureInfo.InvariantCulture);
         }
-
-
     }
 }

@@ -15,7 +15,7 @@ namespace Webrox.EntityFrameworkCore.Core.Infrastructure
         /// <summary>
         /// Row Number Support
         /// </summary>
-        public bool AddRowNumberSupport { get; set; }
+        public bool AddWebroxFeatures { get; set; }
 
         /// <inheritdoc/>
         public DbContextOptionsExtensionInfo Info => _info;
@@ -31,11 +31,8 @@ namespace Webrox.EntityFrameworkCore.Core.Infrastructure
         /// <inheritdoc/>
         public void ApplyServices(IServiceCollection services)
         {
-            if (AddRowNumberSupport)
-            {
-                services.AddScoped<WebroxQuerySqlGenerator>();
-                services.AddScoped<IMethodCallTranslatorPlugin, WebroxMethodCallTranslatorPlugin>();
-            }
+            services.AddScoped<WebroxQuerySqlGenerator>();
+            services.AddScoped<IMethodCallTranslatorPlugin, WebroxMethodCallTranslatorPlugin>();
         }
 
         /// <inheritdoc/>

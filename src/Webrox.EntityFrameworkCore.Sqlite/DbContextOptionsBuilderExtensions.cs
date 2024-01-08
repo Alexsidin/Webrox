@@ -18,18 +18,18 @@ namespace Webrox.EntityFrameworkCore.Sqlite
         /// </summary>
         /// <param name="optionsBuilder">options Builder</param>
         /// <returns><see cref="SqliteDbContextOptionsBuilder"/></returns>
-        public static SqliteDbContextOptionsBuilder AddRowNumberSupport(
+        public static SqliteDbContextOptionsBuilder AddWebroxFeatures(
                    this SqliteDbContextOptionsBuilder optionsBuilder)
         {
             var infrastructure = (IRelationalDbContextOptionsBuilderInfrastructure)optionsBuilder;
 
 /* Unmerged change from project 'Webrox.EntityFrameworkCore.Sqlite (net7.0)'
 Before:
-            Core.WebroxDbContextOptionsBuilderExtensions.AddRowNumberSupport(infrastructure);
+            Core.WebroxDbContextOptionsBuilderExtensions.AddWebroxFeatures(infrastructure);
 After:
-            Core.Infrastructure.WebroxDbContextOptionsBuilderExtensions.AddRowNumberSupport(infrastructure);
+            Core.Infrastructure.WebroxDbContextOptionsBuilderExtensions.AddWebroxFeatures(infrastructure);
 */
-            WebroxDbContextOptionsBuilderExtensions.AddRowNumberSupport(infrastructure);
+            WebroxDbContextOptionsBuilderExtensions.AddWebroxFeatures(infrastructure);
 
             // Add custom functions Windowing
             infrastructure.OptionsBuilder.ReplaceService<IRelationalParameterBasedSqlProcessorFactory, WebroxSqliteParameterBasedSqlProcessorFactory>();

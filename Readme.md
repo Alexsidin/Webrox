@@ -4,16 +4,28 @@ Use the [repo on GitHub](https://github.com/Poppyto/Webrox.EntityFrameworkCore) 
 
 ## Features
 
-Implement `ROW_NUMBER` Linq Function (`EF.Functions.RowNumber`) with Entity Framework Core for :
+Implement various Linq functions with Entity Framework Core 
 
-- SQL Server
-- MySQL
-- SQLite
-- PostgreSQL
+| SQL    | Linq |
+| ------: | ------- |
+| `ROW_NUMBER` |   [`EF.Functions.RowNumber`](#RowNumber) | 
+| `ROW_NUMBER`|   [`Select((entity, index)=>...)`](#RowNumber-Select-Syntax)  | 
+| `RANK` |   [`EF.Functions.Rank`](#RowNumber)| 
+| `DENSE_RANK` |   [`EF.Functions.DenseRank`](#RowNumber)| 
+| `AVG` |   [`EF.Functions.Average`](#RowNumber)| 
+| `SUM` |   [`EF.Functions.Sum`](#RowNumber)| 
+| `MIN` |   [`EF.Functions.Min`](#RowNumber)| 
+| `MAX` |   [`EF.Functions.Max`](#RowNumber)| 
 
-Entity Framework Version Support :
 
-- min 5.0 (.net standard 2.1)
+Supported providers : 
+
+| Provider | Nuget Package | Version |  .net 6 | .net 7 | .net 8 |
+| ------: | ------- | ------- | ----- | ---- |
+| SQL Server | Microsoft.EntityFrameworkCore.SqlServer | :heavy_check_mark:  EF6 | :heavy_check_mark: + EF7 | :heavy_check_mark: + EF8 |
+| SQLite | Microsoft.EntityFrameworkCore.Sqlite | :heavy_check_mark: + EF6 | :heavy_check_mark: + EF7 | :heavy_check_mark: + EF8 |
+| MySQL | MySql.EntityFrameworkCore | :heavy_check_mark: + EF6 | :heavy_check_mark: + EF7 | :x: (waiting for Oracle EF8 support) |
+| PostgreSQL | Npgsql.EntityFrameworkCore.PostgreSQL | :heavy_check_mark: + EF6 | :heavy_check_mark: + EF7 | :heavy_check_mark: + EF8 |
 
 ## Setup
 ### SQLServer
@@ -23,9 +35,9 @@ using Webrox.EntityFrameworkCore.SqlServer;
 protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 {
     // SQL Server
-    optionsBuilder.UseSqlServer("connectionstring", opts =>
+    optionsBuilder.UseSqlServer("connectionstring", opts |  
     {
-        opts.AddRowNumberSupport();
+        opts.AddWebroxFeatures();
     });
 }
 ```
@@ -36,9 +48,9 @@ using Webrox.EntityFrameworkCore.MySql;
 
 protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 {
-    optionsBuilder.UseMySQL("connectionstring", opts =>
+    optionsBuilder.UseMySQL("connectionstring", opts |  
     {
-        opts.AddRowNumberSupport();
+        opts.AddWebroxFeatures();
     });
 }
 ```
@@ -50,9 +62,9 @@ using Webrox.EntityFrameworkCore.Sqlite;
 
 protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 {
-    optionsBuilder.UseSqlite("connectionstring", opts =>
+    optionsBuilder.UseSqlite("connectionstring", opts |  
     {
-        opts.AddRowNumberSupport();
+        opts.AddWebroxFeatures();
     });
 }
 ```
@@ -64,18 +76,23 @@ using Webrox.EntityFrameworkCore.Postgres;
 
 protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 {
-    optionsBuilder.UseNpgsql("connectionstring", opts =>
+    optionsBuilder.UseNpgsql("connectionstring", opts |  
     {
-        opts.AddRowNumberSupport();
+        opts.AddWebroxFeatures();
     });
 }
 ```
 
-## RowNumber Syntax
 
+# Functions Usage
+
+
+## RowNumber Syntax {#RowNumber}
+
+### EF Functions
 
 ```
-using Webrox.EntityFrameworkCore.Core;
+using Webrox.EntityFrameworkCore.[Provider];
 
 // simple RowNumber + OrderBy
 context.Table1.Select(t => new
@@ -85,10 +102,181 @@ context.Table1.Select(t => new
 }
 
 // complex RowNumber + PartitionBy + OrderBy
-context.Table1.Select(t => new
+context.Table1.Select(t =>  new
 {
     Id = t.Id,
     RowNumber = EF.Functions.RowNumber(
+            EF.Functions.PartitionBy(t.GroupId)
+                        .ThenPartitionBy(t.SubGroupId),
+            EF.Functions.OrderByDescending(t.Id)
+                        .ThenBy(t.SubId)
+            )
+}
+```
+
+### Linq Select syntax  {#RowNumber-Select-Syntax}
+
+You can also use the function Select((e, index)=>{}) to access RowNumber. 
+
+It will not be ordered or partitionned and the parameter "index" is int.
+
+```
+context.Table1.Select((t, index) =>  new
+{
+    Id = t.Id,
+    RowNumber = index
+}
+```
+
+
+## Rank Syntax {#Rank}
+
+
+```
+using Webrox.EntityFrameworkCore.[Provider];
+
+// simple Rank + OrderBy
+context.Table1.Select(t => new
+{
+    Id = t.Id,
+    Rank = EF.Functions.Rank(EF.Functions.OrderBy(t.Id))
+}
+
+// complex Rank + PartitionBy + OrderBy
+context.Table1.Select(t =>  new
+{
+    Id = t.Id,
+    Rank = EF.Functions.Rank(
+            EF.Functions.PartitionBy(t.GroupId)
+                        .ThenPartitionBy(t.SubGroupId),
+            EF.Functions.OrderByDescending(t.Id)
+                        .ThenBy(t.SubId)
+            )
+}
+```
+
+## DenseRank Syntax {#DenseRank}
+
+
+```
+using Webrox.EntityFrameworkCore.[Provider];
+
+// simple DenseRank + OrderBy
+context.Table1.Select(t => new
+{
+    Id = t.Id,
+    DenseRank = EF.Functions.DenseRank(EF.Functions.OrderBy(t.Id))
+}
+
+// complex DenseRank + PartitionBy + OrderBy
+context.Table1.Select(t =>  new
+{
+    Id = t.Id,
+    DenseRank = EF.Functions.DenseRank(
+            EF.Functions.PartitionBy(t.GroupId)
+                        .ThenPartitionBy(t.SubGroupId),
+            EF.Functions.OrderByDescending(t.Id)
+                        .ThenBy(t.SubId)
+            )
+}
+```
+
+## Average Syntax {#Average}
+
+
+```
+using Webrox.EntityFrameworkCore.[Provider];
+
+// simple Average + OrderBy
+context.Table1.Select(t => new
+{
+    Id = t.Id,
+    Average = EF.Functions.Average(EF.Functions.OrderBy(t.Id))
+}
+
+// complex Average + PartitionBy + OrderBy
+context.Table1.Select(t =>  new
+{
+    Id = t.Id,
+    Average = EF.Functions.Average(
+            EF.Functions.PartitionBy(t.GroupId)
+                        .ThenPartitionBy(t.SubGroupId),
+            EF.Functions.OrderByDescending(t.Id)
+                        .ThenBy(t.SubId)
+            )
+}
+```
+
+## Sum Syntax {#Sum}
+
+
+```
+using Webrox.EntityFrameworkCore.[Provider];
+
+// simple Sum + OrderBy
+context.Table1.Select(t => new
+{
+    Id = t.Id,
+    Sum = EF.Functions.Sum(EF.Functions.OrderBy(t.Id))
+}
+
+// complex Sum + PartitionBy + OrderBy
+context.Table1.Select(t =>  new
+{
+    Id = t.Id,
+    Sum = EF.Functions.Sum(
+            EF.Functions.PartitionBy(t.GroupId)
+                        .ThenPartitionBy(t.SubGroupId),
+            EF.Functions.OrderByDescending(t.Id)
+                        .ThenBy(t.SubId)
+            )
+}
+```
+
+## Min Syntax {#Min}
+
+
+```
+using Webrox.EntityFrameworkCore.[Provider];
+
+// simple Min + OrderBy
+context.Table1.Select(t => new
+{
+    Id = t.Id,
+    Min = EF.Functions.Min(EF.Functions.OrderBy(t.Id))
+}
+
+// complex Min + PartitionBy + OrderBy
+context.Table1.Select(t =>  new
+{
+    Id = t.Id,
+    Min = EF.Functions.Min(
+            EF.Functions.PartitionBy(t.GroupId)
+                        .ThenPartitionBy(t.SubGroupId),
+            EF.Functions.OrderByDescending(t.Id)
+                        .ThenBy(t.SubId)
+            )
+}
+```
+
+## Max Syntax {#Max}
+
+
+```
+using Webrox.EntityFrameworkCore.[Provider];
+
+// simple Max + OrderBy
+context.Table1.Select(t => new
+{
+    Id = t.Id,
+    Max = EF.Functions.Max(EF.Functions.OrderBy(t.Id))
+}
+
+// complex Max + PartitionBy + OrderBy
+context.Table1.Select(t =>  new
+{
+    Id = t.Id,
+    Max = EF.Functions.Max(
             EF.Functions.PartitionBy(t.GroupId)
                         .ThenPartitionBy(t.SubGroupId),
             EF.Functions.OrderByDescending(t.Id)

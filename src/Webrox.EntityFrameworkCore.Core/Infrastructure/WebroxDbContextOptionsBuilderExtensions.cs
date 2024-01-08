@@ -12,7 +12,7 @@ namespace Webrox.EntityFrameworkCore.Core.Infrastructure
         /// Add RowNumber extension
         /// </summary>
         /// <param name="infrastructure">infrastructure</param>
-        public static void AddRowNumberSupport(
+        public static void AddWebroxFeatures(
                    IRelationalDbContextOptionsBuilderInfrastructure infrastructure)
         {
             if (infrastructure == null) throw new ArgumentNullException(nameof(infrastructure));
@@ -22,8 +22,6 @@ namespace Webrox.EntityFrameworkCore.Core.Infrastructure
             var extension = infrastructure.OptionsBuilder.Options
                                           .FindExtension<WebroxDbContextOptionsExtension>()
                                           ?? new WebroxDbContextOptionsExtension();
-
-            extension.AddRowNumberSupport = true;
 
             optionsBuilder.AddOrUpdateExtension(extension);
         }

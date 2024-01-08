@@ -14,7 +14,7 @@ namespace Webrox.EntityFrameworkCore.SqlServer
         /// </summary>
         /// <param name="optionsBuilder">options Builder</param>
         /// <returns><see cref="SqlServerDbContextOptionsBuilder"/></returns>
-        public static SqlServerDbContextOptionsBuilder AddRowNumberSupport(
+        public static SqlServerDbContextOptionsBuilder AddWebroxFeatures(
                    this SqlServerDbContextOptionsBuilder optionsBuilder)
         {
             var infrastructure = (IRelationalDbContextOptionsBuilderInfrastructure)optionsBuilder;
@@ -22,11 +22,11 @@ namespace Webrox.EntityFrameworkCore.SqlServer
 
 /* Unmerged change from project 'Webrox.EntityFrameworkCore.SqlServer (net8.0)'
 Before:
-            Core.WebroxDbContextOptionsBuilderExtensions.AddRowNumberSupport(infrastructure);
+            Core.WebroxDbContextOptionsBuilderExtensions.AddWebroxFeatures(infrastructure);
 After:
-            WebroxDbContextOptionsBuilderExtensions.AddRowNumberSupport(infrastructure);
+            WebroxDbContextOptionsBuilderExtensions.AddWebroxFeatures(infrastructure);
 */
-            Core.Infrastructure.WebroxDbContextOptionsBuilderExtensions.AddRowNumberSupport(infrastructure);
+            Core.Infrastructure.WebroxDbContextOptionsBuilderExtensions.AddWebroxFeatures(infrastructure);
 
             // Add custom functions Windowing
             infrastructure.OptionsBuilder.ReplaceService<IRelationalParameterBasedSqlProcessorFactory, WebroxSqlServerParameterBasedSqlProcessorFactory>();

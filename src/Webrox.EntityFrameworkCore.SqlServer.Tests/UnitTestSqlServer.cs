@@ -18,7 +18,7 @@ namespace Webrox.EntityFrameworkCore.SqlServer.Tests
 
         public void DeleteDatabase()
         {
-            var connection = new SqlConnection("Server=poppyto6;Integrated Security=true;Initial Catalog=efcore;TrustServerCertificate=true;");
+            var connection = new SqlConnection("Server=localhost;Integrated Security=true;Initial Catalog=efcore;TrustServerCertificate=true;");
             connection.Open();
 
             using (var context = new SampleDbContext(_options))
@@ -36,7 +36,7 @@ namespace Webrox.EntityFrameworkCore.SqlServer.Tests
             _options = new DbContextOptionsBuilder<SampleDbContext>()
         .UseSqlServer(_connection, opt =>
         {
-            opt.AddRowNumberSupport();
+            opt.AddWebroxFeatures();
         })
         .LogTo(logText =>
         {
