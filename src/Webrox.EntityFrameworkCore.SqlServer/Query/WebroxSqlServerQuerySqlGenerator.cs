@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Query;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Microsoft.EntityFrameworkCore.SqlServer.Infrastructure.Internal;
 using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -37,6 +38,16 @@ namespace Webrox.EntityFrameworkCore.SqlServer.Query
         {
             _webroxQuerySqlGenerator = webroxQuerySqlGenerator;
            // _databaseProvider = databaseProvider ?? throw new ArgumentNullException(nameof(databaseProvider));
+        }
+        protected override Expression VisitSelect(SelectExpression selectExpression)
+        {
+            //bool hasWindowFunction = selectExpression.Projection.Cast<ProjectionExpression>().Any(a => a.Expression is RowNumberExpression || a.Expression is WindowExpression);
+            //if (hasWindowFunction)
+            //{
+            //    selectExpression.PushdownIntoSubquery();// this.Visit(selectExpression);
+            //}
+
+            return base.VisitSelect(selectExpression);
         }
 
         /// <inheritdoc />
