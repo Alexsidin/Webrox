@@ -24,7 +24,7 @@ namespace Webrox.EntityFrameworkCore.Sqlite.Tests
             _options = new DbContextOptionsBuilder<SampleDbContext>()
                 .UseSqlite(_connection, opt =>
                 {
-                    opt.AddWebroxFeatures();
+                    opt.AddWebroxFeatures(_connection);
                 })
                 .LogTo(logText =>
                 {

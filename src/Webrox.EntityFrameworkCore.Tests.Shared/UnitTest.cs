@@ -7,6 +7,7 @@ using Xunit.Abstractions;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using System.Linq.Expressions;
 
 namespace Webrox.EntityFrameworkCore.Tests.Shared
 {
@@ -76,6 +77,36 @@ namespace Webrox.EntityFrameworkCore.Tests.Shared
 
         }
 
+
+        [Fact]
+        public async Task TestRowNumberSubQuery()
+        {
+            using var context = new SampleDbContext(_options);
+
+            var count = await context.Users.CountAsync();
+            Assert.Equal(10, count);
+
+            var query = context.Users
+                .Select(a => new
+                {
+                    Id = a.Id,
+                    RowNumber = EF.Functions.RowNumber(EF.Functions.OrderBy(a.Id)),
+                    Sum = EF.Functions.Sum(a.Id, EF.Functions.OrderBy(a.Id)),
+                })
+                .AsSubQuery()
+                .Where(a=>a.RowNumber > 5);
+
+            _output.WriteLine(query.ToQueryString());
+
+
+            var windowFunctions = await query.ToListAsync();
+
+            Assert.Equal(windowFunctions.Count, 5);
+
+        }
+
+
+
         [Fact]
         public async Task TestSelect()
         {
@@ -114,17 +145,17 @@ namespace Webrox.EntityFrameworkCore.Tests.Shared
                 {
                     Id = a.Id,
 
-                    //Sum_8 = EF.Functions.Sum(a.SubRoleId8, EF.Functions.OrderBy(a.Id)),
-                    //Sum_u8 = EF.Functions.Sum(a.SubRoleIdu8, EF.Functions.OrderBy(a.Id)),
-                    //Sum_16 = EF.Functions.Sum(a.SubRoleId16, EF.Functions.OrderBy(a.Id)),
-                    //Sum_u16 = EF.Functions.Sum(a.SubRoleIdu16, EF.Functions.OrderBy(a.Id)),
-                    //Sum_32 = EF.Functions.Sum(a.SubRoleId32, EF.Functions.OrderBy(a.Id)),
-                    //Sum_u32 = EF.Functions.Sum(a.SubRoleIdu32, EF.Functions.OrderBy(a.Id)),
-                    //Sum_64 = EF.Functions.Sum(a.SubRoleId64, EF.Functions.OrderBy(a.Id)),
-                    //Sum_u64 = EF.Functions.Sum(a.SubRoleIdu64, EF.Functions.OrderBy(a.Id)),
-                    //Sum_dec = EF.Functions.Sum(a.SubRoleIdDecimal, EF.Functions.OrderBy(a.Id)),
-                    //Sum_float = EF.Functions.Sum(a.SubRoleIdFloat, EF.Functions.OrderBy(a.Id)),
-                    //Sum_double = EF.Functions.Sum(a.SubRoleIdDouble, EF.Functions.OrderBy(a.Id)),
+                    Sum_8 = EF.Functions.Sum(a.SubRoleId8, EF.Functions.OrderBy(a.Id)),
+                    Sum_u8 = EF.Functions.Sum(a.SubRoleIdu8, EF.Functions.OrderBy(a.Id)),
+                    Sum_16 = EF.Functions.Sum(a.SubRoleId16, EF.Functions.OrderBy(a.Id)),
+                    Sum_u16 = EF.Functions.Sum(a.SubRoleIdu16, EF.Functions.OrderBy(a.Id)),
+                    Sum_32 = EF.Functions.Sum(a.SubRoleId32, EF.Functions.OrderBy(a.Id)),
+                    Sum_u32 = EF.Functions.Sum(a.SubRoleIdu32, EF.Functions.OrderBy(a.Id)),
+                    Sum_64 = EF.Functions.Sum(a.SubRoleId64, EF.Functions.OrderBy(a.Id)),
+                    Sum_u64 = EF.Functions.Sum(a.SubRoleIdu64, EF.Functions.OrderBy(a.Id)),
+                    Sum_dec = EF.Functions.Sum(a.SubRoleIdDecimal, EF.Functions.OrderBy(a.Id)),
+                    Sum_float = EF.Functions.Sum(a.SubRoleIdFloat, EF.Functions.OrderBy(a.Id)),
+                    Sum_double = EF.Functions.Sum(a.SubRoleIdDouble, EF.Functions.OrderBy(a.Id)),
 
                     Average_8 = EF.Functions.Average(a.SubRoleId8, EF.Functions.OrderBy(a.Id)),
                     Average_u8 = EF.Functions.Average(a.SubRoleIdu8, EF.Functions.OrderBy(a.Id)),
@@ -173,6 +204,85 @@ namespace Webrox.EntityFrameworkCore.Tests.Shared
 
             Assert.NotNull(windowFunctions);
             Assert.Equal(10, windowFunctions.Count);
+
+        }
+
+        [Fact]
+        public async Task TestStringEquals()
+        {
+            using var context = new SampleDbContext(_options);
+
+            var query = context.Users
+                .Where(a=>a.Email.Equals("sample1@Gm.com", System.StringComparison.OrdinalIgnoreCase)
+                )
+                ;
+
+            _output.WriteLine(query.ToQueryString());
+
+            var selectFunctions = await query.ToListAsync();
+
+            Assert.NotNull(selectFunctions);
+            Assert.Equal(selectFunctions.Count, 1);
+
+            query = context.Users
+                .Where(a => a.Email.Equals("sample1@Gm.com", System.StringComparison.Ordinal)
+                )
+                ;
+
+            _output.WriteLine(query.ToQueryString());
+
+            selectFunctions = await query.ToListAsync();
+
+            Assert.NotNull(selectFunctions);
+            Assert.Equal(selectFunctions.Count, 0);
+
+            query = context.Users
+               .Where(a => a.Email.Equals("sample1@Gm.com", System.StringComparison.InvariantCultureIgnoreCase)
+               )
+               ;
+
+            _output.WriteLine(query.ToQueryString());
+
+            selectFunctions = await query.ToListAsync();
+
+            Assert.NotNull(selectFunctions);
+            Assert.Equal(selectFunctions.Count, 1);
+
+            query = context.Users
+                .Where(a => a.Email.Equals("sample1@Gm.com", System.StringComparison.InvariantCulture)
+                )
+                ;
+
+            _output.WriteLine(query.ToQueryString());
+
+            selectFunctions = await query.ToListAsync();
+
+            Assert.NotNull(selectFunctions);
+            Assert.Equal(selectFunctions.Count, 0);
+
+            query = context.Users
+               .Where(a => a.Email.Equals("sample1@Gm.com", System.StringComparison.CurrentCultureIgnoreCase)
+               )
+               ;
+
+            _output.WriteLine(query.ToQueryString());
+
+            selectFunctions = await query.ToListAsync();
+
+            Assert.NotNull(selectFunctions);
+            Assert.Equal(selectFunctions.Count, 1);
+
+            query = context.Users
+                .Where(a => a.Email.Equals("sample1@Gm.com", System.StringComparison.CurrentCulture)
+                )
+                ;
+
+            _output.WriteLine(query.ToQueryString());
+
+            selectFunctions = await query.ToListAsync();
+
+            Assert.NotNull(selectFunctions);
+            Assert.Equal(selectFunctions.Count, 0);
 
         }
     }
