@@ -13,19 +13,22 @@ namespace Webrox.EntityFrameworkCore.Core.Infrastructure
     {
         WebroxDbContextOptionsExtensionInfo _info;
         /// <summary>
-        /// Row Number Support
+        /// Webrox Features Support
         /// </summary>
         public bool AddWebroxFeatures { get; set; }
 
         /// <inheritdoc/>
         public DbContextOptionsExtensionInfo Info => _info;
 
+        public string DatabaseProvider { get; set; }
+
         /// <summary>
         /// Constructor
         /// </summary>
-        public WebroxDbContextOptionsExtension()
+        public WebroxDbContextOptionsExtension(string databaseProvider)
         {
             _info = new(this);
+            DatabaseProvider = databaseProvider;
         }
 
         /// <inheritdoc/>
