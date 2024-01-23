@@ -9,11 +9,12 @@ namespace Webrox.EntityFrameworkCore.Core.Infrastructure
     public class WebroxDbContextOptionsBuilderExtensions
     {
         /// <summary>
-        /// Add RowNumber extension
+        /// Add Webrox extension
         /// </summary>
         /// <param name="infrastructure">infrastructure</param>
         public static void AddWebroxFeatures(
-                   IRelationalDbContextOptionsBuilderInfrastructure infrastructure)
+                   IRelationalDbContextOptionsBuilderInfrastructure infrastructure,
+                   string databaseProvider)
         {
             if (infrastructure == null) throw new ArgumentNullException(nameof(infrastructure));
 
@@ -21,7 +22,7 @@ namespace Webrox.EntityFrameworkCore.Core.Infrastructure
 
             var extension = infrastructure.OptionsBuilder.Options
                                           .FindExtension<WebroxDbContextOptionsExtension>()
-                                          ?? new WebroxDbContextOptionsExtension();
+                                          ?? new WebroxDbContextOptionsExtension(databaseProvider);
 
             optionsBuilder.AddOrUpdateExtension(extension);
         }

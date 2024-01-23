@@ -22,7 +22,7 @@ namespace Webrox.EntityFrameworkCore.MySql
         {
             var infrastructure = (IRelationalDbContextOptionsBuilderInfrastructure)optionsBuilder;
 
-            WebroxDbContextOptionsBuilderExtensions.AddWebroxFeatures(infrastructure);
+            WebroxDbContextOptionsBuilderExtensions.AddWebroxFeatures(infrastructure, "mysql");
 
             // Add custom functions Windowing
             infrastructure.OptionsBuilder.ReplaceService<IRelationalParameterBasedSqlProcessorFactory, WebroxMySqlParameterBasedSqlProcessorFactory>();

@@ -37,7 +37,7 @@ namespace Webrox.EntityFrameworkCore.Postgres.Tests
             _options = new DbContextOptionsBuilder<SampleDbContext>()
                 .UseNpgsql(_connection, opt =>
                 {
-                    opt.AddWebroxFeatures();
+                    opt.AddWebroxFeatures(_connection);
 
                 })
                 .LogTo(logText =>

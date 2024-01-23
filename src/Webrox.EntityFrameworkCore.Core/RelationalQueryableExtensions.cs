@@ -14,8 +14,7 @@ namespace Webrox.EntityFrameworkCore.Core
     public static class RelationalQueryableExtensions
     {
         internal static readonly MethodInfo _asSubQuery = typeof(RelationalQueryableExtensions).GetMethods(BindingFlags.Public | BindingFlags.Static)
-                                                                                              .Single(m => m.Name == nameof(AsSubQuery) && m.IsGenericMethod);
-
+                                                                                               .Single(m => m.Name == nameof(AsSubQuery) && m.IsGenericMethod);
 
         /// <summary>
         /// Executes provided query as a sub query.

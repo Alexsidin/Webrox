@@ -83,7 +83,7 @@ namespace Webrox.EntityFrameworkCore.Core.Infrastructure
 #endif
                   )
         {
-            
+
             _queryCompilationContext = queryCompilationContext;
             _sqlExpressionFactory = sqlExpressionFactory;
         }
@@ -120,108 +120,8 @@ namespace Webrox.EntityFrameworkCore.Core.Infrastructure
             var piPending = source.GetType().GetProperty("PendingSelector");
             var pendingSelector = piPending.GetValue(source) as Expression;
 
-
             return null;
         }
-
-        static Dictionary<string, string> WindowsCollations = new Dictionary<string, string>
-        {
-            {"Windows locale","Collation Version 100"},
-            {"Alsatian (France)","Latin1_General_100_"},
-            {"Amharic (Ethiopia)","Latin1_General_100_"},
-            {"Armenian (Armenia)","Cyrillic_General_100_"},
-            {"Assamese (India)","Assamese_100_ 1"},
-            {"Bangla (Bangladesh)","Bengali_100_1"},
-            {"Bashkir (Russia)","Bashkir_100_"},
-            {"Basque (Basque)","Latin1_General_100_"},
-            {"Bengali (India)","Bengali_100_1"},
-            {"Bosnian (Bosnia and Herzegovina, Cyrillic)","Bosnian_Cyrillic_100_"},
-            {"Bosnian (Bosnia and Herzegovina, Latin)","Bosnian_Latin_100_"},
-            {"Breton (France)","Breton_100_"},
-            {"Chinese (Macao SAR)","Chinese_Traditional_Pinyin_100_"},
-            {"Chinese (Singapore)","Chinese_Simplified_Stroke_Order_100_"},
-            {"Corsican (France)","Corsican_100_"},
-            {"Croatian (Bosnia and Herzegovina, Latin)","Croatian_100_"},
-            {"Dari (Afghanistan)","Dari_100_"},
-            {"English (India)","Latin1_General_100_"},
-            {"English (Malaysia)","Latin1_General_100_"},
-            {"English (Singapore)","Latin1_General_100_"},
-            {"Filipino (Philippines)","Latin1_General_100_"},
-            {"Frisian (Netherlands)","Frisian_100_"},
-            {"Georgian (Georgia)","Cyrillic_General_100_"},
-            {"Greenlandic (Greenland)","Danish_Greenlandic_100_"},
-            {"Gujarati (India)","Indic_General_100_1"},
-            {"Hausa (Nigeria, Latin)","Latin1_General_100_"},
-            {"Hindi (India)","Indic_General_100_1"},
-            {"Igbo (Nigeria)","Latin1_General_100_"},
-            {"Inuktitut (Canada, Latin)","Latin1_General_100_"},
-            {"Inuktitut (Syllabics) Canada","Latin1_General_100_"},
-            {"Irish (Ireland)","Latin1_General_100_"},
-            {"Japanese (Japan XJIS)","Japanese_XJIS_100_"},
-            {"Japanese (Japan)","Japanese_Bushu_Kakusu_100_"},
-            {"Kannada (India)","Indic_General_100_1"},
-            {"Khmer (Cambodia)","Khmer_100_1"},
-            {"K'iche (Guatemala)","Modern_Spanish_100_"},
-            {"Kinyarwanda (Rwanda)","Latin1_General_100_"},
-            {"Konkani (India)","Indic_General_100_1"},
-            {"Lao (Lao PDR)","Lao_100_1"},
-            {"Lower Sorbian (Germany)","Latin1_General_100_"},
-            {"Luxembourgish (Luxembourg)","Latin1_General_100_"},
-            {"Malayalam (India)","Indic_General_100_1"},
-            {"Maltese (Malta)","Maltese_100_"},
-            {"Maori (New Zealand)","Maori_100_"},
-            {"Mapudungun (Chile)","Mapudungan_100_"},
-            {"Marathi (India)","Indic_General_100_1"},
-            {"Mohawk (Canada)","Mohawk_100_"},
-            {"Mongolian (PRC)","Cyrillic_General_100_"},
-            {"Nepali (Nepal)","Nepali_100_1"},
-            {"Norwegian (Bokmål, Norway)","Norwegian_100_"},
-            {"Norwegian (Nynorsk, Norway)","Norwegian_100_"},
-            {"Occitan (France)","French_100_"},
-            {"Odia (India)","Indic_General_100_1"},
-            {"Pashto (Afghanistan)","Pashto_100_1"},
-            {"Persian (Iran)","Persian_100_"},
-            {"Punjabi (India)","Indic_General_100_1"},
-            {"Quechua (Bolivia)","Latin1_General_100_"},
-            {"Quechua (Ecuador)","Latin1_General_100_"},
-            {"Quechua (Peru)","Latin1_General_100_"},
-            {"Romansh (Switzerland)","Romansh_100_"},
-            {"Sami (Inari, Finland)","Sami_Sweden_Finland_100_"},
-            {"Sami (Lule, Norway)","Sami_Norway_100_"},
-            {"Sami (Lule, Sweden)","Sami_Sweden_Finland_100_"},
-            {"Sami (Northern, Finland)","Sami_Sweden_Finland_100_"},
-            {"Sami (Northern, Norway)","Sami_Norway_100_"},
-            {"Sami (Northern, Sweden)","Sami_Sweden_Finland_100_"},
-            {"Sami (Skolt, Finland)","Sami_Sweden_Finland_100_"},
-            {"Sami (Southern, Norway)","Sami_Norway_100_"},
-            {"Sami (Southern, Sweden)","Sami_Sweden_Finland_100_"},
-            {"Sanskrit (India)","Indic_General_100_1"},
-            {"Serbian (Bosnia and Herzegovina, Cyrillic)","Serbian_Cyrillic_100_"},
-            {"Serbian (Bosnia and Herzegovina, Latin)","Serbian_Latin_100_"},
-            {"Serbian (Serbia, Cyrillic)","Serbian_Cyrillic_100_"},
-            {"Serbian (Serbia, Latin)","Serbian_Latin_100_"},
-            {"Sesotho sa Leboa/Northern Sotho (South Africa)","Latin1_General_100_"},
-            {"Setswana/Tswana (South Africa)","Latin1_General_100_"},
-            {"Sinhala (Sri Lanka)","Indic_General_100_1"},
-            {"Swahili (Kenya)","Latin1_General_100_"},
-            {"Syriac (Syria)","Syriac_100_1"},
-            {"Tajik (Tajikistan)","Cyrillic_General_100_"},
-            {"Tamazight (Algeria, Latin)","Tamazight_100_"},
-            {"Tamil (India)","Indic_General_100_1"},
-            {"Telugu (India)","Indic_General_100_1"},
-            {"Tibetan (PRC)","Tibetan_100_1"},
-            {"Turkmen (Turkmenistan)","Turkmen_100_"},
-            {"Uighur (PRC)","Uighur_100_"},
-            {"Upper Sorbian (Germany)","Upper_Sorbian_100_"},
-            {"Urdu (Pakistan)","Urdu_100_"},
-            {"Welsh (United Kingdom)","Welsh_100_"},
-            {"Wolof (Senegal)","French_100_"},
-            {"Xhosa/isiXhosa (South Africa)","Latin1_General_100_"},
-            {"Sakha (Russia)","Yakut_100_"},
-            {"Yi (PRC)","Latin1_General_100_"},
-            {"Yoruba (Nigeria)","Latin1_General_100_"},
-            {"Zulu/isiZulu (South Africa)","Latin1_General_100_"},
-        };
 
         private Expression ProcessStringEquals(MethodCallExpression methodCallExpression)
         {
@@ -231,41 +131,7 @@ namespace Webrox.EntityFrameworkCore.Core.Infrastructure
 
             var productVersion = _queryCompilationContext.Model.GetProductVersion();
 
-            string collation = null;
-
-
-            if (productVersion.Contains("sqlite", StringComparison.OrdinalIgnoreCase))
-            {
-                collation = $"Webrox_{stringComparison}";
-            }
-            else
-            {
-
-                collation = "DATABASE_DEFAULT";
-
-                switch (stringComparison)
-                {
-                    case StringComparison.Ordinal:
-                        collation = "SQL_Latin1_General_CP1_CS_AS";
-                        break;
-                    case StringComparison.OrdinalIgnoreCase:
-                        collation = "SQL_Latin1_General_CP1_CI_AS";
-                        break;
-                    case StringComparison.InvariantCulture:
-                        collation = "SQL_Latin1_General_CP1_CS_AS";
-                        break;
-                    case StringComparison.InvariantCultureIgnoreCase:
-                        collation = "SQL_Latin1_General_CP1_CI_AS";
-                        break;
-                    case StringComparison.CurrentCulture:
-                        collation = GetCurrentCultureCollation(true, true);
-                        break;
-                    case StringComparison.CurrentCultureIgnoreCase:
-                        collation = GetCurrentCultureCollation(false, true);
-                        break;
-
-                }
-            }
+            var collation = GetCollationName(stringComparison);
 
             var miEFCollate = _methodEFCollate.MakeGenericMethod(expression.Type);
 
@@ -277,19 +143,101 @@ namespace Webrox.EntityFrameworkCore.Core.Infrastructure
             return base.VisitMethodCall(newMethodCallExpression);
         }
 
-        string GetCurrentCultureCollation(bool isCaseSensitive, bool isAccentSensitive)
+        string DatabaseProvider => _queryCompilationContext.ContextOptions.Extensions.OfType<WebroxDbContextOptionsExtension>().FirstOrDefault()?.DatabaseProvider;
+
+
+        string GetCollationName(StringComparison stringComparison)
         {
-            string collation = "SQL_Latin1_General_CP1";
+            string collation = null;
 
+            switch (DatabaseProvider)
+            {
+                case "sqlite":
+                    {
+                        collation = $"Webrox_{stringComparison}";
+                    }
+                    break;
+                case "sqlserver":
+                    {
+                        collation = "DATABASE_DEFAULT";
 
+                        switch (stringComparison)
+                        {
+                            case StringComparison.Ordinal:
+                                collation = "SQL_Latin1_General_CP1_CS_AS";
+                                break;
+                            case StringComparison.OrdinalIgnoreCase:
+                                collation = "SQL_Latin1_General_CP1_CI_AS";
+                                break;
+                            case StringComparison.InvariantCulture:
+                                collation = "SQL_Latin1_General_CP1_CS_AS";
+                                break;
+                            case StringComparison.InvariantCultureIgnoreCase:
+                                collation = "SQL_Latin1_General_CP1_CI_AS";
+                                break;
+                            case StringComparison.CurrentCulture:
+                                collation = "SQL_Latin1_General_CP1_CS_AS"; //GetCurrentCultureCollation(true, true);
+                                break;
+                            case StringComparison.CurrentCultureIgnoreCase:
+                                collation = "SQL_Latin1_General_CP1_CI_AS";// GetCurrentCultureCollation(false, false);
+                                break;
 
-            var windowCollationName = System.Globalization.CultureInfo.CurrentCulture.DisplayName;
-            var coll = WindowsCollations.FirstOrDefault(a => a.Value == windowCollationName);
+                        }
+                    }
+                    break;
+                case "postgres":
+                    {
+                        collation = "default";
 
-            if (WindowsCollations.TryGetValue(windowCollationName, out var tmpCollation))
-                collation = tmpCollation;
-
-            collation = $"{collation}_{(isCaseSensitive ? "CI" : "CS")}_{(isAccentSensitive ? "AI" : "AS")}";
+                        switch (stringComparison)
+                        {
+                            case StringComparison.Ordinal:
+                                collation = "webrox_accent_case";
+                                break;
+                            case StringComparison.OrdinalIgnoreCase:
+                                collation = "webrox_ignore_accent_case";
+                                break;
+                            case StringComparison.InvariantCulture:
+                                collation = "webrox_accent_case";
+                                break;
+                            case StringComparison.InvariantCultureIgnoreCase:
+                                collation = "webrox_ignore_accent_case";
+                                break;
+                            case StringComparison.CurrentCulture:
+                                collation = "webrox_accent_case";
+                                break;
+                            case StringComparison.CurrentCultureIgnoreCase:
+                                collation = "webrox_ignore_accent_case";
+                                break;
+                        }
+                    }
+                    break;
+                case "mysql":
+                    {
+                        switch (stringComparison)
+                        {
+                            case StringComparison.Ordinal:
+                                collation = "utf8mb4_0900_as_cs";
+                                break;
+                            case StringComparison.OrdinalIgnoreCase:
+                                collation = "utf8mb4_0900_ai_ci";
+                                break;
+                            case StringComparison.InvariantCulture:
+                                collation = "utf8mb4_0900_as_cs";
+                                break;
+                            case StringComparison.InvariantCultureIgnoreCase:
+                                collation = "utf8mb4_0900_ai_ci";
+                                break;
+                            case StringComparison.CurrentCulture:
+                                collation = "utf8mb4_0900_as_cs";
+                                break;
+                            case StringComparison.CurrentCultureIgnoreCase:
+                                collation = "utf8mb4_0900_ai_ci";
+                                break;
+                        }
+                    }
+                    break;
+            }
 
             return collation;
         }

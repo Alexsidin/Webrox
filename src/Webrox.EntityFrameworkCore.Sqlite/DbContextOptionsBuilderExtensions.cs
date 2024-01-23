@@ -31,7 +31,7 @@ Before:
 After:
             Core.Infrastructure.WebroxDbContextOptionsBuilderExtensions.AddWebroxFeatures(infrastructure);
 */
-            WebroxDbContextOptionsBuilderExtensions.AddWebroxFeatures(infrastructure);
+            WebroxDbContextOptionsBuilderExtensions.AddWebroxFeatures(infrastructure, "sqlite");
 
             // Add custom functions Windowing
             infrastructure.OptionsBuilder.ReplaceService<IRelationalParameterBasedSqlProcessorFactory, WebroxSqliteParameterBasedSqlProcessorFactory>();
@@ -40,7 +40,7 @@ After:
             //rewrite Linq/Select
             infrastructure.OptionsBuilder.ReplaceService<IQueryTranslationPreprocessorFactory, WebroxSqliteQueryTranslationPreprocessorFactory>();
             
-            //create collations for String.Equals(column, StringCmparison) translation
+            //create collations for String.Equals(column, StringComparison) translation
             sqliteConnection.CreateCollation("Webrox_CurrentCulture", (x, y) => string.Compare(x, y, StringComparison.CurrentCulture));
             sqliteConnection.CreateCollation("Webrox_CurrentCultureIgnoreCase", (x, y) => string.Compare(x, y, StringComparison.CurrentCultureIgnoreCase));
             sqliteConnection.CreateCollation("Webrox_InvariantCulture", (x, y) => string.Compare(x, y, StringComparison.InvariantCulture));
