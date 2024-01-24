@@ -285,5 +285,84 @@ namespace Webrox.EntityFrameworkCore.Tests.Shared
             Assert.Equal(selectFunctions.Count, 0);
 
         }
+
+        [Fact]
+        public async Task TestStringContains()
+        {
+            using var context = new SampleDbContext(_options);
+
+            var query = context.Users
+                .Where(a => a.Email.Contains("sample1@Gm.com", System.StringComparison.OrdinalIgnoreCase)
+                )
+                ;
+
+            _output.WriteLine(query.ToQueryString());
+
+            var selectFunctions = await query.ToListAsync();
+
+            Assert.NotNull(selectFunctions);
+            Assert.Equal(selectFunctions.Count, 1);
+
+            query = context.Users
+                .Where(a => a.Email.Contains("sample1@Gm.com", System.StringComparison.Ordinal)
+                )
+                ;
+
+            _output.WriteLine(query.ToQueryString());
+
+            selectFunctions = await query.ToListAsync();
+
+            Assert.NotNull(selectFunctions);
+            Assert.Equal(selectFunctions.Count, 0);
+
+            query = context.Users
+               .Where(a => a.Email.Contains("sample1@Gm.com", System.StringComparison.InvariantCultureIgnoreCase)
+               )
+               ;
+
+            _output.WriteLine(query.ToQueryString());
+
+            selectFunctions = await query.ToListAsync();
+
+            Assert.NotNull(selectFunctions);
+            Assert.Equal(selectFunctions.Count, 1);
+
+            query = context.Users
+                .Where(a => a.Email.Contains("sample1@Gm.com", System.StringComparison.InvariantCulture)
+                )
+                ;
+
+            _output.WriteLine(query.ToQueryString());
+
+            selectFunctions = await query.ToListAsync();
+
+            Assert.NotNull(selectFunctions);
+            Assert.Equal(selectFunctions.Count, 0);
+
+            query = context.Users
+               .Where(a => a.Email.Contains("sample1@Gm.com", System.StringComparison.CurrentCultureIgnoreCase)
+               )
+               ;
+
+            _output.WriteLine(query.ToQueryString());
+
+            selectFunctions = await query.ToListAsync();
+
+            Assert.NotNull(selectFunctions);
+            Assert.Equal(selectFunctions.Count, 1);
+
+            query = context.Users
+                .Where(a => a.Email.Contains("sample1@Gm.com", System.StringComparison.CurrentCulture)
+                )
+                ;
+
+            _output.WriteLine(query.ToQueryString());
+
+            selectFunctions = await query.ToListAsync();
+
+            Assert.NotNull(selectFunctions);
+            Assert.Equal(selectFunctions.Count, 0);
+
+        }
     }
 }

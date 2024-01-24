@@ -39,7 +39,9 @@ namespace Webrox.EntityFrameworkCore.Core.Infrastructure
         static MethodInfo _methodSelectWithIndex;
         static MethodInfo _methodSelect;
         static MethodInfo _methodStringEqualsComparison;
-        static MethodInfo _methodStringEquals;
+        static MethodInfo _methodStringEquals; 
+        static MethodInfo _methodContainsEqualsComparison;
+        static MethodInfo _methodContainsEquals;
         static MethodInfo _methodEFCollate;
 
         static WebroxNavigationExpandingExpressionVisitor()
@@ -63,6 +65,11 @@ namespace Webrox.EntityFrameworkCore.Core.Infrastructure
             _methodStringEqualsComparison = typeof(string).GetMethod(nameof(string.Equals), BindingFlags.Instance | BindingFlags.Public,
                 new Type[] { typeof(string), typeof(StringComparison) });
             _methodStringEquals = typeof(string).GetMethod(nameof(string.Equals), BindingFlags.Instance | BindingFlags.Public,
+                new Type[] { typeof(string) });
+
+            _methodContainsEqualsComparison = typeof(string).GetMethod(nameof(string.Contains), BindingFlags.Instance | BindingFlags.Public,
+                new Type[] { typeof(string), typeof(StringComparison) });
+            _methodContainsEquals = typeof(string).GetMethod(nameof(string.Contains), BindingFlags.Instance | BindingFlags.Public,
                 new Type[] { typeof(string) });
 
             var allmethodsEFColate = typeof(RelationalDbFunctionsExtensions).GetMethods().Where(a => a.Name == nameof(RelationalDbFunctionsExtensions.Collate));
@@ -112,6 +119,11 @@ namespace Webrox.EntityFrameworkCore.Core.Infrastructure
                 return ProcessStringEquals(methodCallExpression);
             }
 
+            if (method == _methodContainsEqualsComparison)
+            {
+                return ProcessStringContains(methodCallExpression);
+            }
+
             return base.VisitMethodCall(methodCallExpression);
         }
 
@@ -123,13 +135,29 @@ namespace Webrox.EntityFrameworkCore.Core.Infrastructure
             return null;
         }
 
-        private Expression ProcessStringEquals(MethodCallExpression methodCallExpression)
+        private Expression ProcessStringContains(MethodCallExpression methodCallExpression)
         {
             var expression = methodCallExpression.Arguments[0];
             var stringOrdinal = methodCallExpression.Arguments[1] as ConstantExpression;
             var stringComparison = (StringComparison)stringOrdinal.Value;
 
-            var productVersion = _queryCompilationContext.Model.GetProductVersion();
+            var collation = GetCollationName(stringComparison);
+
+            var miEFCollate = _methodEFCollate.MakeGenericMethod(expression.Type);
+
+            var exprLeft = Expression.Call(miEFCollate, Expression.Constant(EF.Functions), methodCallExpression.Object, Expression.Constant(collation));
+
+            // "variable".Contains(EF.Functions.Collate("obj","Collation"))
+            var newMethodCallExpression = Expression.Call(exprLeft, _methodContainsEquals, expression);
+
+            return base.VisitMethodCall(newMethodCallExpression);
+        }
+
+        private Expression ProcessStringEquals(MethodCallExpression methodCallExpression)
+        {
+            var expression = methodCallExpression.Arguments[0];
+            var stringOrdinal = methodCallExpression.Arguments[1] as ConstantExpression;
+            var stringComparison = (StringComparison)stringOrdinal.Value;
 
             var collation = GetCollationName(stringComparison);
 
