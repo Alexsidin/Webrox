@@ -35,7 +35,7 @@ After:
             //rewrite Linq/Select
             infrastructure.OptionsBuilder.ReplaceService<IQueryTranslationPreprocessorFactory, WebroxSqlServerQueryTranslationPreprocessorFactory>();
 
-            //SubQUery
+            //SubQuery
             infrastructure.OptionsBuilder.ReplaceService<IQueryableMethodTranslatingExpressionVisitorFactory, WebroxSqlServerQueryableMethodTranslatingExpressionVisitorFactory>();
 
 

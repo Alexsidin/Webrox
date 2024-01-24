@@ -34,6 +34,9 @@ namespace Webrox.EntityFrameworkCore.Postgres
             //rewrite Linq/Select
             infrastructure.OptionsBuilder.ReplaceService<IQueryTranslationPreprocessorFactory, WebroxPostgresQueryTranslationPreprocessorFactory>();
 
+            //SubQuery
+            infrastructure.OptionsBuilder.ReplaceService<IQueryableMethodTranslatingExpressionVisitorFactory, WebroxPostgresQueryableMethodTranslatingExpressionVisitorFactory>();
+
             //create collations for String.Equals(column, StringComparison) translation
             CreateCollation(connection, "webrox_ignore_accent_case", "icu", false, "und-u-ks-level1");
             CreateCollation(connection, "webrox_accent_case", "icu", true, "und-u-ks-level1");
