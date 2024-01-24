@@ -17,8 +17,22 @@ Implement various Linq functions with Entity Framework Core
 | `MIN` |   [`EF.Functions.Min`](#min-syntax)| 
 | `MAX` |   [`EF.Functions.Max`](#max-syntax)| 
 
+Note : Use the method `IQueryable<T>.AsSubQuery()` to use window functions in predicates or sorts.
 
-Supported providers : 
+## SQL Method Translations
+
+| .NET    | Description |
+| ------: | ------- |
+| `String.Equals(string, StringComparison)` | case and insensitive case string comparison using collations |
+
+## SubQueries
+
+| Linq    | Description |
+| ------: | ------- |
+| `IQueryable<T>.AsSubQuery()` | transform a query into a subquery |
+
+
+## Supported providers
 
 | Provider | Nuget Package | .net 6 | .net 7 | .net 8 |
 | ------: | ------- | ------- | ----- | ---- |
