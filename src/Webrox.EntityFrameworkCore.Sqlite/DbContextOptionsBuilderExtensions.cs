@@ -39,7 +39,10 @@ After:
             
             //rewrite Linq/Select
             infrastructure.OptionsBuilder.ReplaceService<IQueryTranslationPreprocessorFactory, WebroxSqliteQueryTranslationPreprocessorFactory>();
-            
+
+            //SubQuery
+            infrastructure.OptionsBuilder.ReplaceService<IQueryableMethodTranslatingExpressionVisitorFactory, WebroxSqliteQueryableMethodTranslatingExpressionVisitorFactory>();
+
             //create collations for String.Equals(column, StringComparison) translation
             sqliteConnection.CreateCollation("Webrox_CurrentCulture", (x, y) => string.Compare(x, y, StringComparison.CurrentCulture));
             sqliteConnection.CreateCollation("Webrox_CurrentCultureIgnoreCase", (x, y) => string.Compare(x, y, StringComparison.CurrentCultureIgnoreCase));
