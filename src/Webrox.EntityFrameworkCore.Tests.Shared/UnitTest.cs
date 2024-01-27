@@ -94,7 +94,7 @@ namespace Webrox.EntityFrameworkCore.Tests.Shared
                     Sum = EF.Functions.Sum(a.Id, EF.Functions.OrderBy(a.Id)),
                 })
                 .AsSubQuery()
-                .Where(a=>a.RowNumber > 5);
+                .Where(a => a.RowNumber > 5);
 
             _output.WriteLine(query.ToQueryString());
 
@@ -115,7 +115,7 @@ namespace Webrox.EntityFrameworkCore.Tests.Shared
             //var count = await context.Users.CountAsync();
             //Assert.Equal(10, count);
 
-            var query =  context.Users
+            var query = context.Users
                 .Select((a, index) => new
                 {
                     Id = a.Id,
@@ -213,7 +213,7 @@ namespace Webrox.EntityFrameworkCore.Tests.Shared
             using var context = new SampleDbContext(_options);
 
             var query = context.Users
-                .Where(a=>a.Email.Equals("sample1@Gm.com", System.StringComparison.OrdinalIgnoreCase)
+                .Where(a => a.Email.Equals("sample1@Gm.com", System.StringComparison.OrdinalIgnoreCase)
                 )
                 ;
 
@@ -290,6 +290,23 @@ namespace Webrox.EntityFrameworkCore.Tests.Shared
         public async Task TestStringContains()
         {
             using var context = new SampleDbContext(_options);
+
+            var res = context.Users.Select(a => a.Id).OrderBy(a=>a).Select((num, index) =>
+                    new
+                    {
+                        Id = num,
+                        Rank = index,
+                        Group = num - index
+                    })
+                    .GroupBy(a => a.Group)
+                    .Select(a =>
+                    new
+                    {
+                        Min = a.Min(a => a.Id),
+                        Max = a.Max(a => a.Id)
+                    })
+                    .ToList();
+
 
             var query = context.Users
                 .Where(a => a.Email.Contains("sample1@Gm.com", System.StringComparison.OrdinalIgnoreCase)

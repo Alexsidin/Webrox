@@ -15,7 +15,7 @@
 
 	<PropertyGroup Condition="$(TargetFramework.Equals('net8.0'))">
 		<EFVersionPackage>8.0</EFVersionPackage>
-		<EFVersionPackageMySQL>8.0-preview</EFVersionPackageMySQL>
+		<EFVersionPackageMySQL>8.0</EFVersionPackageMySQL>
 	</PropertyGroup>
 	
 	<ItemGroup>

@@ -9,7 +9,7 @@ Implement various Linq functions with Entity Framework Core
 | SQL    | Linq |
 | ------: | ------- |
 | `ROW_NUMBER` |   [`EF.Functions.RowNumber`](#rownumber-syntax) | 
-| `ROW_NUMBER`|   [`Select((entity, index)=>...)`](#linq-select-syntax)  | 
+| `ROW_NUMBER-1`|   [`Select((entity, index)=>...)`](#linq-select-syntax)  | 
 | `RANK` |   [`EF.Functions.Rank`](#rank-syntax)| 
 | `DENSE_RANK` |   [`EF.Functions.DenseRank`](#denserank-syntax)| 
 | `AVG` |   [`EF.Functions.Average`](#average-syntax)| 
@@ -24,6 +24,7 @@ Note : Use the method `IQueryable<T>.AsSubQuery()` to use window functions in pr
 | .NET    | Description |
 | ------: | ------- |
 | `String.Equals(string, StringComparison)` | case and insensitive case string comparison using collations |
+| `String.Contains(string, StringComparison)` | case and insensitive case string search using collations |
 
 ## SubQueries
 
@@ -38,7 +39,7 @@ Note : Use the method `IQueryable<T>.AsSubQuery()` to use window functions in pr
 | ------: | ------- | ------- | ----- | ---- |
 | SQL Server | Microsoft.EntityFrameworkCore.SqlServer | :heavy_check_mark:  EF6 | :heavy_check_mark: + EF7 | :heavy_check_mark: + EF8 |
 | SQLite | Microsoft.EntityFrameworkCore.Sqlite | :heavy_check_mark: + EF6 | :heavy_check_mark: + EF7 | :heavy_check_mark: + EF8 |
-| MySQL | MySql.EntityFrameworkCore | :heavy_check_mark: + EF6 | :heavy_check_mark: + EF7 | :x: (waiting for Oracle EF8 support) |
+| MySQL | MySql.EntityFrameworkCore | :heavy_check_mark: + EF6 | :heavy_check_mark: + EF7 | :heavy_check_mark: + EF8 |
 | PostgreSQL | Npgsql.EntityFrameworkCore.PostgreSQL | :heavy_check_mark: + EF6 | :heavy_check_mark: + EF7 | :heavy_check_mark: + EF8 |
 
 ## Setup

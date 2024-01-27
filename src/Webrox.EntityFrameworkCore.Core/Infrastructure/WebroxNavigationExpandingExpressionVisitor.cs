@@ -146,9 +146,11 @@ namespace Webrox.EntityFrameworkCore.Core.Infrastructure
             var miEFCollate = _methodEFCollate.MakeGenericMethod(expression.Type);
 
             var exprLeft = Expression.Call(miEFCollate, Expression.Constant(EF.Functions), methodCallExpression.Object, Expression.Constant(collation));
+            var exprRight = Expression.Call(miEFCollate, Expression.Constant(EF.Functions), expression, Expression.Constant(collation));
+
 
             // "variable".Contains(EF.Functions.Collate("obj","Collation"))
-            var newMethodCallExpression = Expression.Call(exprLeft, _methodContainsEquals, expression);
+            var newMethodCallExpression = Expression.Call(exprLeft, _methodContainsEquals, exprRight);
 
             return base.VisitMethodCall(newMethodCallExpression);
         }
@@ -280,10 +282,15 @@ namespace Webrox.EntityFrameworkCore.Core.Infrastructure
                 pendingSelector,
                 selector.Body);
 
+            // RowNumber - 1
             selectorBody = ReplacingExpressionVisitor.Replace(
                 selector.Parameters[1],
-                Expression.Convert(new RowNumberExpression(null,
-                new List<OrderingExpression>(new[] { new OrderingExpression(_sqlExpressionFactory.Fragment("(SELECT NULL)"), true) }), RelationalTypeMapping.NullMapping), typeof(int)),
+                Expression.Subtract(
+                    Expression.Convert(
+                        new RowNumberExpression(null, new List<OrderingExpression>(new[] { new OrderingExpression(_sqlExpressionFactory.Fragment("(SELECT NULL)"), true) })
+                        ,RelationalTypeMapping.NullMapping), 
+                        typeof(int))
+                ,Expression.Constant(1, typeof(int))),
                 selectorBody);
 
             var miApplySelector = source.GetType().GetMethod("ApplySelector");

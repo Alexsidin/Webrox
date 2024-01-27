@@ -23,7 +23,7 @@
 		<Nullable>enable</Nullable>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
-		<PackageTags>RowNumber;Row;Number;Rank,DenseRank,Average,Sum,Min,Max,OrderBy;PartitionBy,Linq,SqlServer;MySQL;Postgre;PostgreSQL;Sqlite;</PackageTags>
+		<PackageTags>RowNumber;Row;Number;Rank,DenseRank,Average,Sum,Min,Max,OrderBy;PartitionBy,Linq,SqlServer;MySQL;Postgre;PostgreSQL;Sqlite;Entity;Framework;EF;Core;Equals;Contains;StringComparison</PackageTags>
 		<IncludeSymbols>True</IncludeSymbols>
 	</PropertyGroup>
 
