@@ -23,6 +23,8 @@
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="$(EFVersionPackage)" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="$(EFVersionPackage)" />
 		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="$(EFVersionPackagePostgres)" />
-		<ProjectReference Include="..\Webrox.EntityFrameworkCore.Core\Webrox.EntityFrameworkCore.Core.csproj" />
+		<ProjectReference Include="..\Webrox.EntityFrameworkCore.Core\Webrox.EntityFrameworkCore.Core.csproj" >
+			 <PrivateAssets>All</PrivateAssets>
+		</ProjectReference>
 	</ItemGroup>
 </Project>

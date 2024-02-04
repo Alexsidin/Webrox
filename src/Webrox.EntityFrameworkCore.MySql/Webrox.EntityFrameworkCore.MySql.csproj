@@ -2,30 +2,34 @@
 	<PropertyGroup>
 		<TargetFrameworks>net6.0;net7.0;net8.0;</TargetFrameworks>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		
+
 	</PropertyGroup>
-	
+
 	<PropertyGroup Condition="$(TargetFramework.Equals('net6.0'))">
 		<EFVersionPackage>6.0</EFVersionPackage>
 		<EFVersionPackageMySQL>6.0</EFVersionPackageMySQL>
 	</PropertyGroup>
-	
+
 	<PropertyGroup Condition="$(TargetFramework.Equals('net7.0'))">
 		<EFVersionPackage>7.0</EFVersionPackage>
 		<EFVersionPackageMySQL>7.0</EFVersionPackageMySQL>
 	</PropertyGroup>
-	
+
 	<PropertyGroup Condition="$(TargetFramework.Equals('net8.0'))">
 		<EFVersionPackage>8.0</EFVersionPackage>
 		<EFVersionPackageMySQL>8.0</EFVersionPackageMySQL>
 	</PropertyGroup>
 
-	
+
 	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="$(EFVersionPackage)" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="$(EFVersionPackage)" />
 		<PackageReference Include="MySql.EntityFrameworkCore" Version="$(EFVersionPackageMySQL)" />
-		<ProjectReference Include="..\Webrox.EntityFrameworkCore.Core\Webrox.EntityFrameworkCore.Core.csproj" />
-		<ProjectReference Include="..\MySql.EntityFrameworkCore.Design.Tests\MySql.EntityFrameworkCore.Design.Tests.csproj" />
+		<ProjectReference Include="..\Webrox.EntityFrameworkCore.Core\Webrox.EntityFrameworkCore.Core.csproj">
+			<PrivateAssets>All</PrivateAssets>
+		</ProjectReference>
+		<ProjectReference Include="..\MySql.EntityFrameworkCore.Design.Tests\MySql.EntityFrameworkCore.Design.Tests.csproj" >
+			<PrivateAssets>All</PrivateAssets>
+		</ProjectReference>
 	</ItemGroup>
 </Project>

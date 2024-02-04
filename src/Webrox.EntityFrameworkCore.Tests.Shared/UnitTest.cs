@@ -8,6 +8,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using System.Linq.Expressions;
+using System;
 
 namespace Webrox.EntityFrameworkCore.Tests.Shared
 {
@@ -380,6 +381,26 @@ namespace Webrox.EntityFrameworkCore.Tests.Shared
             Assert.NotNull(selectFunctions);
             Assert.Equal(selectFunctions.Count, 0);
 
+        }
+
+        [Fact]
+        public async Task TestNewFunctionTranslate()
+        {
+            using var context = new SampleDbContext(_options);
+
+            var count = await context.Users.CountAsync();
+            Assert.Equal(10, count);
+
+            var query = context.Users
+                .Select(a => new
+                {
+                    Data = a.SubRoleIdu16.Concat(a.Email) //Zip(a.Email),
+                });
+
+            _output.WriteLine(query.ToQueryString());
+
+            var result = await query.ToListAsync();
+            Assert.Equal(result.Count, 5);
         }
     }
 }

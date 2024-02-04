@@ -3,7 +3,7 @@
 	
 	
 	<PropertyGroup Condition="!$(ProjectName.Contains('Tests'))">
-		<VersionPrefix>2.2.0</VersionPrefix>
+		<VersionPrefix>2.3.0</VersionPrefix>
 		<Copyright>(c) $([System.DateTime]::Now.Year), Stephane Graziano (poppyto). All rights reserved.</Copyright>
 		<Description>Use Ranking and Window functions withing EntityFramework Core for databases (RowNumber, Rank, DenseRank, Average, Sum, Min, Max), SubQueries and some .NET translated to SQL functions</Description>
 		<Authors>Stephane Graziano (Poppyto)</Authors>
